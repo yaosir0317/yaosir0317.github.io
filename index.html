@@ -195,42 +195,42 @@
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
+        <li class="menu-item menu-item-首页">
           <a href="/" rel="section">
             
-            Home
+            首页
           </a>
         </li>
       
         
-        <li class="menu-item menu-item-about">
+        <li class="menu-item menu-item-关于">
           <a href="/about/" rel="section">
             
-            About
+            关于
           </a>
         </li>
       
         
-        <li class="menu-item menu-item-tags">
+        <li class="menu-item menu-item-标签">
           <a href="/tags/" rel="section">
             
-            Tags
+            标签
           </a>
         </li>
       
         
-        <li class="menu-item menu-item-categories">
+        <li class="menu-item menu-item-分类">
           <a href="/categories/" rel="section">
             
-            Categories
+            分类
           </a>
         </li>
       
         
-        <li class="menu-item menu-item-archives">
+        <li class="menu-item menu-item-归档">
           <a href="/archives/" rel="section">
             
-            Archives
+            归档
           </a>
         </li>
       
@@ -253,6 +253,162 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaosir0317.github.io/2018/12/10/Django你需要了解的事儿/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yaosir0317">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YaoSir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/10/Django你需要了解的事儿/" itemprop="url">Django你需要了解的事儿</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-10T15:33:32+08:00">
+                2018-12-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Django/" itemprop="url" rel="index">
+                    <span itemprop="name">Django</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="MTV模型与MVC模型"><a href="#MTV模型与MVC模型" class="headerlink" title="MTV模型与MVC模型"></a>MTV模型与MVC模型</h2><p><strong>MVC</strong></p>
+<blockquote>
+<p>Model（模型）：是应用程序中用于处理应用程序数据逻辑的部分。通常模型对象负责在数据库中存取数据。</p>
+<p>View（视图）：是应用程序中处理数据显示的部分。通常视图是依据模型数据创建的。</p>
+<p>Controller（控制器）：是应用程序中处理用户交互的部分。通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据。</p>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/10/Django你需要了解的事儿/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+	<div>
+	  
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+  
+
+
     
       
 
@@ -359,8 +515,7 @@
 
       
         
-          
-            <h1 id="rest"><a href="#rest" class="headerlink" title="rest"></a>rest</h1><p>rest下的url</p>
+          <h1 id="rest"><a href="#rest" class="headerlink" title="rest"></a>rest</h1><p>rest下的url</p>
 <blockquote>
 <p>url唯一代表资源，http请求方式来区分用户行为</p>
 </blockquote>
@@ -368,70 +523,23 @@
 <blockquote>
 <p>GET：   127.0.0.1:9001/books/           # 获取所有数据<br>GET:    127.0.0.1:9001/books/{id}            # 获取单条数据<br>POST：  127.0.0.1:9001/books/           # 增加数据<br>DELETE: 127.0.0.1:9001/books/{id}            # 删除数据<br>PUT:    127.0.0.1:9001/books/{id}           # 修改数据</p>
 </blockquote>
-<p>数据响应规范</p>
-<blockquote>
-<p>GET：   127.0.0.1:9001/books/           # 返回[{}, {}, {}]<br>GET:    127.0.0.1:9001/books/{id}             # {} 单条数据<br>POST：  127.0.0.1:9001/books/           # {} 添加成功的数据<br>DELETE: 127.0.0.1:9001/books/{id}             # “” 返回空<br>PUT:    127.0.0.1:9001/books/{id}              # {} 更新后完整的数据</p>
-</blockquote>
-<p>错误处理</p>
-<blockquote>
-<p>{ “error”: “message” }</p>
-</blockquote>
-<h1 id="解析器组件"><a href="#解析器组件" class="headerlink" title="解析器组件"></a>解析器组件</h1><blockquote>
-<ul>
-<li>解析器组件是用来解析用户请求的数据的（application/json), content-type</li>
-<li>必须继承APIView</li>
-<li>request.data触发解析</li>
-</ul>
-</blockquote>
-<p>APIView的使用</p>
-<blockquote>
-<p>pip install djangorestframework</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from rest_framework.views import APIView</span><br><span class="line"></span><br><span class="line">class LoginView(APIView):</span><br><span class="line">	def get(self, request):</span><br><span class="line">	pass</span><br></pre></td></tr></table></figure>
-<h1 id="序列化组件"><a href="#序列化组件" class="headerlink" title="序列化组件"></a>序列化组件</h1><h2 id="Django自带的serializer"><a href="#Django自带的serializer" class="headerlink" title="Django自带的serializer"></a>Django自带的serializer</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.serializers <span class="keyword">import</span> serialize  <span class="comment"># 引入</span></span><br><span class="line"></span><br><span class="line">origin_data = Book.objects.all()</span><br><span class="line">serialized_data = serialize(<span class="string">"json"</span>, origin_data)</span><br></pre></td></tr></table></figure>
-<h2 id="DRF的序列化组件"><a href="#DRF的序列化组件" class="headerlink" title="DRF的序列化组件"></a>DRF的序列化组件</h2><h3 id="接口设计"><a href="#接口设计" class="headerlink" title="接口设计"></a>接口设计</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> serializers	<span class="comment">#引入</span></span><br></pre></td></tr></table></figure>
-<p>创建一个序列化类</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookSerializer</span><span class="params">(serializers.ModelSerializer)</span>:</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        model = Book</span><br><span class="line">		<span class="comment"># model字段</span></span><br><span class="line">        fields = (<span class="string">'title'</span>,</span><br><span class="line">                  <span class="string">'price'</span>,</span><br><span class="line">                  <span class="string">'publish'</span>,</span><br><span class="line">                  <span class="string">'authors'</span>,</span><br><span class="line">                  <span class="string">'author_list'</span>,</span><br><span class="line">                  <span class="string">'publish_name'</span>,</span><br><span class="line">                  <span class="string">'publish_city'</span></span><br><span class="line">                  )</span><br><span class="line">        <span class="comment"># 只需写入不需要展示的字段</span></span><br><span class="line">        extra_kwargs = &#123;</span><br><span class="line">            <span class="string">'publish'</span>: &#123;<span class="string">'write_only'</span>: <span class="keyword">True</span>&#125;,</span><br><span class="line">            <span class="string">'authors'</span>: &#123;<span class="string">'write_only'</span>: <span class="keyword">True</span>&#125;</span><br><span class="line">        &#125;</span><br><span class="line">	<span class="comment"># source为自定义需要展示的信息</span></span><br><span class="line">    publish_name = serializers.CharField(max_length=<span class="number">32</span>, read_only=<span class="keyword">True</span>, source=<span class="string">'publish.name'</span>)</span><br><span class="line">    publish_city = serializers.CharField(max_length=<span class="number">32</span>, read_only=<span class="keyword">True</span>, source=<span class="string">'publish.city'</span>)</span><br><span class="line">	<span class="comment"># 多对多字段需要自己手动获取数据，SerializerMethodField()</span></span><br><span class="line">    author_list = serializers.SerializerMethodField()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_author_list</span><span class="params">(self, book_obj)</span>:</span></span><br><span class="line">        <span class="comment"># 拿到queryset开始循环 [&#123;&#125;, &#123;&#125;, &#123;&#125;, &#123;&#125;]</span></span><br><span class="line">        authors = list()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> author <span class="keyword">in</span> book_obj.authors.all():</span><br><span class="line">            authors.append(author.name)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> authors</span><br></pre></td></tr></table></figure>
-<p><strong>开始序列化</strong></p>
-<p>get接口(查询多条数据)    &amp;   post接口</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookView</span><span class="params">(APIView)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        <span class="comment"># 获取queryset</span></span><br><span class="line">        origin_data = Book.objects.all()</span><br><span class="line">        <span class="comment"># 开始序列化</span></span><br><span class="line">        serialized_data = BookSerializer(origin_data, many=<span class="keyword">True</span>)</span><br><span class="line">        <span class="keyword">return</span> Response(serialized_data.data)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        verified_data = BookSerializer(data=request.data)</span><br><span class="line">        <span class="keyword">if</span> verified_data.is_valid():</span><br><span class="line">            book = verified_data.save()</span><br><span class="line">            authors = Author.objects.filter(nid__in=request.data[<span class="string">'authors'</span>])</span><br><span class="line">            book.authors.add(*authors)</span><br><span class="line">            <span class="keyword">return</span> Response(verified_data.data)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> Response(verified_data.errors)</span><br></pre></td></tr></table></figure>
-<p>get(查询单条数据)    &amp;    put接口    &amp;    delete接口</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookFilterView</span><span class="params">(APIView)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, request, nid)</span>:</span></span><br><span class="line">        book_obj = Book.objects.get(pk=nid)</span><br><span class="line">        serialized_data = BookSerializer(book_obj, many=<span class="keyword">False</span>)</span><br><span class="line">        <span class="keyword">return</span> Response(serialized_data.data)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put</span><span class="params">(self, request, nid)</span>:</span></span><br><span class="line">        book_obj = Book.objects.get(pk=nid)</span><br><span class="line">        verified_data = BookSerializer(data=request.data, instance=book_obj)</span><br><span class="line">        <span class="keyword">if</span> verified_data.is_valid():</span><br><span class="line">            verified_data.save()</span><br><span class="line">            <span class="keyword">return</span> Response(verified_data.data)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> Response(verified_data.errors)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(self, request, nid)</span>:</span></span><br><span class="line">        book_obj = Book.objects.get(pk=nid).delete()</span><br><span class="line">        <span class="keyword">return</span> Response()</span><br></pre></td></tr></table></figure>
-<p>缺点:</p>
-<blockquote>
-<p>serializers.Serializer无法插入数据，只能自己实现create字段太多，不能自动序列化</p>
-</blockquote>
-<h2 id="接口设计优化"><a href="#接口设计优化" class="headerlink" title="接口设计优化"></a>接口设计优化</h2><h3 id="使用视图组件的mixin进行接口逻辑优化"><a href="#使用视图组件的mixin进行接口逻辑优化" class="headerlink" title="使用视图组件的mixin进行接口逻辑优化"></a>使用视图组件的mixin进行接口逻辑优化</h3><p>导入mixin</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework.mixinx <span class="keyword">import</span> (</span><br><span class="line">					ListModelMix,</span><br><span class="line">					CreateModelMixin,</span><br><span class="line">					DestroyModelMixin,</span><br><span class="line">					UpdateModelMixin,</span><br><span class="line">					RetrieveModelMixin</span><br><span class="line">				)</span><br><span class="line"><span class="keyword">from</span> rest_framework.generics <span class="keyword">import</span> GenericAPIView</span><br></pre></td></tr></table></figure>
-<p>定义序列化类</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Class BookSerializer(serializers.ModelSerializer):</span><br><span class="line">			      <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">				      Book</span><br><span class="line">					  fields = ()</span><br><span class="line">					  ...如上</span><br></pre></td></tr></table></figure>
-<p>因为使用模块化编程,建议将定义的序列化类放在单独的模块中,再在view.py中导入</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .app_serializers <span class="keyword">import</span> BookSerializer</span><br></pre></td></tr></table></figure>
-<p>定义视图类​      </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">()</span>:</span></span><br><span class="line">	    <span class="keyword">return</span> self.list()</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">()</span>:</span></span><br><span class="line">	    <span class="keyword">return</span> self.create()</span><br><span class="line">		</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookFilterView</span><span class="params">(RetrieveModelMixin, DestroyModelMixin, UpdateModelMixin, GenericAPIView)</span>:</span></span><br><span class="line">    queryset = Book.objects.all()</span><br><span class="line">	serializer_class = BookSerializer</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">()</span>:</span></span><br><span class="line">	    <span class="keyword">return</span> self.retrieve()</span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">()</span>:</span></span><br><span class="line">	    <span class="keyword">return</span> self.destroy()</span><br><span class="line">		</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">put</span><span class="params">()</span>:</span></span><br><span class="line">	    <span class="keyword">return</span> self.update()</span><br></pre></td></tr></table></figure>
-<p>注意:</p>
-<blockquote>
-<p>查询单挑数据的url需要给查询的id进行正则分组</p>
-<p>re_path(r’books/(?P<pk>\d+)/$, views.BookFilterView.as_view())</pk></p>
-</blockquote>
-<h3 id="使用视图组件的view进行接口逻辑优化"><a href="#使用视图组件的view进行接口逻辑优化" class="headerlink" title="使用视图组件的view进行接口逻辑优化"></a>使用视图组件的view进行接口逻辑优化</h3><p>导入模块</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> generics</span><br></pre></td></tr></table></figure>
-<p>视图类​                </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookView</span><span class="params">(generics.ListCreateAPIView)</span></span></span><br><span class="line">    queryset = Book.objects.all()</span><br><span class="line">    serializer_class = BookSerializer	</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookFilterView</span><span class="params">(generics.RetrieveUpdateDestroyAPIView)</span>:</span></span><br><span class="line">    queryset = Book.objects.all()</span><br><span class="line">    serializer_class = BookSerializer</span><br></pre></td></tr></table></figure>
-<h3 id="使用视图组件的viewset进行接口逻辑优化"><a href="#使用视图组件的viewset进行接口逻辑优化" class="headerlink" title="使用视图组件的viewset进行接口逻辑优化"></a>使用视图组件的viewset进行接口逻辑优化</h3><p>导入模块</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework.viewsets <span class="keyword">import</span> ModelViewSet</span><br></pre></td></tr></table></figure>
-<p>设计url</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">re_path(<span class="string">r'books/$, views.BookView.as_view(&#123;</span></span><br><span class="line"><span class="string">    '</span>get<span class="string">': '</span>list<span class="string">',</span></span><br><span class="line"><span class="string">    '</span>post<span class="string">': '</span>create<span class="string">'</span></span><br><span class="line"><span class="string">	&#125;)),</span></span><br><span class="line">re_path(r'books/(?P&lt;pk&gt;\d+)/$', views.BookView.as_view(&#123;</span><br><span class="line">    <span class="string">'get'</span>: <span class="string">'retrieve'</span>,</span><br><span class="line">    <span class="string">'delete'</span>: <span class="string">'destroy'</span>,</span><br><span class="line">    <span class="string">'put'</span>: <span class="string">'update'</span></span><br><span class="line">	&#125;))</span><br></pre></td></tr></table></figure>
-<p>设计视图类</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookView</span><span class="params">(ModelViewSet)</span>:</span></span><br><span class="line">    queryset = Book.objects.all()</span><br><span class="line">    serializer_class = BookSerializer</span><br></pre></td></tr></table></figure>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/10/DRF序列化组件/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
     
     
     
+
+	<div>
+	  
+    </div>
 
     
 
@@ -456,9 +564,7 @@
   
   
   </article>
-  <div>
   
-</div>
 
 
     
@@ -506,9 +612,9 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/">
+                <a href="/archives">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -518,13 +624,22 @@
               
               
               <div class="site-state-item site-state-categories">
-                
+                <a href="/categories/index.html">
                   <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">categories</span>
-                
+                </a>
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -627,10 +742,9 @@
   
 
 
+  
 
 
-  
-  
 
 
 
@@ -672,12 +786,7 @@
 
   
   
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
   
 
 

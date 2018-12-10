@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="YaoSir">
 <meta property="og:description" content="restrest下的url  url唯一代表资源，http请求方式来区分用户行为  url的设计规范  GET：   127.0.0.1:9001/books/           # 获取所有数据GET:    127.0.0.1:9001/books/{id}            # 获取单条数据POST：  127.0.0.1:9001/books/           # 增加数据DEL">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-10T06:09:42.947Z">
+<meta property="og:updated_time" content="2018-12-10T07:55:58.369Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DRF序列化组件">
 <meta name="twitter:description" content="restrest下的url  url唯一代表资源，http请求方式来区分用户行为  url的设计规范  GET：   127.0.0.1:9001/books/           # 获取所有数据GET:    127.0.0.1:9001/books/{id}            # 获取单条数据POST：  127.0.0.1:9001/books/           # 增加数据DEL">
@@ -195,42 +195,42 @@
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
+        <li class="menu-item menu-item-首页">
           <a href="/" rel="section">
             
-            Home
+            首页
           </a>
         </li>
       
         
-        <li class="menu-item menu-item-about">
+        <li class="menu-item menu-item-关于">
           <a href="/about/" rel="section">
             
-            About
+            关于
           </a>
         </li>
       
         
-        <li class="menu-item menu-item-tags">
+        <li class="menu-item menu-item-标签">
           <a href="/tags/" rel="section">
             
-            Tags
+            标签
           </a>
         </li>
       
         
-        <li class="menu-item menu-item-categories">
+        <li class="menu-item menu-item-分类">
           <a href="/categories/" rel="section">
             
-            Categories
+            分类
           </a>
         </li>
       
         
-        <li class="menu-item menu-item-archives">
+        <li class="menu-item menu-item-归档">
           <a href="/archives/" rel="section">
             
-            Archives
+            归档
           </a>
         </li>
       
@@ -364,6 +364,7 @@
 <blockquote>
 <p>GET：   127.0.0.1:9001/books/           # 获取所有数据<br>GET:    127.0.0.1:9001/books/{id}            # 获取单条数据<br>POST：  127.0.0.1:9001/books/           # 增加数据<br>DELETE: 127.0.0.1:9001/books/{id}            # 删除数据<br>PUT:    127.0.0.1:9001/books/{id}           # 修改数据</p>
 </blockquote>
+<a id="more"></a>
 <p>数据响应规范</p>
 <blockquote>
 <p>GET：   127.0.0.1:9001/books/           # 返回[{}, {}, {}]<br>GET:    127.0.0.1:9001/books/{id}             # {} 单条数据<br>POST：  127.0.0.1:9001/books/           # {} 添加成功的数据<br>DELETE: 127.0.0.1:9001/books/{id}             # “” 返回空<br>PUT:    127.0.0.1:9001/books/{id}              # {} 更新后完整的数据</p>
@@ -427,6 +428,17 @@
     
     
 
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+	  
+    </div>
+
     
 
     
@@ -441,6 +453,22 @@
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/10/Django你需要了解的事儿/" rel="prev" title="Django你需要了解的事儿">
+                Django你需要了解的事儿 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
 
       
       
@@ -450,16 +478,7 @@
   
   
   </article>
-  <div>
   
-    <div>
-    
-        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
-    
-</div>
-
-  
-</div>
 
 
 
@@ -521,9 +540,9 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/">
+                <a href="/archives">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -533,13 +552,22 @@
               
               
               <div class="site-state-item site-state-categories">
-                
+                <a href="/categories/index.html">
                   <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">categories</span>
-                
+                </a>
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -658,10 +686,9 @@
   
 
 
+  
 
 
-  
-  
 
 
 
@@ -703,12 +730,7 @@
 
   
   
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
   
 
 
