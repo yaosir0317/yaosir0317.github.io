@@ -193,7 +193,10 @@ from .app_serializers import BookSerializer
 定义视图类​	  
 
 ```python
-		    def get():
+		class BookView(ListModelMixin, CreateModelMixin, GenericAPIView):
+			queryset = Book.objects.all()
+			serializer_class = BookSerializer	    
+    		def get():
 			    return self.list()
 			
 		    def post():
