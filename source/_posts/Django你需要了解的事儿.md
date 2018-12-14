@@ -1,6 +1,6 @@
 ---
 title: Django你需要了解的事儿
-date: 2018-11-10 15:33:32
+date: 2018-12-10 15:33:32
 tags: Django
 categories: Django
 ---

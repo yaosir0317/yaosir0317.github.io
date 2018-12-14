@@ -1,6 +1,6 @@
 ---
 title: DRF序列化组件
-date: 2018-11-14 14:07:56
+date: 2018-12-14 14:07:56
 tags: Rest
 categories: Django #文章文类
 ---
@@ -112,7 +112,7 @@ get接口(查询多条数据)    &   post接口
 
 ```python
 class BookView(APIView):
-	def get(self, request):
+    def get(self, request):
         # 获取queryset
         origin_data = Book.objects.all()
         # 开始序列化
@@ -193,27 +193,26 @@ from .app_serializers import BookSerializer
 定义视图类​	  
 
 ```python
-		class BookView(ListModelMixin, CreateModelMixin, GenericAPIView):
-			queryset = Book.objects.all()
-			serializer_class = BookSerializer	    
-    		def get():
-			    return self.list()
-			
-		    def post():
-			    return self.create()
-				
-		class BookFilterView(RetrieveModelMixin, DestroyModelMixin, UpdateModelMixin, GenericAPIView):
-		    queryset = Book.objects.all()
-			serializer_class = BookSerializer
-			
-			def get():
-			    return self.retrieve()
-				
-			def delete():
-			    return self.destroy()
-				
-			def put():
-			    return self.update()
+class BookView(ListModelMixin, CreateModelMixin, GenericAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer	    
+    def get():
+        return self.list()
+
+    def post():
+        return self.create()
+class BookFilterView(RetrieveModelMixin, DestroyModelMixin, UpdateModelMixin, GenericAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+    def get():
+        return self.retrieve()
+
+    def delete():
+        return self.destroy()
+
+    def put():
+        return self.update()
 ```
 
 注意:

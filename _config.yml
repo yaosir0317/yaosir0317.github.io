@@ -60,9 +60,14 @@ default_category: uncategorized
 category_map:
 tag_map:
     - Python
+    - 内置函数
     - Vue
     - Django
     - Rest
+    - ContentType
+    - Django组件
+    - Sql
+    - Redis
 
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
