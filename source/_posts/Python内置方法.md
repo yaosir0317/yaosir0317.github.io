@@ -13,6 +13,8 @@ categories: 内置函数
 sorted(iterable,key,reverse)
 ```
 
+<!--more-->
+
 第一个参数必传为需要排序的对象
 
 第二个参数为`key=name`,name为排序所依据的字段,此参数可选
