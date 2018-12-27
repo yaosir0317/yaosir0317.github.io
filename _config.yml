@@ -57,7 +57,17 @@ index_generator:
   
 # Category & Tag
 default_category: uncategorized
-category_map:
+category_map:   
+    - Python
+    - 内置函数
+    - Vue
+    - Django
+    - Rest
+    - ContentType
+    - Django组件
+    - Sql
+    - Redis
+    - Linux
 tag_map:
     - Python
     - 内置函数
@@ -68,6 +78,7 @@ tag_map:
     - Django组件
     - Sql
     - Redis
+    - Linux
 
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
