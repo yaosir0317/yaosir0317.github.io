@@ -1,7 +1,9 @@
 ---
 title: Django-ContentType
 date: 2018-12-12 16:50:36
-tags: ContentType Django组件
+tags: 
+	- ContentType 
+	- Django
 categories: Django
 ---
 

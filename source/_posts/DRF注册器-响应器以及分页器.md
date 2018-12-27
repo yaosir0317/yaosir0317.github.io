@@ -1,8 +1,10 @@
 ---
 title: 'DRF注册器,响应器以及分页器'
 date: 2018-12-11 15:47:52
-tags: Rest
-categories: Django
+tags: 
+	- Rest
+	- Django
+categories: Rest
 ---
 
 # url注册器

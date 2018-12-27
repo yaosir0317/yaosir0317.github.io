@@ -1,8 +1,10 @@
 ---
 title: DRF序列化组件
 date: 2018-12-14 14:07:56
-tags: Rest
-categories: Django #文章文类
+tags: 
+	- Rest 
+	- Django
+categories: Rest #文章文类
 ---
 
 # rest	

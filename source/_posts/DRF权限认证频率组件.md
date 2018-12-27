@@ -1,8 +1,10 @@
 ---
 title: DRF权限认证频率组件
 date: 2018-12-13 19:13:32
-tags: Rest
-categories: Django #文章文类
+tags: 
+	- Rest 
+	- Django
+categories: Rest #文章文类
 ---
 
 在编程的世界中，我们认为，用户输入的所有数据都是不可靠的，不合法的，直接使用用户输入的数据是不安全的，因此就需要认证组件、权限组件以及频率组件。
