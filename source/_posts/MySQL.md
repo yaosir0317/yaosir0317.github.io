@@ -1,3 +1,10 @@
+---
+title: MySQL
+date: 2018-12-28 15:34:26
+tags: MySQL
+categories: MySQL
+---
+
 # MariaDB
 
 > MariaDB数据库管理系统是MySQL的一个分支，主要由开源社区在维护，采用GPL授权许可。
