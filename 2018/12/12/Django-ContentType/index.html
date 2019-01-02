@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+  <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Django,ContentType,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="什么是Django ContentTypesDjango ContentTypes是由Django框架提供的一个核心功能，它对当前项目中所有基于Django驱动的model提供了更高层次的抽象接口。">
+<meta name="keywords" content="Django,ContentType">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django-ContentType">
+<meta property="og:url" content="https://yaosir0317.github.io/2018/12/12/Django-ContentType/index.html">
+<meta property="og:site_name" content="YaoSir">
+<meta property="og:description" content="什么是Django ContentTypesDjango ContentTypes是由Django框架提供的一个核心功能，它对当前项目中所有基于Django驱动的model提供了更高层次的抽象接口。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-01-02T08:23:41.327Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Django-ContentType">
+<meta name="twitter:description" content="什么是Django ContentTypesDjango ContentTypes是由Django框架提供的一个核心功能，它对当前项目中所有基于Django驱动的model提供了更高层次的抽象接口。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yaosir0317.github.io/2018/12/12/Django-ContentType/">
+
+
+
+
+
+  <title>Django-ContentType | YaoSir</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YaoSir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">The philosophers have only interpreted the world in various ways - the point however is to change it.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaosir0317.github.io/2018/12/12/Django-ContentType/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yaosir0317">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YaoSir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Django-ContentType</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-12T16:50:36+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Django/" itemprop="url" rel="index">
+                    <span itemprop="name">Django</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="什么是Django-ContentTypes"><a href="#什么是Django-ContentTypes" class="headerlink" title="什么是Django ContentTypes"></a>什么是Django ContentTypes</h1><p>Django ContentTypes是由Django框架提供的一个核心功能，它对当前项目中所有基于Django驱动的model提供了更高层次的抽象接口。 </p>
+<a id="more"></a>
+<p>我们一直强调的一句话是，编程是数据结构和算法的结合。所谓数据就是用户需要访问和操作的资源，比如购物类App里面的商品，图书、衣服、鞋帽等等。算法就是我们通过一系列的获取数据、过滤数据、汇总并编排数据并最终展现给用户的一个过程。</p>
+<p>算法的实现过程非常重要，但是算法的实现复杂度直接与数据的存储结构相关，数据的存储结构如果设计的非常好，那么向用户展示数据的算法可能会非常简单，反之，则将异常复杂。</p>
+<p>一切优化，最终都是关于需求的优化。ContentTypes就是用来优化表结构</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>当使用django-admin初始化一个django项目的时候，可以看到在默认的INSTALL_APPS已经包含了django.contrib.contenttypes:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">    <span class="string">'django.contrib.auth'</span>,</span><br><span class="line">    <span class="string">'django.contrib.contenttypes'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages'</span>,</span><br><span class="line">    <span class="string">'django.contrib.staticfiles'</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>而且注意django.contrib.contenttypes是在django.contrib.auth之后，这是因为auth中的permission系统是根据contenttypes来实现的。</p>
+<h1 id="ContentType的通用类型"><a href="#ContentType的通用类型" class="headerlink" title="ContentType的通用类型"></a>ContentType的通用类型</h1><p>此处将引用在stackoverflow中回答的例子讲述对通用类型的理解。<br>假设以下的应用场景：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> django.contrib.auth.models <span class="keyword">import</span> User</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    author = models.ForeignKey(User, on_delete=models.CASCADE)</span><br><span class="line">    title = models.CharField(max_length=<span class="number">75</span>)</span><br><span class="line">    body = models.TextField(blank=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Picture</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    author = models.ForeignKey(User, on_delete=models.CASCADE)</span><br><span class="line">    image = models.ImageField()</span><br><span class="line">    caption = models.TextField(blank=<span class="keyword">True</span>)</span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Comment</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    author = models.ForeignKey(User, on_delete=models.CASCADE)</span><br><span class="line">    body = models.TextField(blank=<span class="keyword">True</span>)</span><br><span class="line">    post = models.ForeignKey(Post, null=<span class="keyword">True</span>)</span><br><span class="line">    picture = models.ForeignKey(Picture, null=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<p>里面包含文章Post，Picture和评论Comment模型。Comment可以是对Post的评论，也可以是对Picture的评论。如果你还想对其它对象（比如回答，用户) 进行评论, 这样你将需要在comment对象里添加非常多的ForeignKey。你的直觉会告诉你，这样做很傻，会造成代码重复和字段浪费。实际生产中也绝不允许我们的这么做,一个更好的方式是，只有当你需要对某个对象或模型进行评论时，才创建comment与那个模型的关系。这时你就需要使用django contenttypes了。</p>
+<p>ContentType提供了一种GenericForeignKey的类型，通过这种类型可以实现在Comment对其余所有model的外键关系。 修改后的Comment模型如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib.contenttypes.models <span class="keyword">import</span> ContentType</span><br><span class="line"><span class="keyword">from</span> django.contrib.contenttypes.fields <span class="keyword">import</span> GenericForeignKey, GenericRelation</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Comment</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    author = models.ForeignKey(User, on_delete=models.CASCADE)</span><br><span class="line">    body = models.TextField(blank=<span class="keyword">True</span>)</span><br><span class="line">    <span class="comment"># ContentType</span></span><br><span class="line">    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)</span><br><span class="line">    object_id = models.PositiveIntegerField()</span><br><span class="line">    content_object = GenericForeignKey(<span class="string">'content_type'</span>, <span class="string">'object_id'</span>)</span><br></pre></td></tr></table></figure>
+<p>在这里，通过使用一个content_type属性代替了实际的model（如Post，Picture），而object_id则代表了实际model中的一个实例的主键，其中，content_type和object_id的字段命名都是作为字符串参数传进content_object的。</p>
+<p>下面先创建数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> app01.models <span class="keyword">import</span> User</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> app01.models <span class="keyword">import</span> Post</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> app01.models <span class="keyword">import</span> Picture</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> app01.models <span class="keyword">import</span> Comment</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user = User.objects.create_user(username=<span class="string">"yao"</span>, password=<span class="string">"123"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>post = Post.objects.create(author=user,title=<span class="string">"1"</span>,body=<span class="string">""</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>picture = Picture.objects.create(author=user,image=<span class="string">"image1"</span>,caption=<span class="string">"111"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>post2 = Post.objects.create(author=user,title=<span class="string">"2"</span>,body=<span class="string">""</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>picture2 = Picture.objects.create(author=user,image=<span class="string">"image2"</span>,caption=<span class="string">"222"</span>)</span><br></pre></td></tr></table></figure>
+<p>comment添加数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>post1 = Post.objects.get(title=<span class="string">"1"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>picture1 = Picture.objects.get(caption=<span class="string">"111"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>post2 = Post.objects.get(title=<span class="string">"2"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>picture2 = Picture.objects.get(caption=<span class="string">"222"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c1 = Comment.objects.create(author=user,body=<span class="string">""</span>,content_object=post1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c2 = Comment.objects.create(author=user,body=<span class="string">""</span>,content_object=post2)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c3 = Comment.objects.create(author=user,body=<span class="string">""</span>,content_object=picture1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c4 = Comment.objects.create(author=user,body=<span class="string">""</span>,content_object=picture2)</span><br></pre></td></tr></table></figure>
+<p>查询</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>c1.content_type</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>&lt;ContentType: post&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c1.object_id</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c1.content_object</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>&lt;Post: Post object (<span class="number">1</span>)&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+	  
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Django/" rel="tag"><i class="fa fa-tag"></i> Django</a>
+          
+            <a href="/tags/ContentType/" rel="tag"><i class="fa fa-tag"></i> ContentType</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/11/DRF注册器-响应器以及分页器/" rel="next" title="DRF注册器,响应器以及分页器">
+                <i class="fa fa-chevron-left"></i> DRF注册器,响应器以及分页器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/13/DRF权限认证频率组件/" rel="prev" title="DRF权限认证频率组件">
+                DRF权限认证频率组件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+  
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yaosir0317</p>
+              <p class="site-description motion-element" itemprop="description">yaosir0317个人博客,记录常用python知识&Django框架用法等</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yaosir0317" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Django-ContentTypes"><span class="nav-number">1.</span> <span class="nav-text">什么是Django ContentTypes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ContentType的通用类型"><span class="nav-number">3.</span> <span class="nav-text">ContentType的通用类型</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yaosir0317</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

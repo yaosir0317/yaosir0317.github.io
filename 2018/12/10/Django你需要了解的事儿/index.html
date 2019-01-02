@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+  <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Django,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MTV模型与MVC模型MVC  Model（模型）：是应用程序中用于处理应用程序数据逻辑的部分。通常模型对象负责在数据库中存取数据。 View（视图）：是应用程序中处理数据显示的部分。通常视图是依据模型数据创建的。 Controller（控制器）：是应用程序中处理用户交互的部分。通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据。">
+<meta name="keywords" content="Django">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django你需要了解的事儿">
+<meta property="og:url" content="https://yaosir0317.github.io/2018/12/10/Django你需要了解的事儿/index.html">
+<meta property="og:site_name" content="YaoSir">
+<meta property="og:description" content="MTV模型与MVC模型MVC  Model（模型）：是应用程序中用于处理应用程序数据逻辑的部分。通常模型对象负责在数据库中存取数据。 View（视图）：是应用程序中处理数据显示的部分。通常视图是依据模型数据创建的。 Controller（控制器）：是应用程序中处理用户交互的部分。通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-01-02T08:23:41.327Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Django你需要了解的事儿">
+<meta name="twitter:description" content="MTV模型与MVC模型MVC  Model（模型）：是应用程序中用于处理应用程序数据逻辑的部分。通常模型对象负责在数据库中存取数据。 View（视图）：是应用程序中处理数据显示的部分。通常视图是依据模型数据创建的。 Controller（控制器）：是应用程序中处理用户交互的部分。通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yaosir0317.github.io/2018/12/10/Django你需要了解的事儿/">
+
+
+
+
+
+  <title>Django你需要了解的事儿 | YaoSir</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YaoSir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">The philosophers have only interpreted the world in various ways - the point however is to change it.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaosir0317.github.io/2018/12/10/Django你需要了解的事儿/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yaosir0317">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YaoSir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Django你需要了解的事儿</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-10T15:33:32+08:00">
+                2018-12-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Django/" itemprop="url" rel="index">
+                    <span itemprop="name">Django</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="MTV模型与MVC模型"><a href="#MTV模型与MVC模型" class="headerlink" title="MTV模型与MVC模型"></a>MTV模型与MVC模型</h2><p><strong>MVC</strong></p>
+<blockquote>
+<p>Model（模型）：是应用程序中用于处理应用程序数据逻辑的部分。通常模型对象负责在数据库中存取数据。</p>
+<p>View（视图）：是应用程序中处理数据显示的部分。通常视图是依据模型数据创建的。</p>
+<p>Controller（控制器）：是应用程序中处理用户交互的部分。通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据。</p>
+</blockquote>
+<a id="more"></a>
+<p><strong>MTV</strong></p>
+<blockquote>
+<p>M 带包模型(Model) 负责业务对象和数据库的关系映射(ORM) T 代表模板(Template) 负责如何把页面展示给用户(html) V 代表视图 （View） 负责业务逻辑 并在适当时候调用Model和Template</p>
+</blockquote>
+<h2 id="queryset数据类型的特性"><a href="#queryset数据类型的特性" class="headerlink" title="queryset数据类型的特性"></a>queryset数据类型的特性</h2><blockquote>
+<p>可以切片使用(不支持负的索引)</p>
+<p>可迭代</p>
+<p>惰性查询</p>
+<p>缓存机制</p>
+</blockquote>
+<h2 id="queryset数据类型的方法"><a href="#queryset数据类型的方法" class="headerlink" title="queryset数据类型的方法"></a>queryset数据类型的方法</h2><blockquote>
+<p>create()</p>
+<p>p = Person(name=”WZ”, age=23)</p>
+<p>p.save()</p>
+<p>.all()</p>
+<p>get()</p>
+<p>exclude()</p>
+<p>valeslist()</p>
+<p>orderby()</p>
+</blockquote>
+<h2 id="级联删除不等于同时删除"><a href="#级联删除不等于同时删除" class="headerlink" title="级联删除不等于同时删除"></a>级联删除不等于同时删除</h2><blockquote>
+<p>级联删除表示主表记录删除，对应表记录 同样删除</p>
+<p>一对多 ， 一对一 时候用，</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)</span><br></pre></td></tr></table></figure>
+<h2 id="cookie与session的运行机制"><a href="#cookie与session的运行机制" class="headerlink" title="cookie与session的运行机制"></a>cookie与session的运行机制</h2><blockquote>
+<p>1.cookie数据存放在客户的浏览器上，session数据放在服务器上</p>
+<p>2.cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗 考虑到安全应当使用session。</p>
+<p>3、session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能 考虑到减轻服务器性能方面，应当使用COOKIE</p>
+<p>4、单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。 cookie 和session 的联系</p>
+<p>session是通过cookie来工作的，可以考虑将登陆信息等重要信息存放为session，其他信息如果需要保留，可以放在cookie中</p>
+</blockquote>
+<h2 id="反向解析"><a href="#反向解析" class="headerlink" title="反向解析"></a>反向解析</h2><p>作用:防止硬编码,便于维护</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">path(&quot;login/&quot;,views,login,name = &quot;login&quot;)</span><br><span class="line"></span><br><span class="line">模板 ：&#123;% url &quot;login&quot;  参数 %&#125;</span><br><span class="line">视图 ：redirct(reverse(login),args=参数)</span><br></pre></td></tr></table></figure>
+<h2 id="Q查询的两种使用方式"><a href="#Q查询的两种使用方式" class="headerlink" title="Q查询的两种使用方式"></a>Q查询的两种使用方式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">book.object.filter(Q(name = ...)|Q(user = ...))</span><br><span class="line">q=Q()</span><br><span class="line">q.chidnen.append(...)</span><br><span class="line">book.objects.filter(q)</span><br></pre></td></tr></table></figure>
+<h2 id="请求头contentType的作用"><a href="#请求头contentType的作用" class="headerlink" title="请求头contentType的作用"></a>请求头contentType的作用</h2><blockquote>
+<p>content-type请求头是干吗的呢，http请求头有四种类型，分别是通用头部，请求头部，响应头部以及内容头部，首先，我们要弄清楚，</p>
+<p>content-type是属于内容头部，既然是内容头部，那这个请求头是用来向接收端解释传递的该内容主体的，content-type的取值是告诉服务端，你传递过去的内容是啥，你应该准备好如何接收</p>
+</blockquote>
+<h2 id="rbac表结构"><a href="#rbac表结构" class="headerlink" title="rbac表结构"></a>rbac表结构</h2><blockquote>
+<p>User 用户，</p>
+<p>Role 角色 ，</p>
+<p>Permission 权限，</p>
+<p>表关系:</p>
+<p>角色和 权限 多对多 和用户多对多</p>
+</blockquote>
+<h2 id="crm的查询语法"><a href="#crm的查询语法" class="headerlink" title="crm的查询语法"></a>crm的查询语法</h2><blockquote>
+<p>min()</p>
+<p>max()</p>
+<p>conut()</p>
+<p>avg()</p>
+</blockquote>
+<h2 id="向服务器发送一个json数据"><a href="#向服务器发送一个json数据" class="headerlink" title="向服务器发送一个json数据"></a>向服务器发送一个json数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">        url:&apos;$&#123;pageContext.request.contextPath &#125;/rest/jsonBody&apos;,</span><br><span class="line">        type:&apos;POST&apos;,</span><br><span class="line">        dataType:&apos;json&apos;,</span><br><span class="line">        contentType:&apos;application/json;charset=UTF-8&apos;,</span><br><span class="line">        data:JSON.stringify(data),</span><br><span class="line">        success:function(data, status)&#123;</span><br><span class="line">            console.log(data);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="中介模型"><a href="#中介模型" class="headerlink" title="中介模型"></a>中介模型</h2><blockquote>
+<p>多对多字段 创建的时候 Djiango会自动帮我们创建第三张表满足不了我们的需求，可用中介模型使用自定义的第三张表 添加字段。</p>
+</blockquote>
+<h2 id="ForeignKey中的db-constraint参数"><a href="#ForeignKey中的db-constraint参数" class="headerlink" title="ForeignKey中的db_constraint参数"></a>ForeignKey中的db_constraint参数</h2><blockquote>
+<p>db_constraint 唯一约束</p>
+<p>db_constraint = True 方便查询 约束字段</p>
+<p>db_constraint = fales 不约束字段 同时也可以查询</p>
+</blockquote>
+<h2 id="用户认证组件"><a href="#用户认证组件" class="headerlink" title="用户认证组件"></a>用户认证组件</h2><blockquote>
+<p>用户登陆的时候</p>
+<p>注册对象auth.login(request,当前登陆人对象)</p>
+<p>if 获取 request.user 是否为空</p>
+<p>登陆成功</p>
+<p>优点：可用中间件 校验 ，可全局用</p>
+</blockquote>
+<h2 id="Django常用模块的引入"><a href="#Django常用模块的引入" class="headerlink" title="Django常用模块的引入"></a>Django常用模块的引入</h2><blockquote>
+<p>from Django.conf import settings</p>
+<ol>
+<li><p>urls相关操作<br>  from django.urls import path, re_path(使用正则时使用), include</p>
+<pre><code>from django.urls import reverse  // 注意reverse 和另一个reversed区别。前者要明确导入通过名称解析出地址，后者是built-in内置不用导入；两者功能也不一。
+</code></pre></li>
+<li><p>HttpResponse生成<br>  from django.shortcuts import render, Httpresponse, redirect</p>
+<pre><code>from django.http import JsonResponse // 响应一个content-type：text/json 返回一个json响应报文,相应的浏览器端也不用在对json反解
+</code></pre></li>
+<li><p>组件auth<br>  from django.contrib import auth  //contrib 意味：构件</p>
+<pre><code>from django.contrib.auth.models import User 
+from django.contrib.auth.decorators import login_required
+</code></pre></li>
+<li><p>组件forms<br>  from django import forms</p>
+<pre><code>from django.forms import widgets
+from django.core.exceptions import ValidationError  // django的异常定义都在django.core.exceptions模块中，该异常用于自定义钩子。
+from django.forms import ModelForm  // 如果一个form的字段数据是被用映射到一个django models.那么一个ModelForm可以帮助你节约很多开发时间。因为它将构建一个form实例，连同构建适当的field和field attributes，利用这些构建信息，都来自一个Model class. 
+from django.core.files.uploadedfile import SimpleUploadedFile
+</code></pre><p>  from django.forms.models import modelformset_factory</p>
+</li>
+<li><p>邮件组件<br>  from django.core.mail import send_mail</p>
+</li>
+<li><p>model组件<br>  from django.db import models</p>
+<pre><code>from django.db.models import F, Q
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
+from django.db import transaction  # 利用model做数据库的事务操作
+</code></pre></li>
+<li><p>分页器相关<br>  from django.core import paginator</p>
+</li>
+<li><p>django admin site相关<br>  from django.contrib import admin</p>
+<pre><code>from django.contrib.admin import ModelAdmin
+</code></pre></li>
+<li><p>view 相关<br>  from django.view import View  # 用于media访问内置视图</p>
+</li>
+<li><p>中间件<br> from django.utils.deprecation import MiddlewareMixin</p>
+</li>
+<li><p>template模版相关<br>  from django import template  # 自定义tag和filter需要用到</p>
+</li>
+</ol>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+	  
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Django/" rel="tag"><i class="fa fa-tag"></i> Django</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/11/DRF注册器-响应器以及分页器/" rel="prev" title="DRF注册器,响应器以及分页器">
+                DRF注册器,响应器以及分页器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+  
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yaosir0317</p>
+              <p class="site-description motion-element" itemprop="description">yaosir0317个人博客,记录常用python知识&Django框架用法等</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yaosir0317" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MTV模型与MVC模型"><span class="nav-number">1.</span> <span class="nav-text">MTV模型与MVC模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#queryset数据类型的特性"><span class="nav-number">2.</span> <span class="nav-text">queryset数据类型的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#queryset数据类型的方法"><span class="nav-number">3.</span> <span class="nav-text">queryset数据类型的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#级联删除不等于同时删除"><span class="nav-number">4.</span> <span class="nav-text">级联删除不等于同时删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cookie与session的运行机制"><span class="nav-number">5.</span> <span class="nav-text">cookie与session的运行机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反向解析"><span class="nav-number">6.</span> <span class="nav-text">反向解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q查询的两种使用方式"><span class="nav-number">7.</span> <span class="nav-text">Q查询的两种使用方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求头contentType的作用"><span class="nav-number">8.</span> <span class="nav-text">请求头contentType的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rbac表结构"><span class="nav-number">9.</span> <span class="nav-text">rbac表结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#crm的查询语法"><span class="nav-number">10.</span> <span class="nav-text">crm的查询语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向服务器发送一个json数据"><span class="nav-number">11.</span> <span class="nav-text">向服务器发送一个json数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中介模型"><span class="nav-number">12.</span> <span class="nav-text">中介模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ForeignKey中的db-constraint参数"><span class="nav-number">13.</span> <span class="nav-text">ForeignKey中的db_constraint参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户认证组件"><span class="nav-number">14.</span> <span class="nav-text">用户认证组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Django常用模块的引入"><span class="nav-number">15.</span> <span class="nav-text">Django常用模块的引入</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yaosir0317</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

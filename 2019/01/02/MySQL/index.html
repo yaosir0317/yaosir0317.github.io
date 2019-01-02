@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+  <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MariaDB MariaDB数据库管理系统是MySQL的一个分支，主要由开源社区在维护，采用GPL授权许可。开发这个分支的原因之一是：甲骨文公司收购了MySQL后，有将MySQL闭源的潜在风险，因此社区采用分支的方式来避开这个风险。MariaDB的目的是完全兼容MySQL，包括API和命令行，使之能轻松成为MySQL的代替品。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YaoSir">
+<meta property="og:url" content="https://yaosir0317.github.io/2019/01/02/MySQL/index.html">
+<meta property="og:site_name" content="YaoSir">
+<meta property="og:description" content="MariaDB MariaDB数据库管理系统是MySQL的一个分支，主要由开源社区在维护，采用GPL授权许可。开发这个分支的原因之一是：甲骨文公司收购了MySQL后，有将MySQL闭源的潜在风险，因此社区采用分支的方式来避开这个风险。MariaDB的目的是完全兼容MySQL，包括API和命令行，使之能轻松成为MySQL的代替品。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://yaosir0317.github.io/2019/01/02/MySQL/1.png">
+<meta property="og:image" content="https://yaosir0317.github.io/2019/01/02/MySQL/2.png">
+<meta property="og:image" content="https://yaosir0317.github.io/2019/01/02/MySQL/3.png">
+<meta property="og:updated_time" content="2019-01-02T09:35:02.792Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="YaoSir">
+<meta name="twitter:description" content="MariaDB MariaDB数据库管理系统是MySQL的一个分支，主要由开源社区在维护，采用GPL授权许可。开发这个分支的原因之一是：甲骨文公司收购了MySQL后，有将MySQL闭源的潜在风险，因此社区采用分支的方式来避开这个风险。MariaDB的目的是完全兼容MySQL，包括API和命令行，使之能轻松成为MySQL的代替品。">
+<meta name="twitter:image" content="https://yaosir0317.github.io/2019/01/02/MySQL/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yaosir0317.github.io/2019/01/02/MySQL/">
+
+
+
+
+
+  <title> | YaoSir</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YaoSir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">The philosophers have only interpreted the world in various ways - the point however is to change it.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaosir0317.github.io/2019/01/02/MySQL/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yaosir0317">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YaoSir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-02T16:31:23+08:00">
+                2019-01-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="MariaDB"><a href="#MariaDB" class="headerlink" title="MariaDB"></a>MariaDB</h1><blockquote>
+<p>MariaDB数据库管理系统是MySQL的一个分支，主要由开源社区在维护，采用GPL授权许可。<br>开发这个分支的原因之一是：甲骨文公司收购了MySQL后，有将MySQL闭源的潜在风险，因此社区采用分支的方式来避开这个风险。<br>MariaDB的目的是完全兼容MySQL，包括API和命令行，使之能轻松成为MySQL的代替品。</p>
+<a id="more"></a>
+</blockquote>
+<p>此文以mariadb的安装为例!</p>
+<h2 id="yum和源码编译安装的区别"><a href="#yum和源码编译安装的区别" class="headerlink" title="yum和源码编译安装的区别"></a>yum和源码编译安装的区别</h2><blockquote>
+<p>1.路径区别-yum安装的软件是他自定义的，源码安装的软件./configure –preifx=软件安装的绝对路径<br>2.yum仓库的软件，版本可能比较低，而源码编译安装，版本可控<br>3.编译安装的软件，支持第三方功能扩展./configure  这里可以加上很多参数，定制功能</p>
+</blockquote>
+<h2 id="阿里yum安装"><a href="#阿里yum安装" class="headerlink" title="阿里yum安装"></a>阿里yum安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mariadb-server  mariadb -y</span><br></pre></td></tr></table></figure>
+<p>使用阿里云的yum时,阿里云的mariadb包名是小写的，而官方的是大写的！！！！注意的</p>
+<h2 id="官方yum源安装"><a href="#官方yum源安装" class="headerlink" title="官方yum源安装"></a>官方yum源安装</h2><p>当阿里云提供的yum仓库或epel源仓库，它的mariadb版本很低时,我们的就需要使用官方的yum源</p>
+<ul>
+<li><p>配置官方的mariadb的yum源，手动创建 mariadb.repo仓库文件</p>
+<blockquote>
+<ul>
+<li>touch /etc/yum.repos.d/mariadb.repo </li>
+<li>然后写入如下内容:</li>
+<li>​    [mariadb]</li>
+<li>​    name = MariaDB</li>
+<li>​    baseurl = <a href="http://yum.mariadb.org/10.1/centos7-amd64" target="_blank" rel="noopener">http://yum.mariadb.org/10.1/centos7-amd64</a></li>
+<li>​    gpgkey=<a href="https://yum.mariadb.org/RPM-GPG-KEY-MariaDB" target="_blank" rel="noopener">https://yum.mariadb.org/RPM-GPG-KEY-MariaDB</a></li>
+<li>​    gpgcheck=1</li>
+</ul>
+</blockquote>
+</li>
+<li><p>通过yum安装mariadb软件</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install MariaDB-server MariaDB-client -y</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="MySQL使用"><a href="#MySQL使用" class="headerlink" title="MySQL使用"></a>MySQL使用</h1><h2 id="启动MySQL"><a href="#启动MySQL" class="headerlink" title="启动MySQL"></a>启动MySQL</h2><p>启动服务端</p>
+<blockquote>
+<p>systemctl  start/stop/restart/status  mariadb<br>systemctl enable mariadb   # 设置开机启动mariadb</p>
+</blockquote>
+<h2 id="MySQL初始化"><a href="#MySQL初始化" class="headerlink" title="MySQL初始化"></a>MySQL初始化</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql_secure_installation</span><br></pre></td></tr></table></figure>
+<p>这条命令可以初始化mysql，删除匿名用户，设置root密码等等….</p>
+<h2 id="中文编码支持"><a href="#中文编码支持" class="headerlink" title="中文编码支持"></a>中文编码支持</h2><ul>
+<li><p>修改/etc/my.cnf配置文件</p>
+<blockquote>
+<p>在[mysqld]中添加参数，使得mariadb服务端支持中文:<br>​    [mysqld]<br>​    character-set-server=utf8<br>​    collation-server=utf8_general_ci</p>
+</blockquote>
+</li>
+<li><p>重启mariadb服务，读取my.cnf新配置</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart mariadb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>登录数据库，查看字符编码</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>输入 \s  查看编码 </p>
+</li>
+</ul>
+<h1 id="MySQL常用命令"><a href="#MySQL常用命令" class="headerlink" title="MySQL常用命令"></a>MySQL常用命令</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">desc  # 查看表结构</span><br><span class="line">create database  # 数据库名</span><br><span class="line">create table  # 表名</span><br><span class="line">show create  database  库名  		 # 查看如何创建db的</span><br><span class="line">show create table 表名;			# 查看如何创建table结构的</span><br><span class="line"></span><br><span class="line"># 修改mysql的密码</span><br><span class="line">set password = PASSWORD(&apos;redhat&apos;);</span><br><span class="line"></span><br><span class="line"># 创建mysql的普通用户，默认权限非常低</span><br><span class="line">create user username@&apos;%&apos; identified by &apos;userpwd&apos;;</span><br><span class="line"></span><br><span class="line"># 查询mysql数据库中的用户信息</span><br><span class="line">use mysql;</span><br><span class="line">select host,user,password  from user;</span><br></pre></td></tr></table></figure>
+<h2 id="用户添加权限命令"><a href="#用户添加权限命令" class="headerlink" title="用户添加权限命令"></a>用户添加权限命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">grant all privileges on *.* to 账户@主机名   　　 # 对所有库和所有表授权所有权限</span><br><span class="line">grant all privileges on *.* to yining@&apos;%&apos;;       # 给yining用户授予所有权限</span><br><span class="line">flush privileges;		 # 刷新授权表</span><br><span class="line">grant all privileges on *.* to yining@&apos;%&apos;;       # 给yining用户授予所有权限</span><br><span class="line">grant all privileges on *.* to root@&apos;%&apos; identified by &apos;redhat&apos;;  # 给与root权限授予远程登录的命令</span><br><span class="line"># 此时可以在windows登录linux的数据库 mysql -uyining -p  -h  服务器的地址  	连接服务器的mysql</span><br></pre></td></tr></table></figure>
+<h2 id="数据备份与恢复"><a href="#数据备份与恢复" class="headerlink" title="数据备份与恢复"></a>数据备份与恢复</h2><p>导出当前数据库的所有db，到一个文件中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p --all-databases &gt; /data/db.dump</span><br></pre></td></tr></table></figure>
+<p>进行数据恢复，把刚才重定向备份的数据库文件导入到mysql中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p   &lt;   /data/db.dump  #在登录时候，导入数据文件，一样可以写入数据</span><br></pre></td></tr></table></figure>
+<h1 id="MYSQL主从复制"><a href="#MYSQL主从复制" class="headerlink" title="MYSQL主从复制"></a>MYSQL主从复制</h1><p>MySQL数据库的主从复制方案，是其自带的功能，并且主从复制并不是复制磁盘上的数据库文件，而是通过binlog日志复制到需要同步的从服务器上。</p>
+<p>MySQL数据库支持单向、双向、链式级联，等不同业务场景的复制。在复制的过程中，一台服务器充当主服务器（Master），接收来自用户的内容更新，而一个或多个其他的服务器充当从服务器（slave），接收来自Master上binlog文件的日志内容，解析出SQL，重新更新到Slave，使得主从服务器数据达到一致。</p>
+<p>主从复制的逻辑有以下几种:</p>
+<ul>
+<li><p>一主一从，单向主从同步模式，只能在Master端写入数据</p>
+</li>
+<li><p>一主多从</p>
+</li>
+</ul>
+<p><img src="/2019/01/02/MySQL/1.png" alt="单向主从同步"></p>
+<p>双主主复制逻辑架构，此架构可以在Master或Master2进行数据写入，或者两端同事写入（特殊设置）</p>
+<p><img src="/2019/01/02/MySQL/2.png" alt="双主主"></p>
+<blockquote>
+<p>在生产环境中，MySQL主从复制都是异步的复制方式，即不是严格的实时复制，但是给用户的体验都是实时的。<br>MySQL主从复制集群功能使得MySQL数据库支持大规模高并发读写成为可能，且有效的保护了服务器宕机的数据备份。</p>
+<p><code>应用场景:</code></p>
+<p>利用复制功能当Master服务器出现问题时，我们可以人工的切换到从服务器继续提供服务，此时服务器的数据和宕机时的数据几乎完全一致。<br>复制功能也可用作数据备份，但是如果人为的执行drop,delete等语句删除，那么从库的备份功能也就失效了.</p>
+</blockquote>
+<p>主从机制实现原理</p>
+<p><img src="/2019/01/02/MySQL/3.png" alt="主从同步原理"></p>
+<blockquote>
+<ol>
+<li>master将改变记录到二进制日志(binary log)中（这些记录叫做二进制日志事件，binary log events）； </li>
+<li>slave将master的binary log events拷贝到它的中继日志(relay log)； </li>
+<li>slave重做中继日志中的事件，将改变反映它自己的数据。</li>
+</ol>
+</blockquote>
+<h2 id="master主库配置"><a href="#master主库配置" class="headerlink" title="master主库配置"></a>master主库配置</h2><p>修改配置文件vim  /etc/my.cnf</p>
+<blockquote>
+<p>[mysqld]<br>server-id=1                     # 标注 主库的身份id<br>log-bin=mysql-bin        # 那个binlog的文件名</p>
+</blockquote>
+<p>重启mariadb,<code>systemctl start mariadb</code></p>
+<p>查看主库的状态, <code>mysql -uroot -p</code></p>
+<p><code>show master status;</code>  # 这个命令可以查看 日志文件的名字，以及数据起始点 </p>
+<ul>
+<li>master主库添加从库账号</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create user &apos;yaoshao&apos;@&apos;%&apos; identified by &apos;yaoshaopwd&apos;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>授予主从同步账号的，复制数据的权限</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant replication slave on *.* to &apos;yaoshao&apos;@&apos;%&apos;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>进行数据库的锁表，防止数据写入</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush table with read lock;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>数据导出</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p --all-databases &gt;  /opt/zhucong.dump</span><br></pre></td></tr></table></figure>
+<ul>
+<li>将主库的数据，发送给从库</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp /opt/zhucong.dump   root@从库:/opt/</span><br></pre></td></tr></table></figure>
+<ul>
+<li>解锁主库，恢复可写</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unlock tables;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>此时就可以去从库的mysql上，登录，导入主库的数据，保持数据一致性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p </span><br><span class="line">source /opt/zhucong.dump</span><br></pre></td></tr></table></figure>
+<h2 id="slave从库配置"><a href="#slave从库配置" class="headerlink" title="slave从库配置"></a>slave从库配置</h2><ul>
+<li>写入my.cnf，从库的身份信息</li>
+</ul>
+<blockquote>
+<p>vi /etc/my.cnf :<br>​    [mysqld]<br>​    server-id=10</p>
+</blockquote>
+<ul>
+<li>重启数据库</li>
+<li>检查一下主库和从库的 参数信息 </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">show variables like &apos;server_id&apos;;</span><br><span class="line">show variables like &apos;log_bin&apos;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>配置复制的参数，Slave从库连接Master主库的配置</li>
+</ul>
+<blockquote>
+<p>mysql &gt; change master to master_host=’192.168.13.78’,<br>master_user=’yaoshao’,<br>master_password=’yaoshaopwd’,<br>master_log_file=’mysql-bin.000001’,<br>master_log_pos=571;</p>
+</blockquote>
+<ul>
+<li>启动从库的同步开关</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start slave;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看复制状态</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show slave status\G;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看两条参数 ，确保主从正常</li>
+</ul>
+<blockquote>
+<p>Slave_IO_Running: Yes<br>Slave_SQL_Running: Yes</p>
+</blockquote>
+<p>注意此处还未配置从库的只读模式，只需在slave服务器上配置/etc/my.cnf，加上以下配置，并且在slave上创建普通用户，使用普通用户主从同步即可达到只读的效果</p>
+<p>如果用root用户，无法达到readonly</p>
+<blockquote>
+<p>[mysqld]<br>character-set-server=utf8<br>collation-server=utf8_general_ci<br>log-error=/var/log/mysqld.log<br>server-id=3<br>read-only=true<br>[client]<br>default-character-set=utf8<br>[mysql]<br>default-character-set=utf8</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+	  
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/28/Linux操作/" rel="next" title="Linux环境配置">
+                <i class="fa fa-chevron-left"></i> Linux环境配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+  
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yaosir0317</p>
+              <p class="site-description motion-element" itemprop="description">yaosir0317个人博客,记录常用python知识&Django框架用法等</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yaosir0317" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MariaDB"><span class="nav-number">1.</span> <span class="nav-text">MariaDB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#yum和源码编译安装的区别"><span class="nav-number">1.1.</span> <span class="nav-text">yum和源码编译安装的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阿里yum安装"><span class="nav-number">1.2.</span> <span class="nav-text">阿里yum安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#官方yum源安装"><span class="nav-number">1.3.</span> <span class="nav-text">官方yum源安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL使用"><span class="nav-number">2.</span> <span class="nav-text">MySQL使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动MySQL"><span class="nav-number">2.1.</span> <span class="nav-text">启动MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL初始化"><span class="nav-number">2.2.</span> <span class="nav-text">MySQL初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文编码支持"><span class="nav-number">2.3.</span> <span class="nav-text">中文编码支持</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL常用命令"><span class="nav-number">3.</span> <span class="nav-text">MySQL常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用户添加权限命令"><span class="nav-number">3.1.</span> <span class="nav-text">用户添加权限命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据备份与恢复"><span class="nav-number">3.2.</span> <span class="nav-text">数据备份与恢复</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MYSQL主从复制"><span class="nav-number">4.</span> <span class="nav-text">MYSQL主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#master主库配置"><span class="nav-number">4.1.</span> <span class="nav-text">master主库配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#slave从库配置"><span class="nav-number">4.2.</span> <span class="nav-text">slave从库配置</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yaosir0317</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
