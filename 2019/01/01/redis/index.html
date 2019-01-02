@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+  <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Redis,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Redis安装yum安装1yum install redis -y 源码安装 下载源码包wget http://download.redis.io/releases/redis-4.0.10.tar.gz  解压缩redistar -zxf redis-4.0.10.tar.gz">
+<meta name="keywords" content="Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis">
+<meta property="og:url" content="https://yaosir0317.github.io/2019/01/01/redis/index.html">
+<meta property="og:site_name" content="YaoSir">
+<meta property="og:description" content="Redis安装yum安装1yum install redis -y 源码安装 下载源码包wget http://download.redis.io/releases/redis-4.0.10.tar.gz  解压缩redistar -zxf redis-4.0.10.tar.gz">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-01-02T10:40:41.059Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis">
+<meta name="twitter:description" content="Redis安装yum安装1yum install redis -y 源码安装 下载源码包wget http://download.redis.io/releases/redis-4.0.10.tar.gz  解压缩redistar -zxf redis-4.0.10.tar.gz">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yaosir0317.github.io/2019/01/01/redis/">
+
+
+
+
+
+  <title>Redis | YaoSir</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YaoSir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">The philosophers have only interpreted the world in various ways - the point however is to change it.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaosir0317.github.io/2019/01/01/redis/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yaosir0317">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YaoSir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Redis</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-01T17:44:34+08:00">
+                2019-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Redis安装"><a href="#Redis安装" class="headerlink" title="Redis安装"></a>Redis安装</h1><h2 id="yum安装"><a href="#yum安装" class="headerlink" title="yum安装"></a>yum安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install redis -y</span><br></pre></td></tr></table></figure>
+<h2 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h2><ul>
+<li><p>下载源码包<code>wget http://download.redis.io/releases/redis-4.0.10.tar.gz</code></p>
+</li>
+<li><p>解压缩redis<code>tar -zxf redis-4.0.10.tar.gz</code></p>
+  <a id="more"></a>
+</li>
+<li><p>进入redis源码，直接可以编译且安装<code>make &amp;&amp; make install</code></p>
+</li>
+<li><p>可以指定配置文件启动redis<code>vim /opt/redis-4.0.10/redis.conf</code></p>
+</li>
+</ul>
+<blockquote>
+<p>1.更改bind参数，让redis可以远程访问<br>​    bind 0.0.0.0<br>2.更改redis的默认端口<br>​    port 6380<br>3.使用redis的密码进行登录<br>​    requirepass 登录redis的密码<br>4.指定配置文件启动<br>​    redis-server redis.conf </p>
+</blockquote>
+<ul>
+<li>通过新的端口和密码登录redis</li>
+</ul>
+<blockquote>
+<p>redis-cli -p 6380<br>登录后<br>auth 密码</p>
+</blockquote>
+<ul>
+<li>redis还支持交互式的参数，登录数据库</li>
+</ul>
+<blockquote>
+<p>redis-cli -p 6380  -a  redis的密码  （这个不太安全）</p>
+</blockquote>
+<ul>
+<li>通过登录redis，用命令查看redis的密码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">config set  requirepass  新的密码     	#设置新密码</span><br><span class="line">config get  requirepass  			#获取当前的密码</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>tips:</p>
+<p>过滤出文件的空白行和注释行,用于稍后再配置中使用<br>grep -v “^#”  redis.conf |   grep  -v “^$”</p>
+</blockquote>
+<h1 id="redis发布订阅"><a href="#redis发布订阅" class="headerlink" title="redis发布订阅"></a>redis发布订阅</h1><p>涉及三个角色</p>
+<p>1.发布者<br>​    <code>publish  频道  消息</code>        给频道发消息<br>2.订阅者<br>​    <code>SUBSCRIBE  频道</code>                       订阅频道<br>​    <code>PSUBSCRIBE 频道*</code>                支持模糊匹配的订阅<br>3.频道<br>​    <code>channel  频道名</code>                     自定义</p>
+<h1 id="redis持久化"><a href="#redis持久化" class="headerlink" title="redis持久化"></a>redis持久化</h1><p><code>Redis</code>是一种内存型数据库，一旦服务器进程退出，数据库的数据就会丢失，为了解决这个问题，<code>Redis</code>提供了两种持久化的方案，将内存中的数据保存到磁盘中，避免数据的丢失。</p>
+<h2 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h2><p><code>redis</code>提供了<code>RDB持久化</code>的功能，这个功能可以将<code>redis</code>在内存中的的状态保存到硬盘中，它可以<strong>手动执行。</strong></p>
+<p>也可以再<code>redis.conf</code>中配置，<strong>定期执行</strong>。</p>
+<p>RDB持久化产生的RDB文件是一个<strong>经过压缩</strong>的<strong>二进制文件</strong>，这个文件被保存在硬盘中，redis可以通过这个文件还原数据库当时的状态。</p>
+<ul>
+<li>在配置文件中添加参数，开启RDB功能,<strong>注释不要写入配置文件中</strong></li>
+</ul>
+<blockquote>
+<p>redis.conf 写入:<br>​    port 6379<br>​    daemonize yes<br>​    logfile /data/6379/redis.log<br>​    dir /data/6379<br>​    dbfilename   yaoshao.rdb<br>​    save 900 1                      #rdb机制 每900秒 有1个修&gt;改记录<br>​    save 300 10                    #每300秒        10个修改<br>​    记录<br>​    save 60  10000                #每60秒内        10000修&gt;改记录</p>
+</blockquote>
+<ul>
+<li>开启redis服务端，测试rdb功能</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server redis.conf</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>此时检查目录，/data/6379底下没有dbmp.rdb文件</p>
+</li>
+<li><p>通过save触发持久化，将数据写入RDB文件</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set age 18</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; save</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+<h2 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h2><p>记录服务器执行的所有变更操作命令（例如set del等），并在服务器启动时，通过重新执行这些命令来还原数据集<br>AOF 文件中的命令全部以redis协议的格式保存，新命令追加到文件末尾。<br>优点：最大程序保证数据不丢<br>缺点：日志记录非常大</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-client   写入数据  &gt;  redis-server   同步命令   &gt;  AOF文件</span><br></pre></td></tr></table></figure>
+<ul>
+<li>开启aof功能，在redis.conf中添加参数</li>
+</ul>
+<blockquote>
+<p>port 6379<br>daemonize yes<br>logfile /data/6379/redis.log<br>dir /data/6379<br>appendonly yes<br>appendfsync everysec</p>
+</blockquote>
+<ul>
+<li><p>启动redis服务端，指定aof功能，测试持久化数据 </p>
+</li>
+<li><p>检查redis数据目录/data/6379/是否产生了aof文件</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -f appendonly.aof # 实时检查aof文件信息</span><br></pre></td></tr></table></figure>
+<h2 id="数据切换"><a href="#数据切换" class="headerlink" title="数据切换"></a>数据切换</h2><p><strong>redis不重启之rdb数据切换到aof数据</strong></p>
+<ul>
+<li>准备rdb的redis服务端</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server   rdb-redis.conf (这是在rdb持久化模式下)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>切换rdb到aof</li>
+</ul>
+<blockquote>
+<p>redis-cli  登录redis，然后通过命令，激活aof持久化<br>127.0.0.1:6379&gt;  CONFIG set appendonly yes    #用命令激活aof持久化(临时生效，注意写入到配置文件)<br>OK<br>127.0.0.1:6379&gt;  CONFIG SET save “”             #关闭rdb持久化</p>
+</blockquote>
+<ul>
+<li>将aof操作，写入到配置文件，永久生效，下次重启后生效</li>
+</ul>
+<blockquote>
+<p>port 6379<br>daemonize yes<br>logfile /data/6379/redis.log<br>dir /data/6379   </p>
+<p>#dbfilename   yaoshao.rdb</p>
+<p>#save 900 1  </p>
+<p>#save 300 10 </p>
+<p>#save 60  10000<br>appendonly yes<br>appendfsync everysec</p>
+</blockquote>
+<ul>
+<li>测试aof数据持久化 ,杀掉redis，重新启动</li>
+<li>写入数据，检查aof文件</li>
+</ul>
+<h1 id="主从同步"><a href="#主从同步" class="headerlink" title="主从同步"></a>主从同步</h1><blockquote>
+<p>原理：</p>
+<ol>
+<li>从服务器向主服务器发送 SYNC 命令。</li>
+<li>接到 SYNC 命令的主服务器会调用BGSAVE 命令，创建一个 RDB 文件，并使用缓冲区记录接下来执行的所有写命令。</li>
+<li>当主服务器执行完 BGSAVE 命令时，它会向从服务器发送 RDB 文件，而从服务器则会接收并载入这个文件。</li>
+<li>主服务器将缓冲区储存的所有写命令发送给从服务器执行。</li>
+</ol>
+</blockquote>
+<ul>
+<li><p>检查redis数据库信息，主从状态的命令</p>
+<blockquote>
+<p>redis-cli  -p 6379  info  检查数据库信息<br>redis-cli  -p 6379  info  replication  检查数据库主从信息</p>
+</blockquote>
+</li>
+<li><p>准备三个redis配置文件，通过端口的区分，启动三个redis数据库实例，然后配置主从复制</p>
+</li>
+</ul>
+<blockquote>
+<p>redis-6379.conf<br>port 6379<br>daemonize yes<br>pidfile /data/6379/redis.pid<br>loglevel notice<br>logfile “/data/6379/redis.log”<br>dbfilename dump.rdb<br>dir /data/6379</p>
+</blockquote>
+<ul>
+<li>通过命令快速生成配置文件</li>
+</ul>
+<blockquote>
+<p><code>redis-6380.conf</code></p>
+<p>sed “s/6379/6380/g” redis-6379.conf &gt; redis-6380.conf<br>slaveof  127.0.0.1  6379   #指明主库的身份ip 和端口</p>
+<hr>
+<p><code>redis-6381.conf</code></p>
+<p>sed “s/6379/6381/g” redis-6379.conf &gt; redis-6381.conf<br>slaveof  127.0.0.1  6379</p>
+</blockquote>
+<ul>
+<li><p>启动三个数据库实例，检测redis主从同步方案</p>
+<blockquote>
+<p>set  key  value # 主</p>
+<p>get key # 从</p>
+</blockquote>
+</li>
+<li><p>redis主从赋值，故障手动切换</p>
+</li>
+</ul>
+<blockquote>
+<p>1.杀死6379的主库实例<br>​    kill 主库</p>
+<p>2.手动切换主从身份<br>​    1.登录 redis-6380 ，通过命令，去掉自己的从库身份，等待连接<br>​        slaoveof no one<br>​    2.登录redis-6381 ,通过命令，生成新的主人<br>​        slaveof 127.0.0.1 6380  </p>
+<p>3.测试新的主从数据同步</p>
+</blockquote>
+<h1 id="Redis-Sentinel"><a href="#Redis-Sentinel" class="headerlink" title="Redis-Sentinel"></a>Redis-Sentinel</h1><p>Redis-Sentinel是redis官方推荐的高可用性解决方案，<br>当用redis作master-slave的高可用时，如果master本身宕机，redis本身或者客户端都没有实现主从切换的功能。</p>
+<p>而redis-sentinel就是一个独立运行的进程，用于监控多个master-slave集群，<br>自动发现master宕机，进行自动切换slave &gt; master。</p>
+<blockquote>
+<p>sentinel主要功能如下：</p>
+<ul>
+<li>不时的监控redis是否良好运行，如果节点不可达就会对节点进行下线标识</li>
+<li>如果被标识的是主节点，sentinel就会和其他的sentinel节点“协商”，如果其他节点也人为主节点不可达，就会选举一个sentinel节点来完成自动故障转义</li>
+<li>在master-slave进行切换后，master_redis.conf、slave_redis.conf和sentinel.conf的内容都会发生改变，即master_redis.conf中会多一行slaveof的配置，sentinel.conf的监控目标会随之调换</li>
+</ul>
+</blockquote>
+<h2 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h2><ul>
+<li>准备三个redis数据库实例（三个配置文件，通过端口区分）</li>
+</ul>
+<blockquote>
+<p>[root@localhost redis-4.0.10]# redis-server redis-6379.conf<br>[root@localhost redis-4.0.10]# redis-server redis-6380.conf<br>[root@localhost redis-4.0.10]# redis-server redis-6381.conf </p>
+</blockquote>
+<ul>
+<li>准备三个哨兵，准备三个哨兵的配置文件</li>
+</ul>
+<blockquote>
+<p><code>redis-sentinel-26379.conf</code></p>
+<p>port 26379<br>dir /var/redis/data/<br>logfile “26379.log”<br>sentinel monitor s15master 127.0.0.1 6379 2<br>sentinel down-after-milliseconds s15master 30000<br>sentinel parallel-syncs s15master 1<br>sentinel failover-timeout s15master 180000<br>daemonize yes</p>
+</blockquote>
+<ul>
+<li><p>用sed生成<code>redis-sentinel-26380.conf</code>, <code>redis-sentinel-26381.conf</code></p>
+</li>
+<li><p>启动三个哨兵</p>
+</li>
+</ul>
+<blockquote>
+<p> redis-sentinel redis-sentinel-26379.conf<br> redis-sentinel redis-sentinel-26380.conf<br> redis-sentinel redis-sentinel-26381.conf </p>
+</blockquote>
+<ul>
+<li>检查哨兵的通信状态</li>
+</ul>
+<p><code>redis-cli -p 26379  info sentinel</code></p>
+<blockquote>
+<p>[root@localhost redis-4.0.10]# redis-cli -p 26379  info sentinel </p>
+<p>#Sentinel<br>sentinel_masters:1<br>sentinel_tilt:0<br>sentinel_running_scripts:0<br>sentinel_scripts_queue_length:0<br>sentinel_simulate_failure_flags:0<br>master0:name=s15master,status=ok,address=127.0.0.1:6381,slaves=2,sentinels=3</p>
+</blockquote>
+<ul>
+<li>杀死一个redis主库，6379节点，等待30s以内，检查6380和6381的节点状态</li>
+</ul>
+<blockquote>
+<p>kill 6379主节点<br>redis-cli -p 6380 info replication<br>redis-cli -p 6381 info replication </p>
+</blockquote>
+<ul>
+<li><p>恢复6379节点的数据库，查看是否将6379添加为新的slave身份</p>
+<p>  (原理就是更改redis的配置文件，切换主从身份)</p>
+</li>
+</ul>
+<h1 id="redis-cluster"><a href="#redis-cluster" class="headerlink" title="redis-cluster"></a>redis-cluster</h1><ul>
+<li><p>准备6个redis数据库实例，准备6个配置文件redis-{7000…7005}配置文件</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">port 7000</span><br><span class="line">daemonize yes</span><br><span class="line">dir &quot;/opt/redis/data&quot;</span><br><span class="line">logfile &quot;7000.log&quot;</span><br><span class="line">dbfilename &quot;dump-7000.rdb&quot;</span><br><span class="line">cluster-enabled yes   #开启集群模式</span><br><span class="line">cluster-config-file nodes-7000.conf　　#集群内部的配置文件</span><br><span class="line">cluster-require-full-coverage no　　#redis cluster需要16384个slot都正常的时候才能对外提供服务，换句话说，只要任何一个slot异常那么整个cluster不对外提供服务。 因此生产环境一般为no</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>-rw-r–r– 1 root root 151 Jan  2 19:26 redis-7000.conf<br>-rw-r–r– 1 root root 151 Jan  2 19:27 redis-7001.conf<br>-rw-r–r– 1 root root 151 Jan  2 19:27 redis-7002.conf<br>-rw-r–r– 1 root root 151 Jan  2 19:27 redis-7003.conf<br>-rw-r–r– 1 root root 151 Jan  2 19:27 redis-7004.conf<br>-rw-r–r– 1 root root 151 Jan  2 19:27 redis-7005.conf</p>
+</blockquote>
+<ul>
+<li>启动6个redis数据库实例</li>
+</ul>
+<blockquote>
+<p>[root@localhost yaorediscluster]# redis-server redis-7000.conf<br>[root@localhost yaorediscluster]# redis-server redis-7001.conf<br>[root@localhost yaorediscluster]# redis-server redis-7002.conf<br>[root@localhost yaorediscluster]# redis-server redis-7003.conf<br>[root@localhost yaorediscluster]# redis-server redis-7004.conf<br>[root@localhost yaorediscluster]# redis-server redis-7005.conf </p>
+</blockquote>
+<p>配置ruby语言环境</p>
+<blockquote>
+<p>1.下载ruby语言的源码包，编译安装<br>​        <code>wget https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz</code><br>2.解压缩<br>​        <code>./configure --prefix=/opt/ruby/</code>   释放makefile<br>​        <code>make &amp;&amp; make install</code>     编译且安装<br>3.下载安装ruby操作redis的模块包<br>​        <code>wget http://rubygems.org/downloads/redis-3.3.0.gem</code></p>
+<p>4.配置ruby的环境变量<br>echo $PATH</p>
+<p>vim /etc/profile<br>写入最底行<br><code>PATH=$PATH:/opt/ruby/bin/</code><br>读取文件<br><code>source /etc/profile</code></p>
+<p>5.通过ruby的包管理工具去安装redis包，安装后会生成一个redis-trib.rb这个命令<br>一键创建redis-cluster 其实就是分配主从关系 以及 槽位分配 slot槽位分配<br>/opt/redis-4.0.10/src/redis-trib.rb create –replicas 1 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005</p>
+<p>6.检查节点主从状态<br><code>redis-cli -p 7000  info replication</code></p>
+<p>7.向redis集群写入数据，查看数据流向<br><code>redis-cli -p 7000</code>    #这里会将key自动的重定向，放到某一个节点的slot槽位中<br><code>set  name  yao</code><br><code>set  addr  beijing</code></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+	  
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Redis/" rel="tag"><i class="fa fa-tag"></i> Redis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/28/MySQL/" rel="next" title="MySQL">
+                <i class="fa fa-chevron-left"></i> MySQL
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+  
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yaosir0317</p>
+              <p class="site-description motion-element" itemprop="description">yaosir0317个人博客,记录常用python知识&Django框架用法等</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yaosir0317" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis安装"><span class="nav-number">1.</span> <span class="nav-text">Redis安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#yum安装"><span class="nav-number">1.1.</span> <span class="nav-text">yum安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码安装"><span class="nav-number">1.2.</span> <span class="nav-text">源码安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis发布订阅"><span class="nav-number">2.</span> <span class="nav-text">redis发布订阅</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis持久化"><span class="nav-number">3.</span> <span class="nav-text">redis持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RDB"><span class="nav-number">3.1.</span> <span class="nav-text">RDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOF"><span class="nav-number">3.2.</span> <span class="nav-text">AOF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据切换"><span class="nav-number">3.3.</span> <span class="nav-text">数据切换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主从同步"><span class="nav-number">4.</span> <span class="nav-text">主从同步</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis-Sentinel"><span class="nav-number">5.</span> <span class="nav-text">Redis-Sentinel</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装配置"><span class="nav-number">5.1.</span> <span class="nav-text">安装配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-cluster"><span class="nav-number">6.</span> <span class="nav-text">redis-cluster</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yaosir0317</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
