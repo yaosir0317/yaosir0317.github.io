@@ -17,6 +17,8 @@ categories: Vue
 
 vue的思想 => 数据驱动视图
 
+<!--more-->
+
 # vue使用
 
 ## 指令系统

@@ -17,6 +17,8 @@ categories: nginx
 
 > tar -zxvf nginx-1.12.0.tar.gz 
 
+<!--more-->
+
 - 编译安装
 
 > 切换源码目录
