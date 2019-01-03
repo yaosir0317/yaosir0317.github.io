@@ -175,7 +175,7 @@ $.ajax({
 >        from django.urls import reverse  // 注意reverse 和另一个reversed区别。前者要明确导入通过名称解析出地址，后者是built-in内置不用导入；两者功能也不一。
 >
 > 2. HttpResponse生成
->      from django.shortcuts import render, Httpresponse, redirect
+>      from django.shortcuts import render, HttpResponse, redirect
 >        from django.http import JsonResponse // 响应一个content-type：text/json 返回一个json响应报文,相应的浏览器端也不用在对json反解
 >
 > 3. 组件auth
