@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="YaoSir">
 <meta property="og:description" content="MTV模型与MVC模型MVC  Model（模型）：是应用程序中用于处理应用程序数据逻辑的部分。通常模型对象负责在数据库中存取数据。 View（视图）：是应用程序中处理数据显示的部分。通常视图是依据模型数据创建的。 Controller（控制器）：是应用程序中处理用户交互的部分。通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-02T08:23:41.327Z">
+<meta property="og:updated_time" content="2019-01-03T04:25:26.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Django你需要了解的事儿">
 <meta name="twitter:description" content="MTV模型与MVC模型MVC  Model（模型）：是应用程序中用于处理应用程序数据逻辑的部分。通常模型对象负责在数据库中存取数据。 View（视图）：是应用程序中处理数据显示的部分。通常视图是依据模型数据创建的。 Controller（控制器）：是应用程序中处理用户交互的部分。通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据。">
@@ -438,7 +438,7 @@
 <li><p>urls相关操作<br>  from django.urls import path, re_path(使用正则时使用), include</p>
 <pre><code>from django.urls import reverse  // 注意reverse 和另一个reversed区别。前者要明确导入通过名称解析出地址，后者是built-in内置不用导入；两者功能也不一。
 </code></pre></li>
-<li><p>HttpResponse生成<br>  from django.shortcuts import render, Httpresponse, redirect</p>
+<li><p>HttpResponse生成<br>  from django.shortcuts import render, HttpResponse, redirect</p>
 <pre><code>from django.http import JsonResponse // 响应一个content-type：text/json 返回一个json响应报文,相应的浏览器端也不用在对json反解
 </code></pre></li>
 <li><p>组件auth<br>  from django.contrib import auth  //contrib 意味：构件</p>
@@ -600,7 +600,7 @@ from django.db import transaction  # 利用model做数据库的事务操作
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -611,7 +611,7 @@ from django.db import transaction  # 利用model做数据库的事务操作
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -622,7 +622,7 @@ from django.db import transaction  # 利用model做数据库的事务操作
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
