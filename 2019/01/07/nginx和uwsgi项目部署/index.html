@@ -83,7 +83,7 @@
 
 
 
-  <meta name="keywords" content="Linux,">
+  <meta name="keywords" content="Django,Linux,nginx,uwsgi,Vue,">
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="Linux编译安装此处以python3.6为例 下载python3的源码 cd /optwget https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tgz">
-<meta name="keywords" content="Linux">
+<meta name="description" content="部署准备 uwsgi    wsgi(web服务网关接口，就是一个实现了python web应用的协议) virtualenvwrapper 后端项目代码 前端项目代码 nginx (一个是nginx对静态文件处理的优秀性能，一个是nginx的反向代理功能，以及nginx的默认80端口，访问nginx的80端口，就能反向代理到应用的8000端口) mysql  redis    superviso">
+<meta name="keywords" content="Django,Linux,nginx,uwsgi,Vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux环境配置">
-<meta property="og:url" content="https://yaosir0317.github.io/2018/12/28/Linux操作/index.html">
+<meta property="og:title" content="nginx和uwsgi项目部署">
+<meta property="og:url" content="https://yaosir0317.github.io/2019/01/07/nginx和uwsgi项目部署/index.html">
 <meta property="og:site_name" content="YaoSir">
-<meta property="og:description" content="Linux编译安装此处以python3.6为例 下载python3的源码 cd /optwget https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tgz">
+<meta property="og:description" content="部署准备 uwsgi    wsgi(web服务网关接口，就是一个实现了python web应用的协议) virtualenvwrapper 后端项目代码 前端项目代码 nginx (一个是nginx对静态文件处理的优秀性能，一个是nginx的反向代理功能，以及nginx的默认80端口，访问nginx的80端口，就能反向代理到应用的8000端口) mysql  redis    superviso">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-02T08:23:41.328Z">
+<meta property="og:updated_time" content="2019-01-07T12:19:03.514Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux环境配置">
-<meta name="twitter:description" content="Linux编译安装此处以python3.6为例 下载python3的源码 cd /optwget https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tgz">
+<meta name="twitter:title" content="nginx和uwsgi项目部署">
+<meta name="twitter:description" content="部署准备 uwsgi    wsgi(web服务网关接口，就是一个实现了python web应用的协议) virtualenvwrapper 后端项目代码 前端项目代码 nginx (一个是nginx对静态文件处理的优秀性能，一个是nginx的反向代理功能，以及nginx的默认80端口，访问nginx的80端口，就能反向代理到应用的8000端口) mysql  redis    superviso">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="https://yaosir0317.github.io/2018/12/28/Linux操作/">
+  <link rel="canonical" href="https://yaosir0317.github.io/2019/01/07/nginx和uwsgi项目部署/">
 
 
 
 
 
-  <title>Linux环境配置 | YaoSir</title>
+  <title>nginx和uwsgi项目部署 | YaoSir</title>
   
 
 
@@ -268,7 +268,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaosir0317.github.io/2018/12/28/Linux操作/">
+    <link itemprop="mainEntityOfPage" href="https://yaosir0317.github.io/2019/01/07/nginx和uwsgi项目部署/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yaosir0317">
@@ -285,7 +285,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Linux环境配置</h1>
+          <h1 class="post-title" itemprop="name headline">nginx和uwsgi项目部署</h1>
         
 
         <div class="post-meta">
@@ -297,8 +297,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-28T11:12:25+08:00">
-                2018-12-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-07T19:49:05+08:00">
+                2019-01-07
               </time>
             
 
@@ -357,80 +357,116 @@
       
 
       
-        <h1 id="Linux编译安装"><a href="#Linux编译安装" class="headerlink" title="Linux编译安装"></a>Linux编译安装</h1><p>此处以python3.6为例</p>
-<h3 id="下载python3的源码"><a href="#下载python3的源码" class="headerlink" title="下载python3的源码"></a>下载python3的源码</h3><blockquote>
-<p>cd /opt<br>wget <a href="https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tgz" target="_blank" rel="noopener">https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tgz</a></p>
+        <h1 id="部署准备"><a href="#部署准备" class="headerlink" title="部署准备"></a>部署准备</h1><ul>
+<li>uwsgi    wsgi(web服务网关接口，就是一个实现了python web应用的协议)</li>
+<li>virtualenvwrapper</li>
+<li>后端项目代码</li>
+<li>前端项目代码</li>
+<li>nginx (一个是nginx对静态文件处理的优秀性能，一个是nginx的反向代理功能，以及nginx的默认80端口，访问nginx的80端口，就能反向代理到应用的8000端口)</li>
+<li>mysql </li>
+<li>redis   </li>
+<li>supervisor 进程管理工具 </li>
+</ul>
 <a id="more"></a>
-<p>安装python3之前，环境依赖解决<br>通过yum安装工具包，自动处理依赖关系，每个软件包通过空格分割<br>提前安装好这些软件包，日后就不会出现很多问题<br>yum install gcc patch libffi-devel python-devel  zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel -y<br>​    </p>
-</blockquote>
-<h3 id="解压缩源码包"><a href="#解压缩源码包" class="headerlink" title="解压缩源码包"></a>解压缩源码包</h3><blockquote>
-<p>下载好python3源码包之后<br><code>Python-3.6.2.tgz</code><br>解压缩:    tar命令可以解压缩 tgz格式<br>​        <code>tar -xvf  Python-3.6.2.tgz</code></p>
-</blockquote>
-<h3 id="切换源码包目录"><a href="#切换源码包目录" class="headerlink" title="切换源码包目录"></a>切换源码包目录</h3><blockquote>
-<p>cd Python-3.6.2</p>
-</blockquote>
-<h3 id="编译且安装"><a href="#编译且安装" class="headerlink" title="编译且安装"></a>编译且安装</h3><blockquote>
-<ol>
-<li><p>释放编译文件makefile，这makefile就是用来编译且安装的<br> ​            <code>./configure --prefix=/opt/python36/</code><br> ​                –prefix  指定软件的安装路径 </p>
-<ol start="2">
-<li><p>开始编译python3<br>​        <code>make</code></p>
-</li>
-<li><p>编译且安装  (只有在这一步，才会生成/opt/python36)<br>​        <code>make install</code></p>
-</li>
-<li><p>配置python3.6的环境变量<br>​    1.配置软连接<br>​    2.配置path环境变量 (二选一即可)<br>​        echo $PATH查看环境变量<br>​        <code>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin</code></p>
-<pre><code># 这个变量赋值操作，只是临时生效，需要写入到文件，永久生效
-</code></pre><p>​              PATH=/opt/python36/bin/:usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:<br>​        #linux有一个全局个人配置文件<br>​        编辑这个文件，在最底行写入PATH<br>​        vim /etc/profile<br>​        写入<br>​        <code>PATH=/opt/python36/bin/:usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:</code><br>​        保存退出<br>​        </p>
-</li>
-</ol>
-</li>
-</ol>
-<p>​        读一下这个/etc/profile 使得生效<br>​        source /etc/profile</p>
-</blockquote>
-<h1 id="python的虚拟环境配置"><a href="#python的虚拟环境配置" class="headerlink" title="python的虚拟环境配置"></a>python的虚拟环境配置</h1><h3 id="安装virtualevn"><a href="#安装virtualevn" class="headerlink" title="安装virtualevn"></a>安装virtualevn</h3><blockquote>
-<p>通过物理环境的pip工具安装<br><code>pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple virtualenv</code></p>
-</blockquote>
-<h3 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h3><blockquote>
-<p><code>virtualenv --no-site-packages --python=python3   /myenv/venv1</code></p>
-<p>调用虚拟环境的命令<br>–no-site-packages  这是构建干净，隔离的模块的参数<br>–python=python3    这个参数是指定虚拟环境以哪一个物理解释器为基础的<br>最后一个是虚拟环境的名字  会创建这么一个文件夹</p>
-</blockquote>
-<h3 id="激活虚拟环境"><a href="#激活虚拟环境" class="headerlink" title="激活虚拟环境"></a>激活虚拟环境</h3><blockquote>
-<p>找到你的虚拟环境目录bin地下的activate文件<br>​    <code>source myenv/s15venv1/bin/activate</code><br>​    -<br>​    激活虚拟环境，原理就是修改了PATH变量，path是有顺序执行的<br>​    echo $PATH 检查环境变量<br>​    which python3<br>​    which  pip3  检查虚拟环境是否正常</p>
-</blockquote>
-<h3 id="退出虚拟环境"><a href="#退出虚拟环境" class="headerlink" title="退出虚拟环境"></a>退出虚拟环境</h3><blockquote>
-<p><code>deactivate</code></p>
-</blockquote>
-<h1 id="虚拟环境管理"><a href="#虚拟环境管理" class="headerlink" title="虚拟环境管理"></a>虚拟环境管理</h1><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><blockquote>
-<p><code>pip3 install virtualenvwrapper</code></p>
-</blockquote>
-<p>将物理解释器的python，放在path最前面</p>
+<p><strong>将linux进程运行在后台的方法</strong></p>
 <blockquote>
-<p><code>echo $PATH</code><br><code>/opt/python36/bin</code>:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:/root/bin</p>
+<p>第一个，命令后面加上 &amp;  符号<br><code>python  manage.py  runserver &amp;</code><br>第二个 使用<code>nohup</code>命令<br>第三个使用进程管理工具</p>
 </blockquote>
-<h3 id="修改环境变量"><a href="#修改环境变量" class="headerlink" title="修改环境变量"></a>修改环境变量</h3><p>每次开机就加载这个virtualenvwrapper工具</p>
+<h1 id="项目部署"><a href="#项目部署" class="headerlink" title="项目部署"></a>项目部署</h1><h2 id="新建一个虚拟环境"><a href="#新建一个虚拟环境" class="headerlink" title="新建一个虚拟环境"></a>新建一个虚拟环境</h2><p><code>mkvirtualenv</code></p>
+<h2 id="准备前后端代码"><a href="#准备前后端代码" class="headerlink" title="准备前后端代码"></a>准备前后端代码</h2><blockquote>
+<p>下载代码</p>
+<p>解压代码</p>
+</blockquote>
+<h2 id="前端项目部署"><a href="#前端项目部署" class="headerlink" title="前端项目部署"></a>前端项目部署</h2><ul>
+<li><p>准备node打包环境</p>
+<p>  <code>wget https://nodejs.org/download/release/v8.6.0/node-v8.6.0-linux-x64.tar.gz</code></p>
+</li>
+<li><p>解压缩node包，配置环境变量，使用npm和node命令</p>
+</li>
+<li><p>检测node和npm<br>  ​    <code>node -v</code><br>  ​    <code>npm  -v</code></p>
+</li>
+<li><p>安装vue项目所需的包</p>
+<p>  <code>npm install</code></p>
+</li>
+<li><p>生成静态文件</p>
+<p>  <code>npm run build</code></p>
+</li>
+</ul>
+<h2 id="后端项目部署"><a href="#后端项目部署" class="headerlink" title="后端项目部署"></a>后端项目部署</h2><ul>
+<li><p>激活虚拟环境</p>
+<p>  <code>workon env</code></p>
+</li>
+<li><p>安装所有的软件包</p>
+<p>  <code>pip3 install -r  requirements.txt</code></p>
+</li>
+</ul>
+<h2 id="uwsgi部署"><a href="#uwsgi部署" class="headerlink" title="uwsgi部署"></a>uwsgi部署</h2><ul>
+<li><p>安装uwsgi </p>
+<p>  <code>pip3 install -i https://pypi.douban.com/simple uwsgi</code></p>
+</li>
+<li><p>配置uwsgi.ini</p>
 <blockquote>
-<p><code>vim ~/.bashrc</code>   #vim编辑用户家目录下的.bashrc文件，这个文件是用户在登录的时候，就读取这个文件<br><code>export WORKON_HOME=~/Envs</code>   #设置virtualenv的统一管理目录</p>
-<p>​    # export 是读取shell命令的作用</p>
-<pre><code># 这些变量根据你自己的绝对路径环境修改    
-</code></pre><p><code>export VIRTUALENVWRAPPER_VIRTUALENV_ARGS=&#39;--no-site-packages&#39;</code>  #添加virtualenvwrapper的参数，生成干净隔绝的环境<br><code>export VIRTUALENVWRAPPER_PYTHON=/opt/python36/bin/python3</code>     #指定python解释器<br><code>source /opt/python36/bin/virtualenvwrapper.sh</code>     #执行virtualenvwrapper安装脚本 </p>
+<p>touch uwsgi.ini<br>​                    </p>
+<p>[uwsgi]<br>#Django-related settings<br>#the base directory (full path)<br>#指定项目的绝对路径的第一层路径,例如Django项目manage.py的上层<br>chdir           = /opt/项目/</p>
+<p>#Django’s wsgi file<br>#指定项目的 wsgi.py文件<br>#写入相对路径即可，这个参数是以  chdir参数为相对路径<br>module          = 项目.wsgi</p>
+<p>#the virtualenv (full path)<br>#写入虚拟环境解释器的 绝对路径<br>home            = /root/Envs/onepiece</p>
+<p>#process-related settings</p>
+<p>#master</p>
+<p>master          = true</p>
+<p>#maximum number of worker processes</p>
+<p>#指定uwsgi启动的进程个数<br>processes       = 1</p>
+<p>#这个参数及其重要！！！！！！<br>#the socket (use the full path to be safe)<br>#socket指的是，uwsgi启动一个socket连接，当你使用nginx+uwsgi的时候，使用socket参数<br>socket          = 0.0.0.0:9000</p>
+<p>#这个参数是uwsgi启动一个http连接，当你不用nginx只用uwsgi的时候，使用这个参数<br>#http  =  0.0.0.0:9000</p>
+<p>#… with appropriate permissions - may be needed<br>#chmod-socket    = 664<br>#clear environment on exit<br>vacuum          = true</p>
 </blockquote>
-<h3 id="重新登录会话，使得这个配置生效"><a href="#重新登录会话，使得这个配置生效" class="headerlink" title="重新登录会话，使得这个配置生效"></a>重新登录会话，使得这个配置生效</h3><blockquote>
-<p><code>mkvirtualenv  虚拟环境名</code>   #自动下载虚拟环境，且激活虚拟环境</p>
-<p><code>workon  虚拟环境名</code>   #激活虚拟环境</p>
-<p><code>deactivate</code> 退出虚拟环境 </p>
-<p><code>rmvirtualenv</code>    删除虚拟环境 </p>
-<p><code>cdvirtualenv</code>  进入当前已激活的虚拟环境所在的目录</p>
-<p><code>cdsitepackages</code> 进入当前激活的虚拟环境的，python包的目录</p>
-</blockquote>
-<h1 id="环境一致"><a href="#环境一致" class="headerlink" title="环境一致"></a>环境一致</h1><p>通过命令保证环境的一致性</p>
+</li>
+<li><p>使用uwsgi配置文件启动项目</p>
+<p>  <code>uwsgi --ini  uwsgi.ini</code></p>
+</li>
+<li><p>tips</p>
 <blockquote>
-<p>导出当前python环境的包<br><code>pip3 freeze &gt; requirements.txt</code></p>
+<p>通过uwsgi启动一个python web文件<br>​    uwsgi –http :8000 –wsgi-file   testuwsgi.py<br>​                    –http 指定http协议<br>​                    –wsgi-file  指定一个python文件<br>​            </p>
+<p>通过uwsgi启动django项目，并且支持热加载项目，不重启项目，自动生效 新的 后端代码<br>​<br>​    uwsgi –http  :8000 –module testdrf.wsgi    –py-autoreload=1<br>​<br>​                      –module 指定找到django项目的wsgi.py文件</p>
 </blockquote>
-<p>在服务器下创建virtualenv，在venv中导入项目所需的模块依赖</p>
+</li>
+</ul>
+<h2 id="supervisor进程管理"><a href="#supervisor进程管理" class="headerlink" title="supervisor进程管理"></a>supervisor进程管理</h2><ul>
+<li><p>安装supervisor</p>
+<p>  使用python2的包管理工具 easy_install ，注意，此时要退出虚拟环境！</p>
+<p>  如果没有命令，使用以下命令，安装<br>  <code>yum install python-setuptools
+  easy_install supervisor</code></p>
+</li>
+<li><p>生成配置文件</p>
+<p>  这个文件就是写入你要管理的进程任务<br>  <code>echo_supervisord_conf &gt; /etc/supervisor.conf</code></p>
+</li>
+<li><p>编辑配置文件</p>
 <blockquote>
-<p><code>pip3 install -r requirements.txt</code></p>
+<p>vim /etc/supervisor.conf<br>直接到最底行，写入以下配置<br>[program:项目名称]<br>command=/root/Envs/onepiece/bin/uwsgi  –ini  /opt/uwsgi.ini</p>
+<p>command=uwsgi绝对路径 –ini uwsgi.ini的绝对路径</p>
 </blockquote>
-<h1 id="提示yum进程被锁定，无法使用-问题"><a href="#提示yum进程被锁定，无法使用-问题" class="headerlink" title="提示yum进程被锁定，无法使用 问题"></a>提示yum进程被锁定，无法使用 问题</h1><blockquote>
-<p>解决办法： ps -ef|grep yum 进程，这是说 有另一个进程也在用yum<br>yum只能有一个进程使用 </p>
+</li>
+<li><p>启动</p>
+<p>  启动supervisord服务端，指定配置文件启动<br>  <code>supervisord -c  /etc/supervisor.conf</code></p>
+</li>
+<li><p>管理</p>
+<p>  通过supervisorctl管理任务<br>  <code>supervisorctl -c /etc/supervisor.conf</code></p>
+<blockquote>
+<p> start 项目</p>
+<p> restart 项目</p>
+<p> stop 项目</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="nginx部署"><a href="#nginx部署" class="headerlink" title="nginx部署"></a>nginx部署</h2><p>配置<code>nginx.conf</code></p>
+<blockquote>
+<p>#第一个server虚拟主机是为了找到前端的dist文件， 找到index.html<br>server {<br>​        listen       80;<br>​        server_name  192.168.13.79;    </p>
+<p>​    #当请求来自于 192.168.13.79/的时候，直接进入以下location，然后找到vue的dist/index.html<br>​        location / {<br>​                root   /opt/dist;</p>
+<p>​                index  index.html;<br>​    }<br>​<br>}</p>
+<p>#由于vue发送的接口数据地址是 192.168.13.79:8000  我们还得再准备一个入口server<br>server {<br>​    listen 8000;<br>​    server_name  192.168.13.79;</p>
+<p>​    #当接收到接口数据时，请求url是 192.168.13.79:8000 就进入如下location<br>​    location /  {<br>​        #这里是nginx将请求转发给  uwsgi启动的 9000端口<br>​        uwsgi_pass  192.168.13.79:9000;</p>
+<p>​    include  就是一个“引入的作用”，就是将外部一个文件的参数，导入到当前的nginx.conf中生效</p>
+<p>​        include /opt/nginx/conf/uwsgi_params;<br>​    }</p>
+<p>}</p>
 </blockquote>
 
       
@@ -460,7 +496,15 @@
       
         <div class="post-tags">
           
+            <a href="/tags/Django/" rel="tag"><i class="fa fa-tag"></i> Django</a>
+          
             <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+            <a href="/tags/nginx/" rel="tag"><i class="fa fa-tag"></i> nginx</a>
+          
+            <a href="/tags/uwsgi/" rel="tag"><i class="fa fa-tag"></i> uwsgi</a>
+          
+            <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
           
         </div>
       
@@ -473,8 +517,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/24/Linux常用命令/" rel="next" title="Linux常用命令">
-                <i class="fa fa-chevron-left"></i> Linux常用命令
+              <a href="/2019/01/02/nginx/" rel="next" title="nginx">
+                <i class="fa fa-chevron-left"></i> nginx
               </a>
             
           </div>
@@ -482,10 +526,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/28/MySQL/" rel="prev" title="MySQL">
-                MySQL <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -628,7 +668,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux编译安装"><span class="nav-number">1.</span> <span class="nav-text">Linux编译安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载python3的源码"><span class="nav-number">1.0.1.</span> <span class="nav-text">下载python3的源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解压缩源码包"><span class="nav-number">1.0.2.</span> <span class="nav-text">解压缩源码包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换源码包目录"><span class="nav-number">1.0.3.</span> <span class="nav-text">切换源码包目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译且安装"><span class="nav-number">1.0.4.</span> <span class="nav-text">编译且安装</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#python的虚拟环境配置"><span class="nav-number">2.</span> <span class="nav-text">python的虚拟环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装virtualevn"><span class="nav-number">2.0.1.</span> <span class="nav-text">安装virtualevn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建虚拟环境"><span class="nav-number">2.0.2.</span> <span class="nav-text">创建虚拟环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活虚拟环境"><span class="nav-number">2.0.3.</span> <span class="nav-text">激活虚拟环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#退出虚拟环境"><span class="nav-number">2.0.4.</span> <span class="nav-text">退出虚拟环境</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟环境管理"><span class="nav-number">3.</span> <span class="nav-text">虚拟环境管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">3.0.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改环境变量"><span class="nav-number">3.0.2.</span> <span class="nav-text">修改环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重新登录会话，使得这个配置生效"><span class="nav-number">3.0.3.</span> <span class="nav-text">重新登录会话，使得这个配置生效</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境一致"><span class="nav-number">4.</span> <span class="nav-text">环境一致</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提示yum进程被锁定，无法使用-问题"><span class="nav-number">5.</span> <span class="nav-text">提示yum进程被锁定，无法使用 问题</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#部署准备"><span class="nav-number">1.</span> <span class="nav-text">部署准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目部署"><span class="nav-number">2.</span> <span class="nav-text">项目部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#新建一个虚拟环境"><span class="nav-number">2.1.</span> <span class="nav-text">新建一个虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备前后端代码"><span class="nav-number">2.2.</span> <span class="nav-text">准备前后端代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端项目部署"><span class="nav-number">2.3.</span> <span class="nav-text">前端项目部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后端项目部署"><span class="nav-number">2.4.</span> <span class="nav-text">后端项目部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#uwsgi部署"><span class="nav-number">2.5.</span> <span class="nav-text">uwsgi部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#supervisor进程管理"><span class="nav-number">2.6.</span> <span class="nav-text">supervisor进程管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx部署"><span class="nav-number">2.7.</span> <span class="nav-text">nginx部署</span></a></li></ol></li></ol></div>
             
 
           </div>
