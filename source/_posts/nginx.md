@@ -140,7 +140,7 @@ http {
         listen       80;
         server_name  www.test1.com;
         location /{
-            root   html/test1;
+            root   /opt/myserver/test1;
             index  index.html index.htm;
         }
 	}
@@ -148,7 +148,7 @@ http {
         listen       80;
         server_name  www.test2.com;
         location /{
-            root   html/test2;
+            root   /opt/myserver/test2;
             index  index.html index.htm;
         }
 	}
