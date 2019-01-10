@@ -124,13 +124,6 @@ def error404(error_info):
 	return error_info # error_info可以替换成自己定义的错误提示
 ```
 
-
-
-## Jinja2
-
-> {{ }} 引用变量 执行函数
-> {% %} 逻辑代码中使用
-
 ## Flask-Session
 
 属于公共变量
