@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+  <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Flask,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Flask一个小而精的web框架 你只需要三行代码就可以搭建一个web项目 123from flask import Flaskapp = Flask(__name__)app.run(&quot;0.0.0.0&quot;,5000,debug=True)">
+<meta name="keywords" content="Flask">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask">
+<meta property="og:url" content="https://yaosir0317.github.io/2019/01/10/Flask/index.html">
+<meta property="og:site_name" content="YaoSir">
+<meta property="og:description" content="Flask一个小而精的web框架 你只需要三行代码就可以搭建一个web项目 123from flask import Flaskapp = Flask(__name__)app.run(&quot;0.0.0.0&quot;,5000,debug=True)">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-01-10T13:07:57.018Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flask">
+<meta name="twitter:description" content="Flask一个小而精的web框架 你只需要三行代码就可以搭建一个web项目 123from flask import Flaskapp = Flask(__name__)app.run(&quot;0.0.0.0&quot;,5000,debug=True)">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yaosir0317.github.io/2019/01/10/Flask/">
+
+
+
+
+
+  <title>Flask | YaoSir</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YaoSir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">The philosophers have only interpreted the world in various ways - the point however is to change it.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaosir0317.github.io/2019/01/10/Flask/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yaosir0317">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YaoSir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Flask</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-10T16:41:36+08:00">
+                2019-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Flask/" itemprop="url" rel="index">
+                    <span itemprop="name">Flask</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Flask"><a href="#Flask" class="headerlink" title="Flask"></a>Flask</h1><p>一个小而精的web框架</p>
+<p>你只需要三行代码就可以搭建一个web项目</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line">app = Flask(__name__)</span><br><span class="line">app.run(<span class="string">"0.0.0.0"</span>,<span class="number">5000</span>,debug=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="flask-Response"><a href="#flask-Response" class="headerlink" title="flask-Response"></a>flask-Response</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> render_template</span><br><span class="line">render		 <span class="keyword">return</span> render_template(<span class="string">"index.html"</span>)</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> redrict</span><br><span class="line">redrict      <span class="keyword">return</span> redrict(<span class="string">"/路由地址"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="string">""</span> </span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> jsonify</span><br><span class="line">jsonify		<span class="keyword">return</span> jsonify(&#123;<span class="string">"name"</span>:<span class="string">"v1"</span>&#125;) <span class="comment"># 响应头中加入Content-Type：application/json </span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> send_file</span><br><span class="line">send_file	<span class="keyword">return</span> send_file(<span class="string">"文件路径"</span>) <span class="comment"># 打开文件并返回文件内容</span></span><br><span class="line"><span class="comment"># 会自动识别文件类型 Content-Type：文件类型</span></span><br><span class="line"><span class="comment"># 二进制文件时背景特殊颜色</span></span><br></pre></td></tr></table></figure>
+<h2 id="flask-Request"><a href="#flask-Request" class="headerlink" title="flask-Request"></a>flask-Request</h2><p>request为公共变量<br>from flask import request</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">request.method <span class="comment"># 获取当前请求的方式</span></span><br><span class="line">request.form <span class="comment"># 获取FormData中的数据 to_dict()字典操作</span></span><br><span class="line">request.args <span class="comment"># 获取url中的数据 to_dict()字典操作</span></span><br><span class="line">request.json <span class="comment"># 请求头当中Content-Type：application/json将数据序列化到json中</span></span><br><span class="line">request.data <span class="comment"># Content-Type无法被识别的时候,b""原始请求数据</span></span><br><span class="line">request.files <span class="comment"># 获取文件数据，save("文件名")</span></span><br><span class="line">request.values <span class="comment">#查看 form 和 url 中的数据 不要使用 to_dict 会覆盖form中的数据</span></span><br></pre></td></tr></table></figure>
+<h2 id="flask-路由"><a href="#flask-路由" class="headerlink" title="flask-路由"></a>flask-路由</h2><blockquote>
+<p>1.<code>endpoint</code> 反向生成url地址标志 默认视图函数名 url_for<br>2.<code>methods</code> 视图函数允许的请求方式<br>3.<code>&quot;/index/&lt;page&gt;&quot;</code>动态路由路由参数<br>​    def index(page)    接收动态路由参数<br>4.<code>defaults={&quot;nid&quot;:&quot;123456&quot;}</code> 默认参数<br>5.<code>strict_slashes=True</code> 是否严格遵循路由地址<br>6.<code>redirect_to=&quot;/login&quot;</code> 永久重定向 301</p>
+</blockquote>
+<h2 id="flask-实例化"><a href="#flask-实例化" class="headerlink" title="flask-实例化"></a>flask-实例化</h2><blockquote>
+<p>1.template_folder=”temp” 默认模板路径 templates<br>2.static_folder=”static”, 默认静态文件路径 static<br>3.static_url_path=”/static” 访问静态文件路由地址 默认是”/“+static_folder<br>4.static_host=None 指定静态文件服务器地址<br>5.host_matching = False,  # 如果不是特别需要的话,慎用,否则所有的route 都需要host=””的参数<br>6.subdomain_matching = False,  # 理论上来说是用来限制SERVER_NAME子域名的<br>7.instance_path = None,  # 指向另一个Flask实例的路径<br>8.instance_relative_config = False  # 是否加载另一个实例的配置<br>9.root_path = None  # 主模块所在的目录的绝对路径,默认项目目录</p>
+</blockquote>
+<h2 id="flask-对象"><a href="#flask-对象" class="headerlink" title="flask-对象"></a>flask-对象</h2><blockquote>
+<p>‘DEBUG’: False,  # 是否开启Debug模式<br>‘TESTING’: False,  # 是否开启测试模式<br>‘SECRET_KEY’: None # 在启用Flask内置Session的时候/开启flash,一定要有它<br>‘PERMANENT_SESSION_LIFETIME’: 31,  # days , Session的生命周期(天)默认31天<br>‘SESSION_COOKIE_NAME’: ‘session’,  # 在cookies中存放session加密字符串的名字</p>
+</blockquote>
+<p>你可以使用指定对象的方式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FlaskDebug</span><span class="params">(object)</span>:</span></span><br><span class="line">    DEBUG=<span class="keyword">True</span></span><br><span class="line">    SECRET_KEY=<span class="string">"DEBUGmoshidesecret_key"</span></span><br><span class="line">    PERMANENT_SESSION_LIFETIME = <span class="number">7</span></span><br><span class="line">    SESSION_COOKIE_NAME = <span class="string">"debug_session"</span></span><br><span class="line"></span><br><span class="line">app.config.from_object(FlaskDebug)</span><br></pre></td></tr></table></figure>
+<h2 id="flask-蓝图"><a href="#flask-蓝图" class="headerlink" title="flask-蓝图"></a>flask-蓝图</h2><p>Blueprint 当成一个不能被启动的 app Flask示例</p>
+<p>url_prefix=”/blue” url前缀</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Blueprint,render_template</span><br><span class="line">blueapp = Blueprint(<span class="string">"blueapp"</span>,__name__,template_folder=<span class="string">"apptemp"</span>,url_prefix=<span class="string">"/blue"</span>)</span><br><span class="line"><span class="meta">@blueapp.route("/blueapp")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">blueappfunc</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">"blueapp.html"</span>)</span><br><span class="line">	</span><br><span class="line">app.register_blueprint(views.blueapp) <span class="comment"># 注册到app上</span></span><br></pre></td></tr></table></figure>
+<h2 id="flask-特殊装饰器"><a href="#flask-特殊装饰器" class="headerlink" title="flask-特殊装饰器"></a>flask-特殊装饰器</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.before_request # 请求进入视图函数之前</span></span><br><span class="line"><span class="meta">@app.after_request # 响应返回客户端之前</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">@app.errorhandler(404) # 重定义错误页面返回信息</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">error404</span><span class="params">(error_info)</span>:</span></span><br><span class="line">	<span class="keyword">return</span> error_info <span class="comment"># error_info可以替换成自己定义的错误提示</span></span><br></pre></td></tr></table></figure>
+<h2 id="Flask-Session"><a href="#Flask-Session" class="headerlink" title="Flask-Session"></a>Flask-Session</h2><p>属于公共变量<br>from flask import session</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.secret_key = <span class="string">"123456789"</span></span><br></pre></td></tr></table></figure>
+<p>是存在cookie中的键值对（序列化后的数据），为了节省flask的开销，相对安全</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+	  
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Flask/" rel="tag"><i class="fa fa-tag"></i> Flask</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/07/nginx和uwsgi项目部署/" rel="next" title="nginx和uwsgi项目部署">
+                <i class="fa fa-chevron-left"></i> nginx和uwsgi项目部署
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+  
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yaosir0317</p>
+              <p class="site-description motion-element" itemprop="description">yaosir0317个人博客,持续更新中...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yaosir0317" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flask"><span class="nav-number">1.</span> <span class="nav-text">Flask</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-Response"><span class="nav-number">1.1.</span> <span class="nav-text">flask-Response</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-Request"><span class="nav-number">1.2.</span> <span class="nav-text">flask-Request</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-路由"><span class="nav-number">1.3.</span> <span class="nav-text">flask-路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-实例化"><span class="nav-number">1.4.</span> <span class="nav-text">flask-实例化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-对象"><span class="nav-number">1.5.</span> <span class="nav-text">flask-对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-蓝图"><span class="nav-number">1.6.</span> <span class="nav-text">flask-蓝图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-特殊装饰器"><span class="nav-number">1.7.</span> <span class="nav-text">flask-特殊装饰器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flask-Session"><span class="nav-number">1.8.</span> <span class="nav-text">Flask-Session</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yaosir0317</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

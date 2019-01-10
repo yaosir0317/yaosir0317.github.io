@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="YaoSir">
 <meta property="og:description" content="部署准备 uwsgi    wsgi(web服务网关接口，就是一个实现了python web应用的协议) virtualenvwrapper 后端项目代码 前端项目代码 nginx (一个是nginx对静态文件处理的优秀性能，一个是nginx的反向代理功能，以及nginx的默认80端口，访问nginx的80端口，就能反向代理到应用的8000端口) mysql  redis    superviso">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-07T12:19:03.514Z">
+<meta property="og:updated_time" content="2019-01-07T12:28:07.818Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx和uwsgi项目部署">
 <meta name="twitter:description" content="部署准备 uwsgi    wsgi(web服务网关接口，就是一个实现了python web应用的协议) virtualenvwrapper 后端项目代码 前端项目代码 nginx (一个是nginx对静态文件处理的优秀性能，一个是nginx的反向代理功能，以及nginx的默认80端口，访问nginx的80端口，就能反向代理到应用的8000端口) mysql  redis    superviso">
@@ -441,8 +441,8 @@
 </li>
 <li><p>编辑配置文件</p>
 <blockquote>
-<p>vim /etc/supervisor.conf<br>直接到最底行，写入以下配置<br>[program:项目名称]<br>command=/root/Envs/onepiece/bin/uwsgi  –ini  /opt/uwsgi.ini</p>
-<p>command=uwsgi绝对路径 –ini uwsgi.ini的绝对路径</p>
+<p>vim /etc/supervisor.conf<br>直接到最底行，写入以下配置<br>[program:项目名称]<br>command=/root/Envs/onepiece/bin/uwsgi  - -ini  /opt/uwsgi.ini</p>
+<p>command=uwsgi绝对路径 - -ini uwsgi.ini的绝对路径</p>
 </blockquote>
 </li>
 <li><p>启动</p>
@@ -460,8 +460,8 @@
 <h2 id="nginx部署"><a href="#nginx部署" class="headerlink" title="nginx部署"></a>nginx部署</h2><p>配置<code>nginx.conf</code></p>
 <blockquote>
 <p>#第一个server虚拟主机是为了找到前端的dist文件， 找到index.html<br>server {<br>​        listen       80;<br>​        server_name  192.168.13.79;    </p>
-<p>​    #当请求来自于 192.168.13.79/的时候，直接进入以下location，然后找到vue的dist/index.html<br>​        location / {<br>​                root   /opt/dist;</p>
-<p>​                index  index.html;<br>​    }<br>​<br>}</p>
+<p>​    #当请求来自于 192.168.13.79/的时候，直接进入以下location，然后找到前端项目的dist/index.html<br>​        location / {<br>​                root   /opt/dist;</p>
+<p>​                index  index.html;<br>        }<br>​<br>}</p>
 <p>#由于vue发送的接口数据地址是 192.168.13.79:8000  我们还得再准备一个入口server<br>server {<br>​    listen 8000;<br>​    server_name  192.168.13.79;</p>
 <p>​    #当接收到接口数据时，请求url是 192.168.13.79:8000 就进入如下location<br>​    location /  {<br>​        #这里是nginx将请求转发给  uwsgi启动的 9000端口<br>​        uwsgi_pass  192.168.13.79:9000;</p>
 <p>​    include  就是一个“引入的作用”，就是将外部一个文件的参数，导入到当前的nginx.conf中生效</p>
@@ -526,6 +526,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/10/Flask/" rel="prev" title="Flask">
+                Flask <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -603,7 +607,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -614,7 +618,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -625,7 +629,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
