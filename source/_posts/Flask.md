@@ -128,8 +128,8 @@ def error404(error_info):
 
 ## Jinja2
 
-> {{}} 引用变量 执行函数
-> {%%} 逻辑代码中使用
+> {{ }} 引用变量 执行函数
+> {% %} 逻辑代码中使用
 
 ## Flask-Session
 
@@ -137,7 +137,7 @@ def error404(error_info):
 from flask import session
 
 ```python
-app.secret_key = "#$%^&*()?/{}[]"
+app.secret_key = "123456789"
 ```
 
 是存在cookie中的键值对（序列化后的数据），为了节省flask的开销，相对安全
