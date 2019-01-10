@@ -161,9 +161,9 @@ categories: Linux
     > vim /etc/supervisor.conf  
     > 直接到最底行，写入以下配置
     > [program:项目名称]
-    > command=/root/Envs/onepiece/bin/uwsgi  --ini  /opt/uwsgi.ini
+    > command=/root/Envs/onepiece/bin/uwsgi  - -ini  /opt/uwsgi.ini
     >
-    > command=uwsgi绝对路径 --ini uwsgi.ini的绝对路径
+    > command=uwsgi绝对路径 - -ini uwsgi.ini的绝对路径
 
 - 启动
 
@@ -190,12 +190,12 @@ categories: Linux
 > ​        listen       80;
 > ​        server_name  192.168.13.79;	
 >
-> ​	#当请求来自于 192.168.13.79/的时候，直接进入以下location，然后找到vue的dist/index.html 
+> ​	#当请求来自于 192.168.13.79/的时候，直接进入以下location，然后找到前端项目的dist/index.html 
 > ​        location / {
 > ​       		 root   /opt/dist;
 >
 > ​       		 index  index.html;
-> ​    }
+>    	 }
 > ​	
 > }
 >
