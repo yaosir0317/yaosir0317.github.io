@@ -2,7 +2,7 @@
 title: Python内置方法
 date: 2018-12-14 20:32:11
 tags: Python
-categories: 内置函数
+categories: Python
 ---
 
 # sorted
