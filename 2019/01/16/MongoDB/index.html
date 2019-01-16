@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+  <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,MongoDB,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MongoDBMongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。 在高负载的情况下，添加更多的节点，可以保证服务器性能。 MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。 MongoDB 将数据存储为一个文档，数据结构由键值(key=&amp;gt;value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组及文档数组。">
+<meta name="keywords" content="Linux,MongoDB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB">
+<meta property="og:url" content="https://yaosir0317.github.io/2019/01/16/MongoDB/index.html">
+<meta property="og:site_name" content="YaoSir">
+<meta property="og:description" content="MongoDBMongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。 在高负载的情况下，添加更多的节点，可以保证服务器性能。 MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。 MongoDB 将数据存储为一个文档，数据结构由键值(key=&amp;gt;value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组及文档数组。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-01-16T12:20:04.854Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MongoDB">
+<meta name="twitter:description" content="MongoDBMongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。 在高负载的情况下，添加更多的节点，可以保证服务器性能。 MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。 MongoDB 将数据存储为一个文档，数据结构由键值(key=&amp;gt;value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组及文档数组。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yaosir0317.github.io/2019/01/16/MongoDB/">
+
+
+
+
+
+  <title>MongoDB | YaoSir</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YaoSir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">The philosophers have only interpreted the world in various ways - the point however is to change it.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaosir0317.github.io/2019/01/16/MongoDB/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yaosir0317">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YaoSir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MongoDB</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-16T16:53:27+08:00">
+                2019-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/MongoDB/" itemprop="url" rel="index">
+                    <span itemprop="name">MongoDB</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h1><p>MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。</p>
+<p>在高负载的情况下，添加更多的节点，可以保证服务器性能。</p>
+<p>MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。</p>
+<p>MongoDB 将数据存储为一个文档，数据结构由键值(key=&gt;value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组及文档数组。</p>
+<a id="more"></a>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><ul>
+<li><p>下载</p>
+<p>  <code>curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.0.6.tgz</code></p>
+</li>
+<li><p>解压</p>
+<p>  <code>tar -zxvf mongodb-linux-x86_64-3.0.6.tgz</code></p>
+</li>
+<li><p>移动到安装目录</p>
+<p>  <code>mv  mongodb-linux-x86_64-3.0.6/ /usr/local/mongodb</code></p>
+</li>
+<li><p>添加环境变量</p>
+</li>
+<li><p>创建数据库目录</p>
+<p>  <code>mkdir -p /data/db</code></p>
+<p>  注意：/data/db 是 MongoDB 默认的启动的数据库路径(–dbpath)。</p>
+</li>
+</ul>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><ul>
+<li><h3 id="创建一个数据库"><a href="#创建一个数据库" class="headerlink" title="创建一个数据库"></a>创建一个数据库</h3><p>  <code>use yao</code></p>
+<p>  MongoDB中如果你使用了不存在的对象,那么就等于你在创建这个对象</p>
+</li>
+<li><h3 id="创建一张表-Collection"><a href="#创建一张表-Collection" class="headerlink" title="创建一张表(Collection)"></a>创建一张表(Collection)</h3><p>  <code>db</code></p>
+<p>  <code>db.db_yao</code></p>
+</li>
+</ul>
+<h2 id="增加"><a href="#增加" class="headerlink" title="增加"></a>增加</h2><ul>
+<li><h3 id="insert"><a href="#insert" class="headerlink" title="insert"></a>insert</h3><p>  <code>db.db_yao.insert({&quot;name&quot;:&quot;yao&quot;,&quot;age&quot;:20})</code></p>
+<p>  这个方法目前官方已经不推荐</p>
+</li>
+<li><h3 id="insertOne"><a href="#insertOne" class="headerlink" title="insertOne"></a>insertOne</h3><p>  <code>db.db_yao.insertOne({&quot;name&quot;:&quot;yao&quot;,&quot;age&quot;:20})</code></p>
+<p>  插入一条数据</p>
+</li>
+<li><h3 id="insertMany"><a href="#insertMany" class="headerlink" title="insertMany"></a>insertMany</h3><p>  <code>db.db_yao.insertMany([</code></p>
+<p>  ​    <code>{&quot;name&quot;:&quot;yao_1&quot;,&quot;age&quot;:20},</code></p>
+<p>  ​    <code>{&quot;name&quot;:&quot;yao_2&quot;,&quot;age&quot;:20},</code></p>
+<p>  <code>])</code></p>
+<p>  插入多条数据</p>
+</li>
+</ul>
+<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><ul>
+<li><h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p>  无条件查找:将该表(Collection)中所有的数据一次性返回</p>
+<p>  <code>db.db_yao.find({})</code></p>
+<p>  查询结果:</p>
+<blockquote>
+<p>/<em> 1 createdAt:2019/1/16 下午7:16:19</em>/<br>{<br>​    “_id” : ObjectId(“5c3f128355f17e734880f90e”),<br>​    “name” : “yao_1”,<br>​    “age” : 20<br>},</p>
+<p>/<em> 2 createdAt:2019/1/16 下午7:18:13</em>/<br>{<br>​    “_id” : ObjectId(“5c3f12f509371218e4d0c331”),<br>​    “name” : “yao_2”,<br>​    “age” : 20<br>}</p>
+</blockquote>
+</li>
+</ul>
+<p>“_id” 是一个ObjectId 类型,这是MongoDB自动给我们添加到系统唯一标识</p>
+<ul>
+<li><h3 id="findOne"><a href="#findOne" class="headerlink" title="findOne"></a>findOne</h3><p>  <code>db.db_yao.findOne({})</code></p>
+<p>  无条件查找一条数据,默认当前Collection中的第一条数据</p>
+<p>  <code>db.db_yao.findOne({&quot;name&quot; : &quot;yao_1&quot;})</code></p>
+<p>  条件查找一条name等于yao_1的数据,如有多条数据则返回更靠前的数据</p>
+</li>
+</ul>
+<h2 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h2><ul>
+<li><h3 id="update"><a href="#update" class="headerlink" title="update"></a>update</h3><p>  <code>update({&quot;name&quot;:&quot;yao_1&quot;},{$set:{&quot;age&quot;:21}})</code></p>
+<p>  根据条件修改该条数据的内容,这里要注意的是({“条件”},{“关键字”:{“修改内容”}}),其中如果条件为空,那么将会修改Collection中所有的数据</p>
+<p>  这个方法目前官方已经不推荐</p>
+</li>
+<li><h3 id="updateOne"><a href="#updateOne" class="headerlink" title="updateOne"></a>updateOne</h3><p>  <code>updateOne({&quot;age&quot;:19},{$set:{&quot;name&quot;:&quot;yao&quot;}})</code></p>
+<p>  根据条件修改一条数据的内容,如出现多条,只修改最高前的数据</p>
+</li>
+<li><h3 id="updateMany"><a href="#updateMany" class="headerlink" title="updateMany"></a>updateMany</h3><p>  <code>updateMany({&quot;age&quot;:19},{$set:{&quot;name&quot;:&quot;pig&quot;}})</code></p>
+<p>  根据条件修改所有数据的内容,多条修改</p>
+</li>
+</ul>
+<p>$set:{“name”:”yao”}中: $set 是update时的关键字,表示我要设置name属性的值为”yao”</p>
+<p>那么我们之前说过MongoDB的灵活性,没有就代表我要创建,所以说如果该条Documents没有name属性,他就会自动创建一个name属性并且赋值为”yao”</p>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><ul>
+<li><h3 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h3><p>  <code>remove({})</code></p>
+<p>  无条件删除数据,这里要注意了,这是删除所有数据,清空Collection</p>
+<p>  <code>remove({&quot;name&quot;:&quot;yao&quot;})</code></p>
+<p>  条件删除name等于”yao”的所有Document</p>
+</li>
+</ul>
+<h1 id="MongoDB的数据类型"><a href="#MongoDB的数据类型" class="headerlink" title="MongoDB的数据类型"></a>MongoDB的数据类型</h1><ul>
+<li><p>Object  ID ：Documents 自生成的 _id</p>
+</li>
+<li><p>String： 字符串，必须是utf-8</p>
+</li>
+<li><p>Boolean：布尔值，true 或者false (Python中 True False 首字母大写)</p>
+</li>
+<li><p>Integer：整数 (Int32 Int64 一般用Int32)</p>
+</li>
+<li><p>Double：浮点数 (没有float类型,所有小数都是Double)</p>
+</li>
+<li><p>Arrays：数组或者列表，多个值存储到一个键 (Python中的List)</p>
+</li>
+<li><p>Object：如果你学过Python的话,那么这个概念特别好理解,就是Python中的字典,这个数据类型就是字典</p>
+</li>
+<li><p>Null：空数据类型 , 一个特殊的概念,None Null</p>
+</li>
+<li><p>Timestamp：时间戳</p>
+</li>
+<li><p>Date：存储当前日期或时间unix时间格式 (我们一般不用这个Date类型,时间戳可以秒杀一切时间类型)</p>
+</li>
+</ul>
+<h2 id="Object-ID"><a href="#Object-ID" class="headerlink" title="Object  ID"></a>Object  ID</h2><blockquote>
+<p>“_id” : ObjectId(“5b151f8536409809ab2e6b26”)</p>
+<p>#”5b151f85” 代指的是时间戳,这条数据的产生时间</p>
+<p>#”364098” 代指某台机器的机器码,存储这条数据时的机器编号</p>
+<p>#”09ab” 代指进程ID,多进程存储数据的时候,非常有用的</p>
+<p>#”2e6b26” 代指计数器,这里要注意的是,计数器的数字可能会出现重复,不是唯一的</p>
+<p>#以上四种标识符拼凑成世界上唯一的ObjectID</p>
+<p>#只要是支持MongoDB的语言,都会有一个或多个方法,对ObjectID进行转换</p>
+<p>#可以得到以上四种信息</p>
+<p>#注意:这个类型是不可以被JSON序列化的</p>
+</blockquote>
+<p>这是MongoDB生成的类似关系型DB表主键的唯一key，具体由24个字节组成：</p>
+<ul>
+<li>0-8字节是时间戳,</li>
+<li>9-14字节的机器标识符，表示MongoDB实例所在机器的不同；</li>
+<li>15-18字节的进程id，表示相同机器的不同MongoDB进程。</li>
+<li>19-24字节是计数器</li>
+</ul>
+<h1 id="MongoDB的关键字"><a href="#MongoDB的关键字" class="headerlink" title="MongoDB的关键字"></a>MongoDB的关键字</h1><p>上中提到过 $set 这个系统关键字,用来修改值的,但是MongoDB中类似这样的关键字有很多, $lt $gt $lte $gte 等等</p>
+<ul>
+<li><h2 id="等于"><a href="#等于" class="headerlink" title="等于"></a>等于</h2><p>  <code>db.db_yao.find({&quot;name&quot; : &quot;yao_1&quot;})</code></p>
+</li>
+<li><h2 id="大于"><a href="#大于" class="headerlink" title="大于"></a>大于</h2><p>  大于:  <code>db.db_yao.find({&quot;age&quot; : {$gt:20}})</code>  </p>
+<p>  大于等于:  <code>db.db_yao.find({&quot;age&quot; : {$gte:20}})</code>  </p>
+</li>
+<li><h2 id="小于"><a href="#小于" class="headerlink" title="小于"></a>小于</h2><p>  小于:  <code>db.db_yao.find({&quot;age&quot; : {$lt:20}})</code> </p>
+<p>  小于等于:  <code>db.db_yao.find({&quot;age&quot; : {$lte:20}})</code> </p>
+</li>
+</ul>
+<h1 id="update修改器"><a href="#update修改器" class="headerlink" title="update修改器"></a>update修改器</h1><ul>
+<li><h2 id="inc"><a href="#inc" class="headerlink" title="$inc"></a>$inc</h2><p>  变量 += 1 , 将查询到的结果 加上某一个值 然后保存</p>
+<p>  db.db_yao.update({“age” : 20},{$inc:{“age”:1}})</p>
+<p>  将年龄为20的年纪全部加<code>1</code></p>
+</li>
+<li><h2 id="unset"><a href="#unset" class="headerlink" title="$unset"></a>$unset</h2><p>  用来删除Key(field)</p>
+<p>  <code>db.db_yao.update({&quot;age&quot; : 18},{$unset:{&quot;name&quot; : 1}})</code></p>
+<p>  就是删除 “name” 这个<code>field</code>相当于关系型数据库中删除了<code>字段</code></p>
+</li>
+<li><h2 id="push"><a href="#push" class="headerlink" title="$push"></a>$push</h2><p>  是用来对Array (list)数据类型进行 增加 新元素的,相当于Python中 list.append() 方法</p>
+<p>  要先对原有数据增加一个Array类型的field:</p>
+<p>  <code>db.db_yao.update({},{$set:{&quot;list&quot;:[1,2]}})</code></p>
+<blockquote>
+<p>{<br>​    “_id” : ObjectId(“5c3f128355f17e734880f90e”),<br>​    “name” : “yao”,<br>​    “age” : 19,<br>​    “list” : [<br>​        1,<br>​        2<br>​    ]<br>}</p>
+</blockquote>
+<p>  接下来将 “age” 为 19的Document 中”list” 添加一个 6</p>
+<p>  <code>db.db_yao.update({&quot;age&quot;:19},{$push: {&quot;list&quot;:6}})</code></p>
+<blockquote>
+<p>{<br>​    “_id” : ObjectId(“5c3f128355f17e734880f90e”),<br>​    “name” : “yao”,<br>​    “age” : 19,<br>​    “list” : [<br>​        1,<br>​        2,<br>​        6<br>​    ]<br>}</p>
+</blockquote>
+</li>
+<li><h2 id="pull"><a href="#pull" class="headerlink" title="$pull"></a>$pull</h2><p>  有了$push 对Array类型进行增加,就一定有办法对其内部进行删减,$pull 就是指定删除Array中的某一个元素</p>
+<p>  <code>db.db_yao.update({&quot;age&quot;:19},{$pull: {&quot;list&quot;:6}})</code></p>
+<p>  只要满足条件,就会将Array中所有满足条件的数据全部清除掉</p>
+</li>
+<li><h2 id="pop"><a href="#pop" class="headerlink" title="$pop"></a>$pop</h2><p>  指定删除Array中的第一个 或 最后一个 元素</p>
+<p>  删除最后一个元素:  <code>db.db_yao.update({&quot;age&quot;:19},{$pop: {&quot;list&quot;:1}})</code></p>
+<p>  删除第一个元素:  <code>db.db_yao.update({&quot;age&quot;:19},{$pop: {&quot;list&quot;:-1}})</code></p>
+</li>
+</ul>
+<h1 id="MongoDB的-“-”"><a href="#MongoDB的-“-”" class="headerlink" title="MongoDB的  “$”"></a>MongoDB的  <strong>“$”</strong></h1><p>在MongoDB中有一个非常神奇的符号 “$”, 在 update 中 加上关键字 就 变成了 修改器其实 “$” 字符 独立出现也是有意义的 , 我起名叫做代指符,$ 字符 在语句中代表了什么呢? <code>下标,位置</code></p>
+<p><code>db.db_yao.find({&quot;age&quot;:19})</code></p>
+<blockquote>
+<p>{<br>​    “_id” : ObjectId(“5c3f128355f17e734880f90e”),<br>​    “name” : “yao”,<br>​    “age” : 19,<br>​    “list” : [<br>​        2,<br>​        6,<br>​        2<br>​    ]<br>}</p>
+</blockquote>
+<p>然后我们的想将list中的6改为2,可以使用</p>
+<p><code>db.db_yao.update({&quot;age&quot;:19},{$set:{&quot;list.1&quot;:2}})</code></p>
+<p>其中list.1就代表索引的意思,但是若是这个array有很长那么使用索引显然不切实际</p>
+<p>所以此时可以用”$”:</p>
+<p><code>db.db_yao.update({&quot;age&quot;:19,&quot;list&quot;:6},{$set:{&quot;list.$&quot;:2}})</code></p>
+<p>解释一下: 如果我们使用<code>update</code>的话, 满足条件的数据下标位置就会传递到 $ 字符中,在我们更新操作的时候就相当于对这个位置的元素进行操作</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul>
+<li><h2 id="Limit"><a href="#Limit" class="headerlink" title="Limit"></a>Limit</h2><p>  从这些 Document 中取出多少个</p>
+<p>   <code>db.db_yao.find({}).limit(2)</code></p>
+<p>  就是选取两条Document, 从整个Collection的第一条 Document 开始选取两条</p>
+</li>
+<li><h2 id="Skip"><a href="#Skip" class="headerlink" title="Skip"></a>Skip</h2><p>  要跳过多少个Document</p>
+<p>  db.db_yao.find({}).skip(2)</p>
+<p>  跳过第一,二条直接从第三条开始</p>
+</li>
+<li><h2 id="Limit-Skip"><a href="#Limit-Skip" class="headerlink" title="Limit + Skip"></a>Limit + Skip</h2><p>  实现跳过第一条,选取第二,三条的效果</p>
+<p>  <code>db.db_yao.find({}).skip(1).limit(2)</code></p>
+</li>
+<li><h2 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a>Sort</h2><p>  <code>db.db_yao.find({}).sort(&quot;age&quot;:1)</code></p>
+<p>  将<code>find</code>出来的<code>Document</code>按照 <code>price</code>进行升序/降序排列</p>
+<p>  <code>1</code>为升序 , <code>-1</code>为降序</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+	  
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+            <a href="/tags/MongoDB/" rel="tag"><i class="fa fa-tag"></i> MongoDB</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/14/Python的垃圾回收机制/" rel="next" title="Python的垃圾回收机制">
+                <i class="fa fa-chevron-left"></i> Python的垃圾回收机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+  
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yaosir0317</p>
+              <p class="site-description motion-element" itemprop="description">yaosir0317个人博客,持续更新中...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yaosir0317" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB"><span class="nav-number">1.</span> <span class="nav-text">MongoDB</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">3.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">3.1.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个数据库"><span class="nav-number">3.1.1.</span> <span class="nav-text">创建一个数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一张表-Collection"><span class="nav-number">3.1.2.</span> <span class="nav-text">创建一张表(Collection)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加"><span class="nav-number">3.2.</span> <span class="nav-text">增加</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#insert"><span class="nav-number">3.2.1.</span> <span class="nav-text">insert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#insertOne"><span class="nav-number">3.2.2.</span> <span class="nav-text">insertOne</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#insertMany"><span class="nav-number">3.2.3.</span> <span class="nav-text">insertMany</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找"><span class="nav-number">3.3.</span> <span class="nav-text">查找</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">3.3.1.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#findOne"><span class="nav-number">3.3.2.</span> <span class="nav-text">findOne</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改"><span class="nav-number">3.4.</span> <span class="nav-text">修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#update"><span class="nav-number">3.4.1.</span> <span class="nav-text">update</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#updateOne"><span class="nav-number">3.4.2.</span> <span class="nav-text">updateOne</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#updateMany"><span class="nav-number">3.4.3.</span> <span class="nav-text">updateMany</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除"><span class="nav-number">3.5.</span> <span class="nav-text">删除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#remove"><span class="nav-number">3.5.1.</span> <span class="nav-text">remove</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB的数据类型"><span class="nav-number">4.</span> <span class="nav-text">MongoDB的数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-ID"><span class="nav-number">4.1.</span> <span class="nav-text">Object  ID</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB的关键字"><span class="nav-number">5.</span> <span class="nav-text">MongoDB的关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#等于"><span class="nav-number">5.1.</span> <span class="nav-text">等于</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大于"><span class="nav-number">5.2.</span> <span class="nav-text">大于</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小于"><span class="nav-number">5.3.</span> <span class="nav-text">小于</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#update修改器"><span class="nav-number">6.</span> <span class="nav-text">update修改器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#inc"><span class="nav-number">6.1.</span> <span class="nav-text">$inc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unset"><span class="nav-number">6.2.</span> <span class="nav-text">$unset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#push"><span class="nav-number">6.3.</span> <span class="nav-text">$push</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pull"><span class="nav-number">6.4.</span> <span class="nav-text">$pull</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pop"><span class="nav-number">6.5.</span> <span class="nav-text">$pop</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB的-“-”"><span class="nav-number">7.</span> <span class="nav-text">MongoDB的  “$”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">8.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Limit"><span class="nav-number">8.1.</span> <span class="nav-text">Limit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Skip"><span class="nav-number">8.2.</span> <span class="nav-text">Skip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Limit-Skip"><span class="nav-number">8.3.</span> <span class="nav-text">Limit + Skip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sort"><span class="nav-number">8.4.</span> <span class="nav-text">Sort</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yaosir0317</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

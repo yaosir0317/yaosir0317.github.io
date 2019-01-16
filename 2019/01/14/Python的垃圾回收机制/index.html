@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="内存计算机中(程序中)直接使用的数据保存在计算机的内存存储器(简称内存).内存是CPU可以直接访问的数据存储设备.与之相应的是外存储器,简称外存,如磁盘,光盘,磁带等.保存在外村里的数据必须先装入内存,而后CPU才能使用它们. 垃圾回收由上文可知,对内存的管理十分重要,现在的高级语言如java，c#等，都采用了垃圾收集机制，而不再是c，c++里用户自己管理维护内存的方式。python采用的是引用计">
+<meta name="description" content="内存计算机中(程序中)直接使用的数据保存在计算机的内存存储器(简称内存).内存是CPU可以直接访问的数据存储设备.与之相应的是外存储器,简称外存,如磁盘,光盘,磁带等.保存在外村里的数据必须先装入内存,而后CPU才能使用它们.">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python的垃圾回收机制">
 <meta property="og:url" content="https://yaosir0317.github.io/2019/01/14/Python的垃圾回收机制/index.html">
 <meta property="og:site_name" content="YaoSir">
-<meta property="og:description" content="内存计算机中(程序中)直接使用的数据保存在计算机的内存存储器(简称内存).内存是CPU可以直接访问的数据存储设备.与之相应的是外存储器,简称外存,如磁盘,光盘,磁带等.保存在外村里的数据必须先装入内存,而后CPU才能使用它们. 垃圾回收由上文可知,对内存的管理十分重要,现在的高级语言如java，c#等，都采用了垃圾收集机制，而不再是c，c++里用户自己管理维护内存的方式。python采用的是引用计">
+<meta property="og:description" content="内存计算机中(程序中)直接使用的数据保存在计算机的内存存储器(简称内存).内存是CPU可以直接访问的数据存储设备.与之相应的是外存储器,简称外存,如磁盘,光盘,磁带等.保存在外村里的数据必须先装入内存,而后CPU才能使用它们.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-14T13:08:51.809Z">
+<meta property="og:updated_time" content="2019-01-14T13:47:46.167Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python的垃圾回收机制">
-<meta name="twitter:description" content="内存计算机中(程序中)直接使用的数据保存在计算机的内存存储器(简称内存).内存是CPU可以直接访问的数据存储设备.与之相应的是外存储器,简称外存,如磁盘,光盘,磁带等.保存在外村里的数据必须先装入内存,而后CPU才能使用它们. 垃圾回收由上文可知,对内存的管理十分重要,现在的高级语言如java，c#等，都采用了垃圾收集机制，而不再是c，c++里用户自己管理维护内存的方式。python采用的是引用计">
+<meta name="twitter:description" content="内存计算机中(程序中)直接使用的数据保存在计算机的内存存储器(简称内存).内存是CPU可以直接访问的数据存储设备.与之相应的是外存储器,简称外存,如磁盘,光盘,磁带等.保存在外村里的数据必须先装入内存,而后CPU才能使用它们.">
 
 
 
@@ -358,6 +358,7 @@
 
       
         <h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><p>计算机中(程序中)直接使用的数据保存在计算机的内存存储器(简称内存).内存是CPU可以直接访问的数据存储设备.与之相应的是外存储器,简称外存,如磁盘,光盘,磁带等.保存在外村里的数据必须先装入内存,而后CPU才能使用它们.</p>
+<a id="more"></a>
 <h1 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h1><p>由上文可知,对内存的管理十分重要,现在的高级语言如java，c#等，都采用了垃圾收集机制，而不再是c，c++里用户自己管理维护内存的方式。python采用的是<code>引用计数</code>机制为主，<code>标记-清除</code>和<code>分代回收</code>两种机制为辅的策略</p>
 <h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><p>Python中的<code>ob_refcnt</code>就是做为引用计数的。当一个对象有新的引用时，它的<code>ob_refcnt</code>就会增加，当引用它的对象被删除，它的<code>ob_refcnt</code>就会减少,当引用计数为0时，该对象生命就结束了。</p>
 <h3 id="增加计数"><a href="#增加计数" class="headerlink" title="增加计数"></a>增加计数</h3><ul>
@@ -454,6 +455,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/01/16/MongoDB/" rel="prev" title="MongoDB">
+                MongoDB <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -530,7 +535,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -541,7 +546,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -552,7 +557,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
