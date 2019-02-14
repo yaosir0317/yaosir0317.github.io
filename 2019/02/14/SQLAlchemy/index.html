@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+  <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SQLAlchemy,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SQLAlchemy是Python的 ORM 框架,Models是Django自带的ORM框架, 配置和使用比较简单,也正是因为其是Django原生的,所以兼容性远远不如SQLAlchemy;SQLAlchemy ORM框架是真正算得上是全面的ORM框架,它可以在任何使用SQL查询时使用.">
+<meta name="keywords" content="SQLAlchemy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLAlchemy">
+<meta property="og:url" content="https://yaosir0317.github.io/2019/02/14/SQLAlchemy/index.html">
+<meta property="og:site_name" content="YaoSir">
+<meta property="og:description" content="SQLAlchemy是Python的 ORM 框架,Models是Django自带的ORM框架, 配置和使用比较简单,也正是因为其是Django原生的,所以兼容性远远不如SQLAlchemy;SQLAlchemy ORM框架是真正算得上是全面的ORM框架,它可以在任何使用SQL查询时使用.">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-02-14T11:55:14.053Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQLAlchemy">
+<meta name="twitter:description" content="SQLAlchemy是Python的 ORM 框架,Models是Django自带的ORM框架, 配置和使用比较简单,也正是因为其是Django原生的,所以兼容性远远不如SQLAlchemy;SQLAlchemy ORM框架是真正算得上是全面的ORM框架,它可以在任何使用SQL查询时使用.">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yaosir0317.github.io/2019/02/14/SQLAlchemy/">
+
+
+
+
+
+  <title>SQLAlchemy | YaoSir</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YaoSir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">The philosophers have only interpreted the world in various ways - the point however is to change it.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaosir0317.github.io/2019/02/14/SQLAlchemy/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yaosir0317">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YaoSir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SQLAlchemy</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-14T15:17:15+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/SQLAlchemy/" itemprop="url" rel="index">
+                    <span itemprop="name">SQLAlchemy</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/SQLAlchemy/SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><code>SQLAlchemy</code>是Python的 ORM 框架,Models是Django自带的ORM框架, 配置和使用比较简单,也正是因为其是Django原生的,所以兼容性远远不如SQLAlchemy;SQLAlchemy ORM框架是真正算得上是全面的ORM框架,它可以在任何使用SQL查询时使用.</p>
+<a id="more"></a>
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><p>建表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入SQLAlchemy</span></span><br><span class="line"><span class="keyword">from</span> sqlalchemy.ext.declarative <span class="keyword">import</span> declarative_base</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入数据库连接引擎</span></span><br><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> create_engine</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入ORM对应数据库数据类型的字段</span></span><br><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> Column</span><br><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> Integer</span><br><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> String</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建ORM模型基类</span></span><br><span class="line">Base = declarative_base()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建ORM对象</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(Base)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">"user"</span></span><br><span class="line">    id = Column(Integer, primary_key=<span class="keyword">True</span>, autoincrement=<span class="keyword">True</span>)</span><br><span class="line">    name = Column(String(<span class="number">32</span>), index=<span class="keyword">True</span>)</span><br><span class="line">    age = Column(Integer, index=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建数据库连接</span></span><br><span class="line">engine = create_engine(<span class="string">"mysql+pymysql://root:@127.0.0.1:3306/db2019?charset=utf8"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据库中创建User对应的表</span></span><br><span class="line"><span class="comment"># 去engine数据库中创建所有继承Base的ORM对象类</span></span><br><span class="line"></span><br><span class="line">Base.metadata.create_all(engine)</span><br></pre></td></tr></table></figure>
+<h1 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h1><h2 id="增加数据"><a href="#增加数据" class="headerlink" title="增加数据"></a>增加数据</h2><h3 id="增加单条数据"><a href="#增加单条数据" class="headerlink" title="增加单条数据"></a>增加单条数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 想要操纵数据库 打开数据库连接</span></span><br><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> sessionmaker</span><br><span class="line"><span class="comment"># 引入创建好的连接引擎</span></span><br><span class="line"><span class="keyword">from</span> main <span class="keyword">import</span> engine</span><br><span class="line"><span class="keyword">from</span> main <span class="keyword">import</span> User</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建会话窗口</span></span><br><span class="line">Session = sessionmaker(engine)</span><br><span class="line"><span class="comment"># 打开会话窗口</span></span><br><span class="line">db_session = Session()</span><br><span class="line"></span><br><span class="line">user_obj = User(name=<span class="string">"yao"</span>, age=<span class="number">18</span>)</span><br><span class="line"><span class="comment"># 通过打开的会话窗口提交数据</span></span><br><span class="line">db_session.add(user_obj)</span><br><span class="line"><span class="comment"># 执行会话窗口的操作</span></span><br><span class="line">db_session.commit()</span><br><span class="line"><span class="comment"># 关闭会话窗口</span></span><br><span class="line">db_session.close()</span><br></pre></td></tr></table></figure>
+<h3 id="增加多条数据"><a href="#增加多条数据" class="headerlink" title="增加多条数据"></a>增加多条数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 想要操纵数据库 打开数据库连接</span></span><br><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> sessionmaker</span><br><span class="line"><span class="comment"># 引入创建好的连接引擎</span></span><br><span class="line"><span class="keyword">from</span> main <span class="keyword">import</span> engine</span><br><span class="line"><span class="keyword">from</span> main <span class="keyword">import</span> User</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建会话窗口</span></span><br><span class="line">Session = sessionmaker(engine)</span><br><span class="line"><span class="comment"># 打开会话窗口</span></span><br><span class="line">db_session = Session()</span><br><span class="line"></span><br><span class="line">db_session.add_all([</span><br><span class="line">    User(name=<span class="string">"y1"</span>, age=<span class="number">19</span>),</span><br><span class="line">    User(name=<span class="string">"y2"</span>, age=<span class="number">20</span>),</span><br><span class="line">    User(name=<span class="string">"y3"</span>, age=<span class="number">21</span>)</span><br><span class="line">])</span><br><span class="line"><span class="comment"># 执行会话窗口的操作</span></span><br><span class="line">db_session.commit()</span><br><span class="line"><span class="comment"># 关闭会话窗口</span></span><br><span class="line">db_session.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当然也你也可很任性的提交多条数据</span></span><br><span class="line">user2 = User(name=<span class="string">"yy"</span>,age=<span class="number">18</span>)</span><br><span class="line">user3 = User(name=<span class="string">"yyy"</span>,age=<span class="number">18</span>)</span><br><span class="line">db_session.add(user2)</span><br><span class="line">db_session.add(user3)</span><br><span class="line">db_session.commit()</span><br><span class="line">db_session.close()</span><br></pre></td></tr></table></figure>
+<h2 id="查找数据"><a href="#查找数据" class="headerlink" title="查找数据"></a>查找数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 想要操纵数据库 打开数据库连接</span></span><br><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> sessionmaker</span><br><span class="line"><span class="comment"># 引入创建好的连接引擎与表</span></span><br><span class="line"><span class="keyword">from</span> main <span class="keyword">import</span> engine</span><br><span class="line"><span class="keyword">from</span> main <span class="keyword">import</span> User</span><br><span class="line"></span><br><span class="line">Session = sessionmaker(engine)</span><br><span class="line">db_session = Session()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 简单查询</span></span><br><span class="line">user_list = db_session.query(User).all()</span><br><span class="line"><span class="keyword">for</span> user <span class="keyword">in</span> user_list:</span><br><span class="line">    print(user.name, user.age)</span><br><span class="line"></span><br><span class="line">user = db_session.query(User).first()</span><br><span class="line">print(user.name, user.age)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 带条件的查询</span></span><br><span class="line">user_list = db_session.query(User).filter(User.id == <span class="number">1</span>).all()</span><br><span class="line">print(user_list[<span class="number">0</span>].name, user_list[<span class="number">0</span>].age)</span><br><span class="line"></span><br><span class="line">user = db_session.query(User).filter_by(id=<span class="number">1</span>).first()</span><br><span class="line">print(user.name, user.age)</span><br><span class="line"></span><br><span class="line">user_list = db_session.query(User).filter(User.id &lt;= <span class="number">2</span>).all()</span><br><span class="line"><span class="keyword">for</span> user <span class="keyword">in</span> user_list:</span><br><span class="line">    print(user.name, user.age)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看查询的sql语句</span></span><br><span class="line">sql = db_session.query(User).filter(User.id &gt;= <span class="number">2</span>)</span><br><span class="line">print(sql)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 高级查询</span></span><br><span class="line"><span class="comment"># and or</span></span><br><span class="line"><span class="keyword">from</span> sqlalchemy.sql <span class="keyword">import</span> and_</span><br><span class="line"><span class="keyword">from</span> sqlalchemy.sql <span class="keyword">import</span> or_</span><br><span class="line">user_list1 = db_session.query(User).filter(and_(User.id &gt;= <span class="number">2</span>, User.age &gt;= <span class="number">20</span>)).all()</span><br><span class="line">user_list2 = db_session.query(User).filter(or_(User.id &gt;= <span class="number">2</span>, User.age &gt;= <span class="number">20</span>)).all()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询数据 指定查询数据列 加入别名</span></span><br><span class="line">r2 = db_session.query(User.name.label(<span class="string">'username'</span>), User.id).first()</span><br><span class="line"><span class="comment"># 此时r2.name的别名为r2.username, r2.name就不能再使用了</span></span><br><span class="line">print(r2.id, r2.username)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 原生SQL筛选条件</span></span><br><span class="line"><span class="keyword">from</span> sqlalchemy.sql <span class="keyword">import</span> text</span><br><span class="line">r7 = db_session.query(User).from_statement(text(<span class="string">"SELECT * FROM User where name=:name"</span>)).params(name=<span class="string">'y1'</span>).all()</span><br><span class="line">print(r7[<span class="number">0</span>].name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 字符串匹配方式筛选条件 并使用 order_by进行排序</span></span><br><span class="line">r6 = db_session.query(User).filter(text(<span class="string">"id&lt;:value and name=:name"</span>)).params(value=<span class="number">224</span>, name=<span class="string">'y1'</span>).order_by(User.id.asc()).all()</span><br><span class="line">r6_ = db_session.query(User).filter(text(<span class="string">"id&lt;:value and name=:name"</span>)).params(value=<span class="number">224</span>, name=<span class="string">'y1'</span>).order_by(User.id.desc()).all()</span><br><span class="line"></span><br><span class="line"><span class="comment"># query的时候我们不在使用User ORM对象,而是使用User.name来对内容进行选取</span></span><br><span class="line">user_list = db_session.query(User.name).all()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通配符</span></span><br><span class="line">ret = db_session.query(User).filter(User.name.like(<span class="string">'e%'</span>)).all()</span><br><span class="line">ret = db_session.query(User).filter(~User.name.like(<span class="string">'e%'</span>)).all()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 限制</span></span><br><span class="line">ret = db_session.query(User)[<span class="number">1</span>:<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 排序</span></span><br><span class="line">ret = db_session.query(User).order_by(User.name.desc()).all()</span><br><span class="line">ret = db_session.query(User).order_by(User.name.desc(), User.id.asc()).all()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分组</span></span><br><span class="line"><span class="keyword">from</span> sqlalchemy.sql <span class="keyword">import</span> func</span><br><span class="line"></span><br><span class="line">ret = db_session.query(User).group_by(User.extra).all()</span><br><span class="line">ret = db_session.query(</span><br><span class="line">    func.max(User.id),</span><br><span class="line">    func.sum(User.id),</span><br><span class="line">    func.min(User.id)).group_by(User.name).all()</span><br><span class="line"></span><br><span class="line">ret = db_session.query(</span><br><span class="line">    func.max(User.id),</span><br><span class="line">    func.sum(User.id),</span><br><span class="line">    func.min(User.id)).group_by(User.name).having(func.min(User.id) &gt;<span class="number">2</span>).all()</span><br></pre></td></tr></table></figure>
+<h2 id="更新数据"><a href="#更新数据" class="headerlink" title="更新数据"></a>更新数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 想要操纵数据库 打开数据库连接</span></span><br><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> sessionmaker</span><br><span class="line"><span class="comment"># 引入创建好的连接引擎与表</span></span><br><span class="line"><span class="keyword">from</span> main <span class="keyword">import</span> engine</span><br><span class="line"><span class="keyword">from</span> main <span class="keyword">import</span> User</span><br><span class="line"></span><br><span class="line">Session = sessionmaker(engine)</span><br><span class="line">db_session = Session()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改数据即先查找再修改</span></span><br><span class="line">data = db_session.query(User).filter(User.id == <span class="number">1</span>).update(&#123;<span class="string">"name"</span>: <span class="string">"yaoshao"</span>&#125;)</span><br><span class="line">db_session.commit()</span><br><span class="line">db_session.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在原有值基础上添加</span></span><br><span class="line">db_session.query(User).filter(User.id &gt; <span class="number">0</span>).update(&#123;User.name: User.name + <span class="string">"99"</span>&#125;, synchronize_session=<span class="keyword">False</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 想要操纵数据库 打开数据库连接</span></span><br><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> sessionmaker</span><br><span class="line"><span class="comment"># 引入创建好的连接引擎与表</span></span><br><span class="line"><span class="keyword">from</span> main <span class="keyword">import</span> engine</span><br><span class="line"><span class="keyword">from</span> main <span class="keyword">import</span> User</span><br><span class="line"></span><br><span class="line">Session = sessionmaker(engine)</span><br><span class="line">db_session = Session()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 先查询再删除</span></span><br><span class="line">data = db_session.query(User).filter(User.id == <span class="number">1</span>).delete()</span><br><span class="line">db_session.commit()</span><br><span class="line">db_session.close()</span><br></pre></td></tr></table></figure>
+<h1 id="一对多的操作-ForeignKey"><a href="#一对多的操作-ForeignKey" class="headerlink" title="一对多的操作 : ForeignKey"></a>一对多的操作 : ForeignKey</h1><h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>建表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy.ext.declarative <span class="keyword">import</span> declarative_base</span><br><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> Column</span><br><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> Integer</span><br><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> String</span><br><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> ForeignKey</span><br><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> create_engine</span><br><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> relationship</span><br><span class="line"></span><br><span class="line">Base = declarative_base()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(Base)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">"student"</span></span><br><span class="line">    id = Column(Integer, primary_key=<span class="keyword">True</span>, autoincrement=<span class="keyword">True</span>)</span><br><span class="line">    name = Column(String(<span class="number">32</span>), index=<span class="keyword">True</span>)</span><br><span class="line">    school_id = Column(Integer, ForeignKey(<span class="string">"school.id"</span>))</span><br><span class="line">    student2school = relationship(<span class="string">"School"</span>, backref=<span class="string">"student2school"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">School</span><span class="params">(Base)</span>:</span></span><br><span class="line">    __tablename__ = <span class="string">"school"</span></span><br><span class="line">    id = Column(Integer, primary_key=<span class="keyword">True</span>, autoincrement=<span class="keyword">True</span>)</span><br><span class="line">    name = Column(String(<span class="number">32</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">engine = create_engine(<span class="string">"mysql+pymysql://root:@127.0.0.1:3306/db2019?charset=utf8"</span>)</span><br><span class="line">Base.metadata.create_all(engine)</span><br></pre></td></tr></table></figure>
+<h1 id="增删改查-1"><a href="#增删改查-1" class="headerlink" title="增删改查"></a>增删改查</h1><h2 id="增加数据-1"><a href="#增加数据-1" class="headerlink" title="增加数据"></a>增加数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> sessionmaker</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> many_create <span class="keyword">import</span> engine</span><br><span class="line"><span class="keyword">from</span> many_create <span class="keyword">import</span> School</span><br><span class="line"><span class="keyword">from</span> many_create <span class="keyword">import</span> Student</span><br><span class="line"></span><br><span class="line">Session = sessionmaker(engine)</span><br><span class="line">db_session = Session()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加数据</span></span><br><span class="line">sch_obj = School(name=<span class="string">"家里蹲"</span>)</span><br><span class="line">db_session.add(sch_obj)</span><br><span class="line">db_session.commit()</span><br><span class="line"></span><br><span class="line">school = db_session.query(School).filter(School.name == <span class="string">"家里蹲"</span>).first()</span><br><span class="line">stu_obj = Student(name=<span class="string">"yao"</span>, school_id=school.id)</span><br><span class="line">db_session.add(stu_obj)</span><br><span class="line">db_session.commit()</span><br><span class="line">db_session.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过relationshi正向添加</span></span><br><span class="line">stu_obj = Student(name=<span class="string">"yaoshao"</span>, student2school=School(name=<span class="string">"蹲家里"</span>))</span><br><span class="line">db_session.add(stu_obj)</span><br><span class="line">db_session.commit()</span><br><span class="line">db_session.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过relationship反向添加</span></span><br><span class="line">sch_obj = School(name=<span class="string">"蹲"</span>)</span><br><span class="line">sch_obj.student2school = [Student(name=<span class="string">"y1"</span>), Student(name=<span class="string">"y2"</span>)]</span><br><span class="line">db_session.add(sch_obj)</span><br><span class="line">db_session.commit()</span><br><span class="line">db_session.close()</span><br></pre></td></tr></table></figure>
+<h2 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> sessionmaker</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> many_create <span class="keyword">import</span> engine</span><br><span class="line"><span class="keyword">from</span> many_create <span class="keyword">import</span> School</span><br><span class="line"><span class="keyword">from</span> many_create <span class="keyword">import</span> Student</span><br><span class="line"></span><br><span class="line">Session = sessionmaker(engine)</span><br><span class="line">db_session = Session()</span><br><span class="line"></span><br><span class="line">sch = db_session.query(School).filter(School.name == <span class="string">"123"</span>).first()</span><br><span class="line">stu = db_session.query(Student).filter(Student.name == <span class="string">"yaoshao"</span>).update(&#123;<span class="string">"school_id"</span>: sch.id&#125;)</span><br><span class="line">db_session.commit()</span><br><span class="line">db_session.close()</span><br></pre></td></tr></table></figure>
+<h2 id="查找数据-1"><a href="#查找数据-1" class="headerlink" title="查找数据"></a>查找数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> sessionmaker</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> many_create <span class="keyword">import</span> engine</span><br><span class="line"><span class="keyword">from</span> many_create <span class="keyword">import</span> School</span><br><span class="line"><span class="keyword">from</span> many_create <span class="keyword">import</span> Student</span><br><span class="line"></span><br><span class="line">Session = sessionmaker(engine)</span><br><span class="line">db_session = Session()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过relationsh正向查询</span></span><br><span class="line">student_list = db_session.query(Student).all()</span><br><span class="line"><span class="keyword">for</span> student <span class="keyword">in</span> student_list:</span><br><span class="line">    print(student.name, student.student2school.name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过relationship反向查询</span></span><br><span class="line">school_list = db_session.query(School).all()</span><br><span class="line"><span class="keyword">for</span> school <span class="keyword">in</span> school_list:</span><br><span class="line">    <span class="keyword">for</span> student <span class="keyword">in</span> school.student2school:</span><br><span class="line">        print(student.name, school.name, school.id)</span><br></pre></td></tr></table></figure>
+<h2 id="删除数据-1"><a href="#删除数据-1" class="headerlink" title="删除数据"></a>删除数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> sessionmaker</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> many_create <span class="keyword">import</span> engine</span><br><span class="line"><span class="keyword">from</span> many_create <span class="keyword">import</span> School</span><br><span class="line"><span class="keyword">from</span> many_create <span class="keyword">import</span> Student</span><br><span class="line"></span><br><span class="line">Session = sessionmaker(engine)</span><br><span class="line">db_session = Session()</span><br><span class="line"></span><br><span class="line">school = db_session.query(School).filter(School.name == <span class="string">"蹲"</span>).first()</span><br><span class="line">stu = db_session.query(Student).filter(Student.school_id == school.id).delete()</span><br><span class="line">db_session.commit()</span><br><span class="line">db_session.close()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+	  
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SQLAlchemy/" rel="tag"><i class="fa fa-tag"></i> SQLAlchemy</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/22/面向对象编程/" rel="next" title="面向对象编程">
+                <i class="fa fa-chevron-left"></i> 面向对象编程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+  
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yaosir0317</p>
+              <p class="site-description motion-element" itemprop="description">yaosir0317个人博客,持续更新中...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yaosir0317" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本使用"><span class="nav-number">1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#增删改查"><span class="nav-number">2.</span> <span class="nav-text">增删改查</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#增加数据"><span class="nav-number">2.1.</span> <span class="nav-text">增加数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#增加单条数据"><span class="nav-number">2.1.1.</span> <span class="nav-text">增加单条数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加多条数据"><span class="nav-number">2.1.2.</span> <span class="nav-text">增加多条数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找数据"><span class="nav-number">2.2.</span> <span class="nav-text">查找数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新数据"><span class="nav-number">2.3.</span> <span class="nav-text">更新数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除数据"><span class="nav-number">2.4.</span> <span class="nav-text">删除数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一对多的操作-ForeignKey"><span class="nav-number">3.</span> <span class="nav-text">一对多的操作 : ForeignKey</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">4.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#增删改查-1"><span class="nav-number">5.</span> <span class="nav-text">增删改查</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#增加数据-1"><span class="nav-number">5.1.</span> <span class="nav-text">增加数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改数据"><span class="nav-number">5.2.</span> <span class="nav-text">修改数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找数据-1"><span class="nav-number">5.3.</span> <span class="nav-text">查找数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除数据-1"><span class="nav-number">5.4.</span> <span class="nav-text">删除数据</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yaosir0317</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
