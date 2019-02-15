@@ -102,10 +102,12 @@
 <meta property="og:site_name" content="YaoSir">
 <meta property="og:description" content="Flask一个小而精的web框架 你只需要三行代码就可以搭建一个web项目 123from flask import Flaskapp = Flask(__name__)app.run(&quot;0.0.0.0&quot;,5000,debug=True)">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-10T13:07:57.018Z">
+<meta property="og:image" content="https://yaosir0317.github.io/2019/01/10/Flask/1.png">
+<meta property="og:updated_time" content="2019-02-15T09:47:04.522Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flask">
 <meta name="twitter:description" content="Flask一个小而精的web框架 你只需要三行代码就可以搭建一个web项目 123from flask import Flaskapp = Flask(__name__)app.run(&quot;0.0.0.0&quot;,5000,debug=True)">
+<meta name="twitter:image" content="https://yaosir0317.github.io/2019/01/10/Flask/1.png">
 
 
 
@@ -382,7 +384,14 @@
 <h2 id="Flask-Session"><a href="#Flask-Session" class="headerlink" title="Flask-Session"></a>Flask-Session</h2><p>属于公共变量<br>from flask import session</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.secret_key = <span class="string">"123456789"</span></span><br></pre></td></tr></table></figure>
 <p>是存在cookie中的键值对（序列化后的数据），为了节省flask的开销，相对安全</p>
-
+<h2 id="flask-蓝图目录"><a href="#flask-蓝图目录" class="headerlink" title="flask-蓝图目录"></a>flask-蓝图目录</h2><p>创建一个项目然后将目录结构做成:</p>
+<p><img src="/2019/01/10/Flask/1.png" alt=""></p>
+<p>api.py中内容:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Blueprint</span><br><span class="line"></span><br><span class="line">api = Blueprint(<span class="string">"api"</span>, __name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@api.route("/")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index_func</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"这是首页"</span></span><br></pre></td></tr></table></figure>
+<p><strong><strong>init</strong></strong>.py中的内容:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> .views.api <span class="keyword">import</span> api</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_app</span><span class="params">()</span>:</span></span><br><span class="line">    my_app = Flask(__name__)</span><br><span class="line">    my_app.register_blueprint(api)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> my_app</span><br></pre></td></tr></table></figure>
+<p>manager.py中的内容:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> app</span><br><span class="line"></span><br><span class="line">my_app = app.create_app()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    my_app.run()</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -513,7 +522,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -524,7 +533,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -535,7 +544,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -578,7 +587,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flask"><span class="nav-number">1.</span> <span class="nav-text">Flask</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-Response"><span class="nav-number">1.1.</span> <span class="nav-text">flask-Response</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-Request"><span class="nav-number">1.2.</span> <span class="nav-text">flask-Request</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-路由"><span class="nav-number">1.3.</span> <span class="nav-text">flask-路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-实例化"><span class="nav-number">1.4.</span> <span class="nav-text">flask-实例化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-对象"><span class="nav-number">1.5.</span> <span class="nav-text">flask-对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-蓝图"><span class="nav-number">1.6.</span> <span class="nav-text">flask-蓝图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-特殊装饰器"><span class="nav-number">1.7.</span> <span class="nav-text">flask-特殊装饰器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flask-Session"><span class="nav-number">1.8.</span> <span class="nav-text">Flask-Session</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Flask"><span class="nav-number">1.</span> <span class="nav-text">Flask</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-Response"><span class="nav-number">1.1.</span> <span class="nav-text">flask-Response</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-Request"><span class="nav-number">1.2.</span> <span class="nav-text">flask-Request</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-路由"><span class="nav-number">1.3.</span> <span class="nav-text">flask-路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-实例化"><span class="nav-number">1.4.</span> <span class="nav-text">flask-实例化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-对象"><span class="nav-number">1.5.</span> <span class="nav-text">flask-对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-蓝图"><span class="nav-number">1.6.</span> <span class="nav-text">flask-蓝图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-特殊装饰器"><span class="nav-number">1.7.</span> <span class="nav-text">flask-特殊装饰器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flask-Session"><span class="nav-number">1.8.</span> <span class="nav-text">Flask-Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-蓝图目录"><span class="nav-number">1.9.</span> <span class="nav-text">flask-蓝图目录</span></a></li></ol></li></ol></div>
             
 
           </div>
