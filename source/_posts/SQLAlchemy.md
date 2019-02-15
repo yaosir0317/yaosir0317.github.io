@@ -257,7 +257,7 @@ class Student(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(32), index=True)
     school_id = Column(Integer, ForeignKey("school.id"))
-    student2school = relationship("School", backref="student2school")
+    student2school = relationship("School", backref="school2student")
 
 
 class School(Base):
@@ -303,7 +303,7 @@ db_session.close()
 
 # 通过relationship反向添加
 sch_obj = School(name="蹲")
-sch_obj.student2school = [Student(name="y1"), Student(name="y2")]
+sch_obj.school2student = [Student(name="y1"), Student(name="y2")]
 db_session.add(sch_obj)
 db_session.commit()
 db_session.close()
@@ -347,7 +347,7 @@ for student in student_list:
 # 通过relationship反向查询
 school_list = db_session.query(School).all()
 for school in school_list:
-    for student in school.student2school:
+    for student in school.school2student:
         print(student.name, school.name, school.id)
 ```
 
@@ -367,4 +367,87 @@ school = db_session.query(School).filter(School.name == "蹲").first()
 stu = db_session.query(Student).filter(Student.school_id == school.id).delete()
 db_session.commit()
 db_session.close()
+```
+
+# 多对多的关系
+
+建表
+
+```python
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column
+from sqlalchemy import Integer
+from sqlalchemy import String
+from sqlalchemy import ForeignKey
+from sqlalchemy import create_engine
+from sqlalchemy.orm import relationship
+
+
+Base = declarative_base()
+
+
+class Book(Base):
+    __tablename__ = "book"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(32))
+    book2author = relationship("Author", secondary="relation", backref="author2book")
+
+
+class Author(Base):
+    __tablename__ = "author"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(32))
+
+
+class Relation(Base):
+    __tablename__ = "relation"
+    id = Column(Integer, primary_key=True)
+    book_id = Column(Integer, ForeignKey("book.id"))
+    author_id = Column(Integer, ForeignKey("author.id"))
+
+
+engine = create_engine("mysql+pymysql://root:@127.0.0.1:3306/db2019?charset=utf8")
+Base.metadata.create_all(engine)
+```
+
+操作
+
+```python
+from sqlalchemy.orm import sessionmaker
+
+from many_many import engine
+from many_many import Book
+from many_many import Author
+
+
+session = sessionmaker(engine)
+db_session = session()
+
+
+# 正向添加
+book_obj = Book(name="书籍1")
+book_obj.book2author = ([Author(name="作者1"), Author(name="作者2")])
+db_session.add(book_obj)
+db_session.commit()
+db_session.close()
+
+# 反向添加
+author_obj = Author(name="作者3", author2book=[Book(name="书籍2"), Book(name="书籍3")])
+db_session.add(author_obj)
+db_session.commit()
+db_session.close()
+
+
+# 正向查询
+author_list = db_session.query(Author).all()
+for author in author_list:
+    for book in author.author2book:
+        print(book.name, author.name)
+
+
+# 反向查询
+book_list = db_session.query(Book).all()
+for book in book_list:
+    for author in book.book2author:
+        print(author.name, book.name)
 ```

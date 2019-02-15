@@ -1,4 +1,5 @@
 ---
+
 title: Flask
 date: 2019-01-10 16:41:36
 tags: Flask
@@ -134,3 +135,48 @@ app.secret_key = "123456789"
 ```
 
 是存在cookie中的键值对（序列化后的数据），为了节省flask的开销，相对安全
+
+## flask-蓝图目录
+
+创建一个项目然后将目录结构做成:
+
+![](Flask/1.png)
+
+api.py中内容:
+
+```python
+from flask import Blueprint
+
+api = Blueprint("api", __name__)
+
+
+@api.route("/")
+def index_func():
+
+    return "这是首页"
+```
+
+____init____.py中的内容:
+
+```python
+from flask import Flask
+from .views.api import api
+
+
+def create_app():
+    my_app = Flask(__name__)
+    my_app.register_blueprint(api)
+
+    return my_app
+```
+
+manager.py中的内容:
+
+```python
+import app
+
+my_app = app.create_app()
+
+if __name__ == '__main__':
+    my_app.run()
+```
