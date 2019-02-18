@@ -83,7 +83,7 @@
 
 
 
-  <meta name="keywords" content="Vue,">
+  <meta name="keywords" content="单例模式,">
 
 
 
@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="前端有三大框架：​              Vue       angular  React​           vue的思想 =&amp;gt; 数据驱动视图">
-<meta name="keywords" content="Vue">
+<meta name="description" content="单例模式单例模式（Singleton Pattern）是一种常用的软件设计模式，该模式的主要目的是确保某一个类只有一个实例存在。当你希望在整个系统中，某个类只能出现一个实例时，单例对象就能派上用场。">
+<meta name="keywords" content="单例模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue">
-<meta property="og:url" content="https://yaosir0317.github.io/2019/01/01/Vue/index.html">
+<meta property="og:title" content="单例模式">
+<meta property="og:url" content="https://yaosir0317.github.io/2019/02/18/单例模式/index.html">
 <meta property="og:site_name" content="YaoSir">
-<meta property="og:description" content="前端有三大框架：​              Vue       angular  React​           vue的思想 =&amp;gt; 数据驱动视图">
+<meta property="og:description" content="单例模式单例模式（Singleton Pattern）是一种常用的软件设计模式，该模式的主要目的是确保某一个类只有一个实例存在。当你希望在整个系统中，某个类只能出现一个实例时，单例对象就能派上用场。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-03T08:32:24.952Z">
+<meta property="og:updated_time" content="2019-02-18T08:54:20.562Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vue">
-<meta name="twitter:description" content="前端有三大框架：​              Vue       angular  React​           vue的思想 =&amp;gt; 数据驱动视图">
+<meta name="twitter:title" content="单例模式">
+<meta name="twitter:description" content="单例模式单例模式（Singleton Pattern）是一种常用的软件设计模式，该模式的主要目的是确保某一个类只有一个实例存在。当你希望在整个系统中，某个类只能出现一个实例时，单例对象就能派上用场。">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="https://yaosir0317.github.io/2019/01/01/Vue/">
+  <link rel="canonical" href="https://yaosir0317.github.io/2019/02/18/单例模式/">
 
 
 
 
 
-  <title>Vue | YaoSir</title>
+  <title>单例模式 | YaoSir</title>
   
 
 
@@ -268,7 +268,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaosir0317.github.io/2019/01/01/Vue/">
+    <link itemprop="mainEntityOfPage" href="https://yaosir0317.github.io/2019/02/18/单例模式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yaosir0317">
@@ -285,7 +285,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Vue</h1>
+          <h1 class="post-title" itemprop="name headline">单例模式</h1>
         
 
         <div class="post-meta">
@@ -297,8 +297,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-01T21:34:47+08:00">
-                2019-01-01
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-18T16:14:00+08:00">
+                2019-02-18
               </time>
             
 
@@ -320,8 +320,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
                   </a>
                 </span>
 
@@ -357,42 +357,24 @@
       
 
       
-        <h1 id="前端有三大框架："><a href="#前端有三大框架：" class="headerlink" title="前端有三大框架："></a>前端有三大框架：</h1><p>​            </p>
-<ul>
-<li><p>Vue     </p>
-</li>
-<li><p>angular</p>
-</li>
-<li><p>React​        </p>
-</li>
-</ul>
-<p>vue的思想 =&gt; 数据驱动视图</p>
+        <h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><p><strong>单例模式（Singleton Pattern）</strong>是一种常用的软件设计模式，该模式的主要目的是确保<strong>某一个类只有一个实例存在</strong>。当你希望在整个系统中，某个类只能出现一个实例时，单例对象就能派上用场。</p>
 <a id="more"></a>
-<h1 id="vue使用"><a href="#vue使用" class="headerlink" title="vue使用"></a>vue使用</h1><h2 id="指令系统"><a href="#指令系统" class="headerlink" title="指令系统"></a>指令系统</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">v-text </span><br><span class="line">v-html </span><br><span class="line">v-if</span><br><span class="line">v-show</span><br><span class="line">v-for</span><br><span class="line">v-bind</span><br><span class="line">v-on</span><br></pre></td></tr></table></figure>
-<h3 id="v-if和v-show"><a href="#v-if和v-show" class="headerlink" title="v-if和v-show"></a>v-if和v-show</h3><blockquote>
-<p><code>v-if</code>是“真正”的条件渲染，因为它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建。<code>v-if</code>也是惰性的：如果在初始渲染时条件为假，则什么也不做——直到条件第一次变为真时，才会开始渲染条件块。</p>
-<p><code>v-show</code>就简单得多——不管初始条件是什么，元素总是会被渲染，并且只是简单地基于 CSS <code>(display)</code>进行切换。</p>
-</blockquote>
-<h3 id="v-on-v-bind-v-for"><a href="#v-on-v-bind-v-for" class="headerlink" title="v-on v-bind v-for"></a>v-on v-bind v-for</h3><blockquote>
-<p>vue中使用<code>v-on:click</code>对当前DOM绑定click事件 注意:所有的原生js的事件使用<code>v-on</code>都可以绑定<br><code>v-if</code>和<code>v-on</code>来对页面中DOM进行操作<br>v-bind:class和v-on对页面中DOM的样式切换<br>v-bind和v-on<br>在vue中它可以简写: v-bind:<br>:class 等价于 v-bind:class<br>:src 等价于v-bind:src<br>:id 等价于v-bind:id<br>v-on:click   等价于 @click = ‘方法名’</p>
-</blockquote>
-<h3 id="v-text-v-html"><a href="#v-text-v-html" class="headerlink" title="v-text  v-html"></a>v-text  v-html</h3><blockquote>
-<p>对页面的dom进行赋值运算   相当与js中innerText innerHTML</p>
-</blockquote>
-<h2 id="组件使用"><a href="#组件使用" class="headerlink" title="组件使用"></a>组件使用</h2><h3 id="局部组件"><a href="#局部组件" class="headerlink" title="局部组件"></a>局部组件</h3><ul>
-<li><p>声子 </p>
-</li>
-<li><p>挂子 </p>
-</li>
-<li><p>用子</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//声子</span><br><span class="line">var App = &#123;</span><br><span class="line"> tempalte:`</span><br><span class="line">   &lt;div class=&apos;app&apos;&gt;&lt;/div&gt;`</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">//如果实例化vue对象中既有el,又有template，如果template中定义模板的内容</span><br><span class="line">//那么template模板的优先级大于el</span><br><span class="line">new Vue(&#123;</span><br><span class="line"> el:&quot;#app&quot;,</span><br><span class="line"> //用子  </span><br><span class="line"> template:&lt;App /&gt;</span><br><span class="line"> //挂子</span><br><span class="line"> components:&#123;</span><br><span class="line">    App</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Prop父组件向子组件传递数据</p>
-</li>
-<li><p>子组件传递数据到父组件</p>
-</li>
+<p>比如，某个服务器程序的配置信息存放在一个文件中，客户端通过一个 AppConfig 的类来读取配置文件的信息。如果在程序运行期间，有很多地方都需要使用配置文件的内容，也就是说，很多地方都需要创建 AppConfig 对象的实例，这就导致系统中存在多个 AppConfig 的实例对象，而这样会严重浪费内存资源，尤其是在配置文件内容很多的情况下。事实上，类似 AppConfig 这样的类，我们希望在程序运行期间只存在一个实例对象。</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>在 Python 中，我们可以用多种方法来实现单例模式：</p>
+<ul>
+<li>使用模块</li>
+<li>使用 <code>__new__</code></li>
+<li>使用装饰器（decorator）</li>
+<li>使用元类（metaclass）</li>
 </ul>
-<h3 id="全局组件"><a href="#全局组件" class="headerlink" title="全局组件"></a>全局组件</h3>
+<h2 id="基于-new"><a href="#基于-new" class="headerlink" title="基于 new"></a>基于 <strong><strong>new</strong></strong></h2><p>为了使类只能出现一个实例，我们可以使用 <code>__new__</code> 来控制实例的创建过程，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span><span class="params">(object)</span>:</span></span><br><span class="line">    _instance = <span class="keyword">None</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, *args, **kw)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> cls._instance:</span><br><span class="line">            cls._instance = super(Singleton, cls).__new__(cls, *args, **kw)  <span class="comment"># 次类的实例对象</span></span><br><span class="line">        <span class="keyword">return</span> cls._instance  </span><br><span class="line">s1 = Singleton() <span class="comment"># 进入__new__</span></span><br><span class="line">s2 = Singleton() <span class="comment"># 不进入__new__</span></span><br></pre></td></tr></table></figure>
+<p>在上面的代码中，我们将类的实例和一个类变量 <code>_instance</code> 关联起来，如果 <code>cls._instance</code> 为 None 则创建实例，否则直接返回 <code>cls._instance</code>。</p>
+<h2 id="基于模块"><a href="#基于模块" class="headerlink" title="基于模块"></a>基于模块</h2><p>其实，<strong>Python 的模块就是天然的单例模式</strong>，因为模块在第一次导入时，会生成 <code>.pyc</code> 文件，当第二次导入时，就会直接加载 <code>.pyc</code> 文件，而不会再次执行模块代码。因此，我们只需把相关的函数和数据定义在一个模块中，就可以获得一个单例对象了。如果我们真的想要一个单例类，可以考虑这样做：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">My_Singleton</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"> </span><br><span class="line">my_singleton = My_Singleton()</span><br></pre></td></tr></table></figure>
+<p>将上面的代码保存在文件 <code>mysingleton.py</code> 中，然后这样使用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> mysingleton <span class="keyword">import</span> my_singleton</span><br><span class="line"> </span><br><span class="line">my_singleton.foo()</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -420,7 +402,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+            <a href="/tags/单例模式/" rel="tag"><i class="fa fa-tag"></i> 单例模式</a>
           
         </div>
       
@@ -433,8 +415,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/01/redis/" rel="next" title="Redis">
-                <i class="fa fa-chevron-left"></i> Redis
+              <a href="/2019/02/18/跨域问题/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
@@ -442,10 +424,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/02/nginx/" rel="prev" title="nginx">
-                nginx <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -588,7 +566,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端有三大框架："><span class="nav-number">1.</span> <span class="nav-text">前端有三大框架：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue使用"><span class="nav-number">2.</span> <span class="nav-text">vue使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指令系统"><span class="nav-number">2.1.</span> <span class="nav-text">指令系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#v-if和v-show"><span class="nav-number">2.1.1.</span> <span class="nav-text">v-if和v-show</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-on-v-bind-v-for"><span class="nav-number">2.1.2.</span> <span class="nav-text">v-on v-bind v-for</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-text-v-html"><span class="nav-number">2.1.3.</span> <span class="nav-text">v-text  v-html</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件使用"><span class="nav-number">2.2.</span> <span class="nav-text">组件使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#局部组件"><span class="nav-number">2.2.1.</span> <span class="nav-text">局部组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局组件"><span class="nav-number">2.2.2.</span> <span class="nav-text">全局组件</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单例模式"><span class="nav-number">1.</span> <span class="nav-text">单例模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于-new"><span class="nav-number">2.1.</span> <span class="nav-text">基于 new</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于模块"><span class="nav-number">2.2.</span> <span class="nav-text">基于模块</span></a></li></ol></li></ol></div>
             
 
           </div>
