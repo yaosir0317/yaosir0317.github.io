@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+  <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ansible,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="ansible是新出现的自动化运维工具，基于Python开发，集合了众多运维工具（puppet、cfengine、chef、func、fabric）的优点，实现了批量系统配置、批量程序部署、批量运行命令等功能。">
+<meta name="keywords" content="ansible">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ansible">
+<meta property="og:url" content="https://yaosir0317.github.io/2019/02/19/ansible/index.html">
+<meta property="og:site_name" content="YaoSir">
+<meta property="og:description" content="ansible是新出现的自动化运维工具，基于Python开发，集合了众多运维工具（puppet、cfengine、chef、func、fabric）的优点，实现了批量系统配置、批量程序部署、批量运行命令等功能。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-02-19T08:46:36.296Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ansible">
+<meta name="twitter:description" content="ansible是新出现的自动化运维工具，基于Python开发，集合了众多运维工具（puppet、cfengine、chef、func、fabric）的优点，实现了批量系统配置、批量程序部署、批量运行命令等功能。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yaosir0317.github.io/2019/02/19/ansible/">
+
+
+
+
+
+  <title>ansible | YaoSir</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YaoSir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">The philosophers have only interpreted the world in various ways - the point however is to change it.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaosir0317.github.io/2019/02/19/ansible/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yaosir0317">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YaoSir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ansible</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-19T15:16:38+08:00">
+                2019-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/ansible/" itemprop="url" rel="index">
+                    <span itemprop="name">ansible</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/ansible/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>ansible是新出现的自动化运维工具，基于Python开发，集合了众多运维工具（puppet、cfengine、chef、func、fabric）的优点，实现了批量系统配置、批量程序部署、批量运行命令等功能。</p>
+<a id="more"></a>
+<p>ansible是基于模块工作的，本身没有批量部署的能力。真正具有批量部署的是ansible所运行的模块，ansible只是提供一种框架。主要包括：</p>
+<p>(1)、连接插件connection plugins：负责和被监控端实现通信；</p>
+<p>(2)、host inventory：指定操作的主机，是一个配置文件里面定义监控的主机；</p>
+<p>(3)、各种模块核心模块、command模块、自定义模块；</p>
+<p>(4)、借助于插件完成记录日志邮件等功能；</p>
+<p>(5)、playbook：剧本执行多个任务时，非必需可以让节点一次性运行多个任务。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>下载epel源</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo</span><br></pre></td></tr></table></figure>
+<p>安装ansible</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ansibleshell</span><br></pre></td></tr></table></figure>
+<p>控制节点需要安装: <code>salt-master</code></p>
+<p>被控节点需要安装: <code>salt-minion</code></p>
+<h1 id="批量在远程主机上执行命令"><a href="#批量在远程主机上执行命令" class="headerlink" title="批量在远程主机上执行命令"></a>批量在远程主机上执行命令</h1><p>ansible 是通过ssh来连接并控制被控节点,ssh 的认证方式包括:</p>
+<ul>
+<li><p>密码连接</p>
+</li>
+<li><p>秘钥连接</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen # 用来生成ssh的密钥对</span><br><span class="line">ssh-copy-id 192.168.107.131 # 复制秘钥到远程主机,实现秘钥连接</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="ansible-命令格式"><a href="#ansible-命令格式" class="headerlink" title="ansible 命令格式"></a>ansible 命令格式</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ansible &lt;host-pattern&gt; [options]</span><br><span class="line">	-a MODULE_ARGS/--args=MODULE_ARGS  # 模块的参数</span><br><span class="line">	-C, --check 					 # 检查</span><br><span class="line">	-f FORKS/--forks=FORKS 		      # 用来做高并发的</span><br><span class="line">	--list-hosts 					 # 列出主机列表</span><br><span class="line"> 	-m MODULE_NAME 					 # 模块名称</span><br><span class="line"> 	--syntax-check 					 # 语法检查</span><br><span class="line"> 	-k 								# 输入密码</span><br></pre></td></tr></table></figure>
+<h2 id="ansible-hosts"><a href="#ansible-hosts" class="headerlink" title="ansible hosts"></a>ansible hosts</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/ansible/hosts</span><br></pre></td></tr></table></figure>
+<h2 id="host-pattern"><a href="#host-pattern" class="headerlink" title="host-pattern"></a>host-pattern</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">hosts中添加:</span><br><span class="line">[group]</span><br><span class="line">ip1</span><br><span class="line">ip2</span><br><span class="line"><span class="meta">#</span> 建立分组</span><br><span class="line"><span class="meta">#</span> 系统自带的ping使用的是ICMP协议</span><br><span class="line">- 单个的主机 # ansible 192.168.10.130 -m ping</span><br><span class="line">- 全部主机 # ansible all -m ping/ansible "*" -m ping</span><br><span class="line">- 多个的主机 # ansible 192.168.10.130,192.168.10.131 -m ping</span><br><span class="line">- 单个组 # ansible group1 -m ping</span><br><span class="line">- 多个组</span><br><span class="line">    - 交集  "group1：&amp;group2"</span><br><span class="line">    - 并集</span><br><span class="line">        - group1，group2</span><br><span class="line">        - group1：group2</span><br><span class="line">    - 差集 ‘group1：！group2’</span><br></pre></td></tr></table></figure>
+<h2 id="ansible-doc查看模块的帮助信息"><a href="#ansible-doc查看模块的帮助信息" class="headerlink" title="ansible-doc查看模块的帮助信息"></a>ansible-doc查看模块的帮助信息</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ansible-doc [-l|-F|-s] [options] [-t &lt;plugin type&gt; ] [plugin]</span><br><span class="line"> 	-j # 以json的方式返回ansible的所有模块</span><br><span class="line">    -l, --list # 列出所有的ansible的模块</span><br><span class="line">   	-s # 以片段式显示ansible的帮助信息</span><br></pre></td></tr></table></figure>
+<h2 id="命令相关模块"><a href="#命令相关模块" class="headerlink" title="命令相关模块"></a>命令相关模块</h2><h3 id="command"><a href="#command" class="headerlink" title="command"></a>command</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ansible group -a 'useradd yao' # 通过ansible在group组中的远程主机上执行命令</span><br><span class="line">ansible group -a 'chdir=/tmp pwd'# 切换目录执行命令，使用场景是编译安装时使用</span><br><span class="line">ansible group -a 'creates=/tmp pwd' # 用来判断/tmp目录是否存在，存在就不执行操作,不存在则执行</span><br><span class="line">ansible group -a 'removes=/tmp pwd' # 用来判断tmp目录是否存在，存在就执行操作, 不存在则不执行</span><br><span class="line"><span class="meta">#</span> ps:</span><br><span class="line"><span class="meta">#</span> command 不支持特殊字符 &lt;&gt; |!;$&amp;</span><br><span class="line">tail -1 /etc/passwd # 查看用户是否创建成功</span><br><span class="line">tail -1 /etc/shadow # 查看用户是否创建成功</span><br><span class="line">id yao  # 查看用户是否创建成功</span><br><span class="line">echo '123' | passwd --stdin yao #设置密码</span><br></pre></td></tr></table></figure>
+<h3 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ansible group -m shell -a 'echo "123" | passwd --stdin yao' # 批量创建密码</span><br><span class="line">ansible 192.168.10.131 -m shell -a 'bash a.sh' # 执行远程文件方式一</span><br><span class="line">ansible 192.168.10.131 -m shell -a '/root/a.sh' # 执行远程文件方式二，文件必须有执行权限</span><br><span class="line">ansible 192.168.10.131 -m shell -a '/root/a.py' # 执行远端的Python脚本</span><br></pre></td></tr></table></figure>
+<h3 id="script"><a href="#script" class="headerlink" title="script"></a>script</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ansible group -m script -a '/root/m.sh' # 执行本地/管控机上的文件</span><br><span class="line">ansible group -m script -a 'removes=/root/m.sh /root/m.sh' # 用来判断 被 管控机上是不是存在文件，如果存在就执行;不存在就不执行</span><br><span class="line">ansible group -m script -a 'creates=/root/a.sh /root/m.sh' # 用来判断 被 管控机上是不是存在文件，如果存在，就不执行;不存在就执行</span><br></pre></td></tr></table></figure>
+<h2 id="文件相关模块"><a href="#文件相关模块" class="headerlink" title="文件相关模块"></a>文件相关模块</h2><h3 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h3><blockquote>
+<p>backup      备份，以时间戳结尾<br>dest     目的地址<br>group     文件的属组<br>mode     文件的权限 r-4; w-2; x-1<br>owner     文件的属主<br>src         源文件</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 通过md5码来判断是否需要复制</span><br><span class="line">ansible group -m copy -a 'src=/root/m.sh dest=/tmp/a.sh' # 复制本地文件的到远程主机</span><br><span class="line">ansible group -m copy -a 'src=/root/m.sh dest=/tmp/a.sh mode=755' # 修改文件的权限</span><br><span class="line">ansible group -m copy -a 'src=/root/m.sh dest=/tmp/a.sh mode=755 owner=yao' # 修改文件的属主</span><br><span class="line">ansible group -m copy -a 'src=/etc/init.d dest=/tmp/ mode=755 owner=yao' # 复制本地目录到远程主机，如果改变文件的属性，则文件夹内的文件也会被改变</span><br><span class="line">ansible group -m copy -a 'src=/etc/init.d/ dest=/tmp/ mode=755 owner=yao' # 复制本地目录内的所有文件到远程主机</span><br><span class="line">ansible group -m copy -a "content='萍水相逢,尽是他乡之客\n' dest=/tmp/b.txt" # 直接将文本内容注入到远程主机的文件中</span><br></pre></td></tr></table></figure>
+<h3 id="file"><a href="#file" class="headerlink" title="file"></a>file</h3><blockquote>
+<p>inode     硬盘的地址<br>id         获取到的是内存的地址<br>ln -s a.py b.py         创建软连接<br>ln  a.py c.py         创建硬链接<br>当源文件变化时，软连接和硬链接文件都会跟着变化</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ansible group -m file -a 'path=/yao  state=directory' # 在远程机器上创建文件夹</span><br><span class="line">ansible group -m file -a 'path=/root/q.txt  state=touch' # 用来在远程机器上创建文件</span><br><span class="line">ansible group -m file -a 'path=/tmp/f src=/etc/fstab state=link' # 创建软连接src是源地址，path是目标地址</span><br><span class="line">ansible group -m file -a 'path=/tmp/f state=absent' # 用来删除文件或者文件夹</span><br></pre></td></tr></table></figure>
+<h3 id="fetch"><a href="#fetch" class="headerlink" title="fetch"></a>fetch</h3><blockquote>
+<p>dest     目的地址<br>src         源地址</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible web -m fetch -a 'src=/var/log/cron dest=/tmp' # 下载被控节点的文件，每台机器创建一个文件夹，并保留原来的目录结构</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+	  
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ansible/" rel="tag"><i class="fa fa-tag"></i> ansible</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/单例模式/" rel="next" title="单例模式">
+                <i class="fa fa-chevron-left"></i> 单例模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+  
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yaosir0317</p>
+              <p class="site-description motion-element" itemprop="description">yaosir0317个人博客,持续更新中...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yaosir0317" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#批量在远程主机上执行命令"><span class="nav-number">2.</span> <span class="nav-text">批量在远程主机上执行命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ansible-命令格式"><span class="nav-number">2.1.</span> <span class="nav-text">ansible 命令格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ansible-hosts"><span class="nav-number">2.2.</span> <span class="nav-text">ansible hosts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#host-pattern"><span class="nav-number">2.3.</span> <span class="nav-text">host-pattern</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ansible-doc查看模块的帮助信息"><span class="nav-number">2.4.</span> <span class="nav-text">ansible-doc查看模块的帮助信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令相关模块"><span class="nav-number">2.5.</span> <span class="nav-text">命令相关模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#command"><span class="nav-number">2.5.1.</span> <span class="nav-text">command</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shell"><span class="nav-number">2.5.2.</span> <span class="nav-text">shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#script"><span class="nav-number">2.5.3.</span> <span class="nav-text">script</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件相关模块"><span class="nav-number">2.6.</span> <span class="nav-text">文件相关模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#copy"><span class="nav-number">2.6.1.</span> <span class="nav-text">copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#file"><span class="nav-number">2.6.2.</span> <span class="nav-text">file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fetch"><span class="nav-number">2.6.3.</span> <span class="nav-text">fetch</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yaosir0317</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
