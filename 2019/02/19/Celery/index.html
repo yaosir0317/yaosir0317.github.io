@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+  <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Celery,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Celery 是一个简单、灵活且可靠的，处理大量消息的分布式系统，并且提供维护这样一个系统的必需工具。 它是一个专注于实时处理的任务队列，同时也支持任务调度。 是基于Python实现的模块, 用于执行异步定时周期任务的">
+<meta name="keywords" content="Celery">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Celery">
+<meta property="og:url" content="https://yaosir0317.github.io/2019/02/19/Celery/index.html">
+<meta property="og:site_name" content="YaoSir">
+<meta property="og:description" content="Celery 是一个简单、灵活且可靠的，处理大量消息的分布式系统，并且提供维护这样一个系统的必需工具。 它是一个专注于实时处理的任务队列，同时也支持任务调度。 是基于Python实现的模块, 用于执行异步定时周期任务的">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://yaosir0317.github.io/2019/02/19/Celery/1.png">
+<meta property="og:updated_time" content="2019-02-19T09:22:22.932Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Celery">
+<meta name="twitter:description" content="Celery 是一个简单、灵活且可靠的，处理大量消息的分布式系统，并且提供维护这样一个系统的必需工具。 它是一个专注于实时处理的任务队列，同时也支持任务调度。 是基于Python实现的模块, 用于执行异步定时周期任务的">
+<meta name="twitter:image" content="https://yaosir0317.github.io/2019/02/19/Celery/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yaosir0317.github.io/2019/02/19/Celery/">
+
+
+
+
+
+  <title>Celery | YaoSir</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YaoSir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">The philosophers have only interpreted the world in various ways - the point however is to change it.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaosir0317.github.io/2019/02/19/Celery/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yaosir0317">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YaoSir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Celery</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-19T16:55:54+08:00">
+                2019-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Celery/" itemprop="url" rel="index">
+                    <span itemprop="name">Celery</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Celery 是一个简单、灵活且可靠的，处理大量消息的分布式系统，并且提供维护这样一个系统的必需工具。</p>
+<p>它是一个专注于实时处理的任务队列，同时也支持任务调度。</p>
+<p>是基于Python实现的模块, 用于执行异步定时周期任务的</p>
+<a id="more"></a>
+<p>其结构的组成是由:</p>
+<ul>
+<li>​    用户任务 app</li>
+<li>​    管道 broker 用于存储任务 官方推荐 redis rabbitMQ  / backend 用于存储任务执行结果的</li>
+<li>​    员工 worker</li>
+</ul>
+<h1 id="Celery的简单实例"><a href="#Celery的简单实例" class="headerlink" title="Celery的简单实例"></a>Celery的简单实例</h1><p><code>part_one.py</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> celery <span class="keyword">import</span> Celery</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建一个Celery实例,这就是我们用户的应用app</span></span><br><span class="line">my_task = Celery(<span class="string">"tasks"</span>, broker=<span class="string">"redis://127.0.0.1:6379"</span>, backend=<span class="string">"redis://127.0.0.1:6379"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 为应用创建任务,func1</span></span><br><span class="line"><span class="meta">@my_task.task</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    time.sleep(<span class="number">15</span>)</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br></pre></td></tr></table></figure>
+<p><code>part_two.py</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> part_one <span class="keyword">import</span> func</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将任务交给Celery的Worker执行</span></span><br><span class="line">res = func.delay(<span class="number">2</span>,<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#返回任务ID</span></span><br><span class="line">print(res.id)</span><br></pre></td></tr></table></figure>
+<p><code>part_three</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> celery.result <span class="keyword">import</span> AsyncResult</span><br><span class="line"><span class="keyword">from</span> part_one <span class="keyword">import</span> my_task</span><br><span class="line"></span><br><span class="line"><span class="comment"># 异步获取任务返回值</span></span><br><span class="line">async_task = AsyncResult(id=<span class="string">"31ec65e8-3995-4ee1-b3a8-1528400afd5a"</span>,app=my_task)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断异步任务是否执行成功</span></span><br><span class="line"><span class="keyword">if</span> async_task.successful():</span><br><span class="line">    <span class="comment">#获取异步任务的返回值</span></span><br><span class="line">    result = async_task.get()</span><br><span class="line">    print(result)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"任务还未执行完成"</span>)</span><br></pre></td></tr></table></figure>
+<p>三个文件创建完成了,现在开始分析哪个文件是app,哪个文件是borker,哪个是worker;最终我们要执行的任务是在 part_one.py 中,也就是worker需要执行的任务,所以worker就是 part_one.py了</p>
+<h2 id="如何启动worker"><a href="#如何启动worker" class="headerlink" title="如何启动worker"></a>如何启动worker</h2><blockquote>
+<p>Linux - celery worker -A s1 -l INFO<br>Windows:这里需要注意的是celery 4.0 已经不再对Windows操作系统提供支持了,也就是在windows环境下出现问题除非自己解决,否则官方是不会给你解决的<br>Windows - celery worker -A s1 -l INFO -P eventlet<br><code>ps:</code> eventlet 是一个python的三方库 需要使用 pip安装 pip install eventlet</p>
+</blockquote>
+<p>启动完成,其实在part_one.py当中,worker已经知道了自己的broker 和 backend 在哪里了<br>接下来就让异步任务开始执行吧,对了 part_two.py 中就是使用 delay 的方式来开始执行的异步任务<br>执行 part_two .py 得到了一个字符串 55a84ea3-afa4-4ab9-8650-40e156c07441 这个字符串儿就是异步任务的ID</p>
+<p>然后通过part_three.py修改异步任务的ID来获取任务返回的结果</p>
+<h1 id="Celery项目目录"><a href="#Celery项目目录" class="headerlink" title="Celery项目目录"></a>Celery项目目录</h1><p><img src="/2019/02/19/Celery/1.png" alt=""></p>
+<p>目录Celery_task这个名字可以随意起,但是一定要注意在这个目录下一定要有一个celery.py这个文件</p>
+<p><code>celery.py</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> celery <span class="keyword">import</span> Celery</span><br><span class="line"></span><br><span class="line">celery_task = Celery(<span class="string">"task"</span>,</span><br><span class="line">                     broker=<span class="string">"redis://127.0.0.1:6379"</span>,</span><br><span class="line">                     backend=<span class="string">"redis://127.0.0.1:6379"</span>,</span><br><span class="line">                     include=[<span class="string">"Celery_task.task_one"</span>,<span class="string">"Celery_task.task_two"</span>])</span><br><span class="line"><span class="comment"># include 这个参数适用于寻找目录中所有的task</span></span><br></pre></td></tr></table></figure>
+<p><code>task_one.py</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .celery <span class="keyword">import</span> celery_task</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="meta">@celery_task.task</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">one</span><span class="params">(x,y)</span>:</span></span><br><span class="line">    time.sleep(<span class="number">5</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">f"task_one <span class="subst">&#123;x+y&#125;</span>"</span></span><br></pre></td></tr></table></figure>
+<p><code>task_two.py</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> .celery <span class="keyword">import</span> celery_task</span><br><span class="line"></span><br><span class="line"><span class="meta">@celery_task.task</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">two</span><span class="params">(x,y)</span>:</span></span><br><span class="line">    time.sleep(<span class="number">5</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">f"task_two <span class="subst">&#123;x+y&#125;</span>"</span></span><br></pre></td></tr></table></figure>
+<p>这样Celery项目目录结构就已经做好了然后再 my_celery中调用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Celery_task.task_one <span class="keyword">import</span> one</span><br><span class="line"><span class="keyword">from</span> Celery_task.task_two <span class="keyword">import</span> two</span><br><span class="line"> </span><br><span class="line">one.delay(<span class="number">10</span>,<span class="number">10</span>)</span><br><span class="line">two.delay(<span class="number">20</span>,<span class="number">20</span>)</span><br></pre></td></tr></table></figure>
+<p><code>PS:</code>启动Worker的时候无需再使用文件启动,直接启动你的Celery_task目录就行了<br>celery worker -A Celery_task -l INFO -P eventlet<br>这样celery就可以自动的去检索当前目录下所有的task了,通过Include这个参数逐一去寻找</p>
+<h1 id="Celery定时任务"><a href="#Celery定时任务" class="headerlink" title="Celery定时任务"></a>Celery定时任务</h1><p>我们还使用Celery_task这个示例来修改一下<br>my_celery中进行一下小修改</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Celery_task.task_one <span class="keyword">import</span> one</span><br><span class="line"><span class="keyword">from</span> Celery_task.task_two <span class="keyword">import</span> two</span><br><span class="line"></span><br><span class="line"><span class="comment"># one.delay(10,10)</span></span><br><span class="line"><span class="comment"># two.delay(20,20)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定时任务我们不在使用delay这个方法了,delay是立即交给task 去执行</span></span><br><span class="line"><span class="comment"># 现在我们使用apply_async定时执行</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#首先我们要先给task一个执行任务的时间</span></span><br><span class="line"><span class="keyword">import</span> datetime,time</span><br><span class="line"><span class="comment"># 获取当前时间 此时间为东八区时间</span></span><br><span class="line">ctime = time.time()</span><br><span class="line"><span class="comment"># 将当前的东八区时间改为 UTC时间 注意这里一定是UTC时间,没有其他说法</span></span><br><span class="line">utc_time = datetime.datetime.utcfromtimestamp(ctime)</span><br><span class="line"><span class="comment"># 为当前时间增加 10 秒</span></span><br><span class="line">add_time = datetime.timedelta(seconds=<span class="number">10</span>)</span><br><span class="line">action_time = utc_time + add_time</span><br><span class="line"></span><br><span class="line"><span class="comment"># action_time 就是当前时间未来10秒之后的时间</span></span><br><span class="line"><span class="comment">#现在我们使用apply_async定时执行</span></span><br><span class="line">res = one.apply_async(args=(<span class="number">10</span>,<span class="number">10</span>),eta=action_time)</span><br><span class="line">print(res.id)</span><br><span class="line"><span class="comment">#这样原本延迟5秒执行的One函数现在就要在10秒钟以后执行了</span></span><br></pre></td></tr></table></figure>
+<h1 id="Celery周期任务"><a href="#Celery周期任务" class="headerlink" title="Celery周期任务"></a>Celery周期任务</h1><p>首先要对Celery_task中的celery.py进行一点修改:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> celery <span class="keyword">import</span> Celery</span><br><span class="line"><span class="keyword">from</span> celery.schedules <span class="keyword">import</span> crontab</span><br><span class="line"></span><br><span class="line">celery_task = Celery(<span class="string">"task"</span>,</span><br><span class="line">                     broker=<span class="string">"redis://127.0.0.1:6379"</span>,</span><br><span class="line">                     backend=<span class="string">"redis://127.0.0.1:6379"</span>,</span><br><span class="line">                     include=[<span class="string">"Celery_task.task_one"</span>,<span class="string">"Celery_task.task_two"</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#我要要对beat任务生产做一个配置,这个配置的意思就是每10秒执行一次Celery_task.task_one任务参数是(10,10)</span></span><br><span class="line">celery_task.conf.beat_schedule=&#123;</span><br><span class="line">    <span class="string">"each10s_task"</span>:&#123;</span><br><span class="line">        <span class="string">"task"</span>:<span class="string">"Celery_task.task_one.one"</span>,</span><br><span class="line">        <span class="string">"schedule"</span>:<span class="number">10</span>, <span class="comment"># 每10秒钟执行一次</span></span><br><span class="line">        <span class="string">"args"</span>:(<span class="number">10</span>,<span class="number">10</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"each1m_task"</span>: &#123;</span><br><span class="line">        <span class="string">"task"</span>: <span class="string">"Celery_task.task_one.one"</span>,</span><br><span class="line">        <span class="string">"schedule"</span>: crontab(minute=<span class="number">1</span>), <span class="comment"># 每一分钟执行一次</span></span><br><span class="line">        <span class="string">"args"</span>: (<span class="number">10</span>, <span class="number">10</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"each24hours_task"</span>: &#123;</span><br><span class="line">        <span class="string">"task"</span>: <span class="string">"Celery_task.task_one.one"</span>,</span><br><span class="line">        <span class="string">"schedule"</span>: crontab(hour=<span class="number">24</span>), <span class="comment"># 每24小时执行一次</span></span><br><span class="line">        <span class="string">"args"</span>: (<span class="number">10</span>, <span class="number">10</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#以上配置完成之后,还有一点非常重要</span></span><br><span class="line"><span class="comment"># 不能直接创建Worker了,因为我们要执行周期任务,所以首先要先有一个任务的生产方</span></span><br><span class="line"><span class="comment"># celery beat -A Celery_task</span></span><br><span class="line"><span class="comment"># celery worker -A Celery_task -l INFO -P eventlet</span></span><br></pre></td></tr></table></figure>
+<p>创建Worker的方式并没有发行变化,但是这里要注意的是,每间隔一定时间后需要生产出来任务给Worker去执行,这里需要一个生产者beat</p>
+<p>celery beat -A Celery_task  # 创建生产者 beat 你的 schedule 写在哪里,就要从哪里启动</p>
+<p>celery worker -A Celery_task -l INFO -P eventlet</p>
+<p> 创建worker之后,每10秒就会由beat创建一个任务给Worker去执行</p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+	  
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Celery/" rel="tag"><i class="fa fa-tag"></i> Celery</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/19/ansible/" rel="next" title="ansible">
+                <i class="fa fa-chevron-left"></i> ansible
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+  
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yaosir0317</p>
+              <p class="site-description motion-element" itemprop="description">yaosir0317个人博客,持续更新中...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yaosir0317" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Celery的简单实例"><span class="nav-number">1.</span> <span class="nav-text">Celery的简单实例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何启动worker"><span class="nav-number">1.1.</span> <span class="nav-text">如何启动worker</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Celery项目目录"><span class="nav-number">2.</span> <span class="nav-text">Celery项目目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Celery定时任务"><span class="nav-number">3.</span> <span class="nav-text">Celery定时任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Celery周期任务"><span class="nav-number">4.</span> <span class="nav-text">Celery周期任务</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yaosir0317</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
