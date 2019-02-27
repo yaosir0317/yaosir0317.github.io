@@ -491,3 +491,170 @@ user=yao
 -e > playbook vars > hosts文件
 ```
 
+## setup
+
+查看系统信息
+
+```python
+ansible_all_ipv4_addresses # ipv4的所有地址
+ansible_all_ipv6_addresses # ipv6的所有地址
+ansible_date_time # 获取到控制节点时间
+ansible_default_ipv4 # 默认的ipv4地址
+ansible_distribution # 系统
+ansible_distribution_major_version # 系统的大版本
+ansible_distribution_version # 系统的版本号
+ansible_domain # 系统所在的域
+ansible_env # 系统的环境变量
+ansible_hostname # 系统的主机名
+ansible_fqdn # 系统的全名
+ansible_machine # 系统的架构
+ansible_memory_mb # 系统的内存信息
+ansible_os_family # 系统的家族
+ansible_pkg_mgr # 系统的包管理工具
+ansible_processor_cores # 系统的cpu的核数(每颗)
+ansible_processor_count # 系统cpu的颗数
+ansible_processor_vcpus # 系统cpu的总个数=cpu的颗数*CPU的核数
+ansible_python # 系统上的python
+ansible cache -m setup -a 'filter=*processor*' # 用来搜索
+```
+
+## 条件判断 
+
+- 不同的系统
+- 不同的版本
+- 不同的环境
+- 不同的用户
+
+```python
+- hosts: group
+  remote_user: root
+  tasks:
+  - name: createfile
+    copy: content="大弦嘈嘈如急雨" dest=/tmp/a.txt
+    when: ansible_default_ipv4.address=="192.168.10.130"
+  - name: cratefile
+    copy: content="小弦切切如私语" dest=/tmp/a.txt
+    when: ansible_default_ipv4.address=="192.168.10.132"
+```
+
+## tags
+
+指定某个task
+
+```python
+- hosts: group
+  tasks: 
+  - name: createfile
+    copy: src=/root/a.yml dest=/tmp/
+  - name: createfile
+    copy: src=/root/a.yml dest=/etc/
+    tags: path2
+
+```
+
+```
+ansible-playbook -t path2 b.yml 
+```
+
+## 循环 with_item
+
+```python
+- hosts: group
+  tasks:
+  - name: crateuser
+    user: name={{item}}
+    with_items:
+    - yao1
+    - yao2
+    - yao3
+  - name: crategroup
+    group: name={{item}}
+    with_items:
+    - yao10
+    - yao20
+    - yao30
+```
+
+## 嵌套循环
+
+```python
+- hosts: group
+  tasks:
+  - name: crategroup
+    group: name={{item}}
+    with_items:
+    - yao1
+    - yao2
+    - yao3
+  - name: createuser
+    user: name={{item.name}} group={{item.group}}
+    with_items:
+    - {'name':yao1,'group':yao10}
+    - {'name':yao2,'group':yao20}
+    - {'name':yao3,'group':yao30}
+```
+
+## template
+
+a.conf.j2表示使用jinja2模板
+
+a.conf.j2:
+
+```
+bind {{ ansible_default_ipv4.address }} 
+```
+
+```python
+- hosts: group
+  tasks:
+  - name: installredis
+    yum: name=redis
+  - name: copyfile
+    template: src=/root/a.conf.j2 dest=/root/a.conf
+```
+
+copy和tamplate的区别
+
+- copy模块不替代参数
+- template模块替代参数
+
+## handlers
+
+handlers是另一种任务列表，你可以把handlers理解成另外一种tasks，你可以理解成它们是'平级'的，所以，handlers与tasks是'对齐'的（缩进相同）,通过notify关键字'通知'handlers中的任务
+
+```python
+- hosts: group
+  tasks:
+  - name: installredis
+    yum: name=redis
+  - name: copyfile
+    template: src=redis.conf dest=/etc/redis.conf
+    tags: copyfile
+    notify: restart # 通过notify通知名为restart的handlers
+  - name: start
+    service: name=redis state=started
+  handlers:
+  - name: restart
+    service: name=redis state=restarted
+```
+
+## roles
+
+为了避免代码重复，roles能够实现代码重复被调用
+
+```python
+ # 创建目录
+ mkdir -pv roles/{role_1,role_2}/{tasks,files,templates,meta,handlers,vars} # tasks(必须有)
+```
+
+![](ansible/1.png)
+
+必须有main.yml文件,通过import_tasks来调用
+
+`files`：用来存放由copy模块或script模块调用的文件。
+`templates`：用来存放jinjia2模板，template模块会自动在此目录中寻找jinjia2模板文件。
+`tasks`：此目录应当包含一个main.yml文件，用于定义此角色的任务列表，此文件可以使用include包含其它的位于此目录的task文件。
+`handlers`：此目录应当包含一个main.yml文件，用于定义此角色中触发条件时执行的动作。
+`vars`：此目录应当包含一个main.yml文件，用于定义此角色用到的变量。
+`defaults`：此目录应当包含一个main.yml文件，用于为当前角色设定默认变量。
+`meta`：此目录应当包含一个main.yml文件，用于定义此角色的特殊设定及其依赖关系。
