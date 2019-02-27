@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+  <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="什么是爬虫爬虫就是通过编写程序模拟浏览器上网，然后让其去互联网上抓取数据的过程。">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫">
+<meta property="og:url" content="https://yaosir0317.github.io/2019/02/27/爬虫/index.html">
+<meta property="og:site_name" content="YaoSir">
+<meta property="og:description" content="什么是爬虫爬虫就是通过编写程序模拟浏览器上网，然后让其去互联网上抓取数据的过程。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-02-27T09:26:30.148Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="爬虫">
+<meta name="twitter:description" content="什么是爬虫爬虫就是通过编写程序模拟浏览器上网，然后让其去互联网上抓取数据的过程。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yaosir0317.github.io/2019/02/27/爬虫/">
+
+
+
+
+
+  <title>爬虫 | YaoSir</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YaoSir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">The philosophers have only interpreted the world in various ways - the point however is to change it.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaosir0317.github.io/2019/02/27/爬虫/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yaosir0317">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YaoSir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">爬虫</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-27T16:36:06+08:00">
+                2019-02-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="什么是爬虫"><a href="#什么是爬虫" class="headerlink" title="什么是爬虫"></a>什么是爬虫</h1><p>爬虫就是通过编写程序模拟浏览器上网，然后让其去互联网上抓取数据的过程。</p>
+<a id="more"></a>
+<h1 id="哪些语言可以实现爬虫"><a href="#哪些语言可以实现爬虫" class="headerlink" title="哪些语言可以实现爬虫"></a>哪些语言可以实现爬虫</h1><p><strong>php</strong>：可以实现爬虫，但是php在实现爬虫中支持多线程和多进程方面做的不好。</p>
+<p><strong>java</strong>：可以实现爬虫。java可以非常好的处理和实现爬虫，是唯一可以与python并驾齐驱且是python的头号劲敌。但是java实现爬虫代码较为臃肿，重构成本较大。</p>
+<p><strong>c/c++</strong>：可以实现爬虫。但是使用这种方式实现爬虫纯粹是是某些人（大佬们）能力的体现，却不是明智和合理的选择。</p>
+<p><strong>python</strong>：可以实现爬虫。python实现和处理爬虫语法简单，代码优美，支持的模块繁多，学习成本低，具有非常强大的框架（scrapy等）！</p>
+<h1 id="爬虫的分类"><a href="#爬虫的分类" class="headerlink" title="爬虫的分类"></a>爬虫的分类</h1><h2 id="通用爬虫"><a href="#通用爬虫" class="headerlink" title="通用爬虫"></a>通用爬虫</h2><p>通用爬虫是搜索引擎（Baidu、Google、Yahoo等）“抓取系统”的重要组成部分。主要目的是将互联网上的网页下载到本地，形成一个互联网内容的镜像备份。  简单来讲就是尽可能的；把互联网上的所有的网页下载下来，放到本地服务器里形成备分，在对这些网页做相关处理(提取关键字、去掉广告)，最后提供一个用户检索接口。 </p>
+<h2 id="聚焦爬虫"><a href="#聚焦爬虫" class="headerlink" title="聚焦爬虫"></a>聚焦爬虫</h2><p>聚焦爬虫是根据指定的需求抓取网络上指定的数据。例如：获取豆瓣上电影的名称和影评，而不是获取整张页面中所有的数据值。</p>
+<h1 id="robots-txt协议"><a href="#robots-txt协议" class="headerlink" title="robots.txt协议"></a>robots.txt协议</h1><p>如果自己的门户网站中的指定页面中的数据不想让爬虫程序爬取到的话，那么则可以通过编写一个robots.txt的协议文件来约束爬虫程序的数据爬取。robots协议的编写格式可以观察淘宝网的robots（访问<a href="http://www.taobao.com/robots.txt即可）。但是需要注意的是，该协议只是相当于口头的协议，并没有使用相关技术进行强制管制(防君子不防小人)" target="_blank" rel="noopener">www.taobao.com/robots.txt即可）。但是需要注意的是，该协议只是相当于口头的协议，并没有使用相关技术进行强制管制(防君子不防小人)</a>.</p>
+<h1 id="反爬虫"><a href="#反爬虫" class="headerlink" title="反爬虫"></a>反爬虫</h1><p>门户网站通过相应的策略和技术手段，防止爬虫程序进行网站数据的爬取。</p>
+<h1 id="反反爬虫"><a href="#反反爬虫" class="headerlink" title="反反爬虫"></a>反反爬虫</h1><p>爬虫程序通过相应的策略和技术手段，破解门户网站的反爬虫手段，从而爬取到相应的数据。</p>
+<h1 id="requests模块"><a href="#requests模块" class="headerlink" title="requests模块"></a>requests模块</h1><p>requests模块是python中原生的基于网络请求的模块，其主要作用是用来模拟浏览器发起请求。功能强大，用法简洁高效。在爬虫领域中占据着重要的地位。</p>
+<h2 id="请求载体身份标识的伪装："><a href="#请求载体身份标识的伪装：" class="headerlink" title="请求载体身份标识的伪装："></a>请求载体身份标识的伪装：</h2><ul>
+<li>User-Agent：请求载体身份标识，通过浏览器发起的请求，请求载体为浏览器，则该请求的User-Agent为浏览器的身份标识，使用爬虫程序发起的请求，则该请求的载体为爬虫程序，则该请求的User-Agent为爬虫程序的身份标识。可以通过判断该值来获知该请求的载体究竟是基于哪款浏览器还是基于爬虫程序。</li>
+<li>反爬机制：某些门户网站会对访问该网站的请求中的User-Agent进行捕获和判断，如果该请求的UA为爬虫程序，则拒绝向该请求提供数据。</li>
+<li>反反爬策略：将爬虫程序的UA伪装成某一款浏览器的身份标识。</li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">requests.get(url, params, headers, proxies)  # url地址/携带的参数/请求头信息/代理</span><br><span class="line">requests.get()  # get请求获取</span><br><span class="line">requests.post()  # post请求获取</span><br><span class="line">requests.get().text  # 返回原网页内容</span><br><span class="line">requests.get().content  # 返回二进制</span><br><span class="line">requests.get().json()  # 返回json数据</span><br></pre></td></tr></table></figure>
+<h1 id="正解解析"><a href="#正解解析" class="headerlink" title="正解解析"></a>正解解析</h1><h2 id="常用正则表达式"><a href="#常用正则表达式" class="headerlink" title="常用正则表达式"></a>常用正则表达式</h2><p><strong>常用元字符</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">.</th>
+<th>匹配除换行符以外的任意字符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\w</td>
+<td>匹配字母或数字或下划线</td>
+</tr>
+<tr>
+<td style="text-align:center">\s</td>
+<td>匹配任意的空白符</td>
+</tr>
+<tr>
+<td style="text-align:center">\d</td>
+<td>匹配数字</td>
+</tr>
+<tr>
+<td style="text-align:center">\b</td>
+<td>匹配单词的开始或结束</td>
+</tr>
+<tr>
+<td style="text-align:center">^</td>
+<td>匹配字符串的开始</td>
+</tr>
+<tr>
+<td style="text-align:center">$</td>
+<td>匹配字符串的结束</td>
+</tr>
+</tbody>
+</table>
+<p><strong>常用限定符</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">*</th>
+<th>重复零次或更多次</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">+</td>
+<td>重复一次或更多次</td>
+</tr>
+<tr>
+<td style="text-align:center">?</td>
+<td>重复零次或一次</td>
+</tr>
+<tr>
+<td style="text-align:center">{n}</td>
+<td>重复n次</td>
+</tr>
+<tr>
+<td style="text-align:center">{n,}</td>
+<td>重复n次或更多次</td>
+</tr>
+<tr>
+<td style="text-align:center">{n,m}</td>
+<td>重复n到m次</td>
+</tr>
+</tbody>
+</table>
+<p><strong>常用反义词</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">\W</th>
+<th>匹配任意不是字母，数字，下划线，汉字的字符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\S</td>
+<td>匹配任意不是空白符的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">\D</td>
+<td>匹配任意非数字的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">\B</td>
+<td>匹配不是单词开头或结束的位置</td>
+</tr>
+<tr>
+<td style="text-align:center">[^x]</td>
+<td>匹配除了x以外的任意字符</td>
+</tr>
+<tr>
+<td style="text-align:center">[^aeiou]</td>
+<td>匹配除了aeiou这几个字母以外的任意字符</td>
+</tr>
+</tbody>
+</table>
+<p><strong>特殊</strong>(包括python的re模块)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">(ab)</th>
+<th>分组</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">.*</td>
+<td>贪婪匹配</td>
+</tr>
+<tr>
+<td style="text-align:center">.*?</td>
+<td>惰性匹配</td>
+</tr>
+<tr>
+<td style="text-align:center">re.I</td>
+<td>忽略大小写</td>
+</tr>
+<tr>
+<td style="text-align:center">re.M</td>
+<td>多行匹配</td>
+</tr>
+<tr>
+<td style="text-align:center">re.S</td>
+<td>单行匹配</td>
+</tr>
+<tr>
+<td style="text-align:center">re.sub</td>
+<td>正则表达式, 替换内容, 字符串</td>
+</tr>
+</tbody>
+</table>
+<h1 id="Xpath解析"><a href="#Xpath解析" class="headerlink" title="Xpath解析"></a>Xpath解析</h1><h2 id="常用xpath表达式"><a href="#常用xpath表达式" class="headerlink" title="常用xpath表达式"></a>常用xpath表达式</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 属性定位： </span></span><br><span class="line">    <span class="string">'''找到class属性值为song的div标签'''</span></span><br><span class="line">    //div[@class="song"] </span><br><span class="line"><span class="comment"># 层级&amp;索引定位：</span></span><br><span class="line">    <span class="string">'''找到class属性值为tang的div的直系子标签ul下的第二个子标签li下的直系子标签a'''</span></span><br><span class="line">    //div[@class="tang"]/ul/li[2]/a</span><br><span class="line"><span class="comment"># 逻辑运算：</span></span><br><span class="line">    <span class="string">'''找到href属性值为空且class属性值为du的a标签'''</span></span><br><span class="line">    //a[@href="" and @class="du"]</span><br><span class="line"><span class="comment"># 模糊匹配：</span></span><br><span class="line">    //div[contains(@class, "ng")]</span><br><span class="line">    //div[starts-with(@class, "ta")]</span><br><span class="line"><span class="comment"># 取文本：</span></span><br><span class="line">    <span class="string">'''/表示获取某个标签下的文本内容</span></span><br><span class="line"><span class="string">       //表示获取某个标签下的文本内容和所有子标签下的文本内容'''</span></span><br><span class="line">    //div[@class="song"]/p[1]/text()</span><br><span class="line">    //div[@class="tang"]//text()</span><br><span class="line"><span class="comment"># 取属性：</span></span><br><span class="line">    //div[@class="tang"]//li[2]/a/@href</span><br></pre></td></tr></table></figure>
+<h2 id="etree"><a href="#etree" class="headerlink" title="etree"></a>etree</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="comment"># 将html文档或者xml文档转换成一个etree对象，然后调用对象中的方法查找指定的节点</span></span><br><span class="line"><span class="comment"># 本地文件：</span></span><br><span class="line">	tree = etree.parse(文件名)</span><br><span class="line">	tree.xpath(<span class="string">"xpath表达式"</span>)</span><br><span class="line"><span class="comment"># 网络数据</span></span><br><span class="line">	tree = etree.HTML(网页内容字符串)</span><br><span class="line">	tree.xpath(<span class="string">"xpath表达式"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用xpath对url_conten进行解析</span></span><br><span class="line"><span class="comment"># 使用xpath解析从网络上获取的数据</span></span><br><span class="line">tree=etree.HTML(url_content)</span><br><span class="line"><span class="comment"># 解析获取当页所有的标题</span></span><br><span class="line">title_list=tree.xpath(<span class="string">'xpath表达式'</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="BeautifulSoup解析"><a href="#BeautifulSoup解析" class="headerlink" title="BeautifulSoup解析"></a>BeautifulSoup解析</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br></pre></td></tr></table></figure>
+<h2 id="使用-2"><a href="#使用-2" class="headerlink" title="使用"></a>使用</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">soup = BeautifulSoup(<span class="string">'字符串类型或者字节类型'</span>, <span class="string">'lxml'</span>)</span><br><span class="line">（<span class="number">1</span>）根据标签名查找</span><br><span class="line">    - soup.a   只能找到第一个符合要求的标签</span><br><span class="line">（<span class="number">2</span>）获取属性</span><br><span class="line">    - soup.a.attrs  获取a所有的属性和属性值，返回一个字典</span><br><span class="line">    - soup.a.attrs[<span class="string">'href'</span>]   获取href属性</span><br><span class="line">    - soup.a[<span class="string">'href'</span>]   也可简写为这种形式</span><br><span class="line">（<span class="number">3</span>）获取内容</span><br><span class="line">    - soup.a.string</span><br><span class="line">    - soup.a.text</span><br><span class="line">    - soup.a.get_text()</span><br><span class="line">    【注意】如果标签还有标签，那么string获取到的结果为<span class="keyword">None</span>，而其它两个，可以获取文本内容</span><br><span class="line">（<span class="number">4</span>）find：找到第一个符合要求的标签</span><br><span class="line">    - soup.find(<span class="string">'a'</span>)  找到第一个符合要求的</span><br><span class="line">    - soup.find(<span class="string">'a'</span>, title=<span class="string">"xxx"</span>)</span><br><span class="line">    - soup.find(<span class="string">'a'</span>, alt=<span class="string">"xxx"</span>)</span><br><span class="line">    - soup.find(<span class="string">'a'</span>, class_=<span class="string">"xxx"</span>)</span><br><span class="line">    - soup.find(<span class="string">'a'</span>, id=<span class="string">"xxx"</span>)</span><br><span class="line">（<span class="number">5</span>）find_all：找到所有符合要求的标签</span><br><span class="line">    - soup.find_all(<span class="string">'a'</span>)</span><br><span class="line">    - soup.find_all([<span class="string">'a'</span>,<span class="string">'b'</span>]) 找到所有的a和b标签</span><br><span class="line">    - soup.find_all(<span class="string">'a'</span>, limit=<span class="number">2</span>)  限制前两个</span><br><span class="line">（<span class="number">6</span>）根据选择器选择指定的内容</span><br><span class="line">    select:soup.select(<span class="string">'#feng'</span>)</span><br><span class="line">        - 常见的选择器：标签选择器(a)、类选择器(.)、id选择器(<span class="comment">#)、层级选择器</span></span><br><span class="line">            - 层级选择器：</span><br><span class="line">            div .dudu <span class="comment">#lala .meme .xixi  下面好多级</span></span><br><span class="line">            div &gt; p &gt; a &gt; .lala          只能是下面一级</span><br><span class="line">【注意】select选择器返回永远是列表，需要通过下标提取指定的对象</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+
+	  
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/20/Notes/" rel="next" title="Notes">
+                <i class="fa fa-chevron-left"></i> Notes
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+  
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yaosir0317</p>
+              <p class="site-description motion-element" itemprop="description">yaosir0317个人博客,持续更新中...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yaosir0317" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是爬虫"><span class="nav-number">1.</span> <span class="nav-text">什么是爬虫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#哪些语言可以实现爬虫"><span class="nav-number">2.</span> <span class="nav-text">哪些语言可以实现爬虫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#爬虫的分类"><span class="nav-number">3.</span> <span class="nav-text">爬虫的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用爬虫"><span class="nav-number">3.1.</span> <span class="nav-text">通用爬虫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚焦爬虫"><span class="nav-number">3.2.</span> <span class="nav-text">聚焦爬虫</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#robots-txt协议"><span class="nav-number">4.</span> <span class="nav-text">robots.txt协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反爬虫"><span class="nav-number">5.</span> <span class="nav-text">反爬虫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反反爬虫"><span class="nav-number">6.</span> <span class="nav-text">反反爬虫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#requests模块"><span class="nav-number">7.</span> <span class="nav-text">requests模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#请求载体身份标识的伪装："><span class="nav-number">7.1.</span> <span class="nav-text">请求载体身份标识的伪装：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">7.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正解解析"><span class="nav-number">8.</span> <span class="nav-text">正解解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用正则表达式"><span class="nav-number">8.1.</span> <span class="nav-text">常用正则表达式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Xpath解析"><span class="nav-number">9.</span> <span class="nav-text">Xpath解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用xpath表达式"><span class="nav-number">9.1.</span> <span class="nav-text">常用xpath表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etree"><span class="nav-number">9.2.</span> <span class="nav-text">etree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-1"><span class="nav-number">9.2.1.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BeautifulSoup解析"><span class="nav-number">10.</span> <span class="nav-text">BeautifulSoup解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-2"><span class="nav-number">10.1.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yaosir0317</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
