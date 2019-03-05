@@ -569,3 +569,211 @@ class WangyiproDownloaderMiddleware(object):
                             'utf-8',request=request)
 ```
 
+# 提高scrapy的效率
+
+不考虑的并发情况下,只需在settings的配置中如下:
+
+```python
+增加并发：
+    # 默认scrapy开启的并发线程为32个，可以适当进行增加,并发设置成了为100。
+    CONCURRENT_REQUESTS = 100
+
+降低日志级别：
+    # 在运行scrapy时，会有大量日志信息的输出，为了减少CPU的使用率。可以设置log输出信息为INFO或者ERROR即可。
+    LOG_LEVEL = ‘INFO’
+
+禁止cookie：
+    # 如果不是真的需要cookie，则在scrapy爬取数据时可以禁止cookie从而减少CPU的使用率，提升爬取效率。	
+    COOKIES_ENABLED = False
+
+禁止重试：
+    # 对失败的HTTP进行重新请求（重试）会减慢爬取速度，因此可以禁止重试。
+    RETRY_ENABLED = False
+
+减少下载超时：
+    # 如果对一个非常慢的链接进行爬取，减少下载超时可以能让卡住的链接快速被放弃，从而提升效率。
+    DOWNLOAD_TIMEOUT = 10 超时时间为10s
+```
+
+# CrawlSpider
+
+CrawlSpider也继承自Spider，所以具备它的所有特性.
+
+参与过网站后台开发的应该会知道，网站的url都是有一定规则的。像django，在view中定义的urls规则就是正则表示的。那么是不是可以根据这个特性来设计爬虫，而不是每次都要用spider分析页面格式，拆解源码。回答是肯定的，scrapy提供了CrawlSpider处理此需求。
+
+CrawlSpider类和Spider类的最大不同是CrawlSpider多了一个rules属性，其作用是定义”提取动作“。在rules中可以包含一个或多个Rule对象，在Rule对象中包含了LinkExtractor对象。
+
+工程建立
+
+```
+scrapy startproject projectName
+```
+
+创建爬虫文件
+
+```
+scrapy genspider -t crawl spiderName www.xxx.com
+```
+
+爬虫文件如下
+
+```python
+# -*- coding: utf-8 -*-
+import scrapy
+from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
+
+
+class ChoutiSpider(CrawlSpider):
+    name = 'qiubai'
+    # allowed_domains = ['www.xxx.com']
+    start_urls = ['起始url']
+
+    # 连接提取器:
+    # allow:表示的就是链接提取器提取连接的规则(用正则匹配分页)
+    link = LinkExtractor(allow=r'/pic/page/\d+\?s=\d+')
+    link1 = LinkExtractor(allow=r'/pic/$')
+    rules = (
+        # 规则解析器:将链接提取器提取到的连接所对应的页面数据进行指定形式的解析
+        Rule(link, callback='parse_item', follow=True),
+        # 让连接提取器继续作用到链接提取器提取到的连接所对应的页面中
+
+        Rule(link1, callback='parse_item', follow=True),
+    )
+
+    def parse_item(self, response):
+        print(response)
+
+```
+
+# 分布式爬虫
+
+只用scrapy框架是没有办法做分布式的,因为,各个程序之间的数据是不能互通的,因此,要实现分布式爬虫,还需要使用`scrapy-redis`插件
+
+spider爬虫文件，使用RedisCrawlSpider类替换之前的Spider类
+
+```python
+import scrapy
+from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
+from scrapy_redis.spiders import RedisCrawlSpider
+from redisChoutiPro.items import RedischoutiproItem
+class ChoutiSpider(RedisCrawlSpider):
+    name = 'chouti'
+    # allowed_domains = ['www.xxx.com']
+    # start_urls = ['http://www.xxx.com/']
+    redis_key = 'chouti'# 调度器队列的名称
+    rules = (
+        Rule(LinkExtractor(allow=r'/all/hot/recent/\d+'), callback='parse_item', follow=True),
+    )
+
+    def parse_item(self, response):
+        div_list = response.xpath('//div[@class="item"]')
+        for div in div_list:
+            title = div.xpath('./div[4]/div[1]/a/text()').extract_first()
+            author = div.xpath('./div[4]/div[2]/a[4]/b/text()').extract_first()
+            item = RedischoutiproItem()
+            item['title'] = title
+            item['author'] = author
+
+            yield item
+```
+
+settings
+
+```python
+ITEM_PIPELINES = {
+    'scrapy_redis.pipelines.RedisPipeline': 400
+}
+
+# 增加了一个去重容器类的配置, 作用使用Redis的set集合来存储请求的指纹数据, 从而实现请求去重的持久化
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+# 使用scrapy-redis组件自己的调度器
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+# 配置调度器是否要持久化, 也就是当爬虫结束了, 要不要清空Redis中请求队列和去重指纹的set。如果是True, 就表示要持久化存储, 就不清空数据, 否则清空数据
+SCHEDULER_PERSIST = True  #数据指纹
+
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = 6379
+```
+
+启动
+
+```python
+scrapy runspider 爬虫文件.py # 此时启动要启动.py
+```
+
+此时在redis数据库端执行如下命令：
+
+```python
+redis-cli
+> lpush spider:start_urls 起始url
+```
+
+# 增量式爬虫
+
+要实现增量式爬虫,一是在获得页面解析的内容后判断该内容是否已经被爬取过，二是在发送请求之前判断要被请求的url是否已经被爬取过，前一种方法可以感知每个页面的内容是否发生变化，能获取页面新增或者变化的内容，但是由于要对每个url发送请求，所以速度比较慢，而对网站服务器的压力也比较大，后一种无法获得页面变化的内容，但是因为不用对已经爬取过的url发送请求，所以对服务器压力比较小，速度比较快，适用于爬取新增网页
+
+sipder
+
+```python
+# -*- coding: utf-8 -*-
+import scrapy
+from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
+from redis import Redis
+from increment1_Pro.items import Increment1ProItem
+class MovieSpider(CrawlSpider):
+    name = 'movie'
+    # allowed_domains = ['www.xxx.com']
+    start_urls = ['https://www.4567tv.tv/index.php/vod/show/id/7.html']
+
+    rules = (
+        Rule(LinkExtractor(allow=r'/index.php/vod/show/id/7/page/\d+\.html'), callback='parse_item', follow=True),
+    )
+
+    def parse_item(self, response):
+        conn = Redis(host='127.0.0.1',port=6379)
+        detail_url_list = 'https://www.4567tv.tv'+response.xpath('//li[@class="col-md-6 col-sm-4 col-xs-3"]/div/a/@href').extract()
+        for url in detail_url_list:
+            #ex == 1:set中没有存储url
+            ex = conn.sadd('movies_url',url)
+            if ex == 1:
+                yield scrapy.Request(url=url,callback=self.parse_detail)
+            else:
+                print('网站没有更新数据,暂无新数据可爬!')
+
+    def parse_detail(self,response):
+        item = Increment1ProItem()
+        item['name'] = response.xpath('/html/body/div[1]/div/div/div/div[2]/h1/text()').extract_first()
+        item['actor'] = response.xpath('/html/body/div[1]/div/div/div/div[2]/p[3]/a/text()').extract_first()
+
+        yield item
+```
+
+管道
+
+```python
+# -*- coding: utf-8 -*-
+
+# Define your item pipelines here
+#
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
+
+from redis import Redis
+class Increment1ProPipeline(object):
+    conn = None
+    def open_spider(self,spider):
+        self.conn = Redis(host='127.0.0.1',port=6379)
+    def process_item(self, item, spider):
+        dic = {
+            'name':item['name'],
+            'axtor':item['actor']
+        }
+        print('有新数据被爬取到')
+        self.conn.lpush('movie_data',dic)
+        return item
+
+```
+
