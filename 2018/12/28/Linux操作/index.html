@@ -97,14 +97,14 @@
 <meta name="description" content="Linux编译安装此处以python3.6为例 下载python3的源码 cd /optwget https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tgz">
 <meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux环境配置">
+<meta property="og:title" content="Linux虚拟环境使用">
 <meta property="og:url" content="https://yaosir0317.github.io/2018/12/28/Linux操作/index.html">
 <meta property="og:site_name" content="YaoSir">
 <meta property="og:description" content="Linux编译安装此处以python3.6为例 下载python3的源码 cd /optwget https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tgz">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-02T08:23:41.328Z">
+<meta property="og:updated_time" content="2019-03-23T08:52:48.645Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux环境配置">
+<meta name="twitter:title" content="Linux虚拟环境使用">
 <meta name="twitter:description" content="Linux编译安装此处以python3.6为例 下载python3的源码 cd /optwget https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tgz">
 
 
@@ -141,7 +141,7 @@
 
 
 
-  <title>Linux环境配置 | YaoSir</title>
+  <title>Linux虚拟环境使用 | YaoSir</title>
   
 
 
@@ -285,7 +285,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Linux环境配置</h1>
+          <h1 class="post-title" itemprop="name headline">Linux虚拟环境使用</h1>
         
 
         <div class="post-meta">
@@ -377,9 +377,7 @@
 </li>
 <li><p>编译且安装  (只有在这一步，才会生成/opt/python36)<br>​        <code>make install</code></p>
 </li>
-<li><p>配置python3.6的环境变量<br>​    1.配置软连接<br>​    2.配置path环境变量 (二选一即可)<br>​        echo $PATH查看环境变量<br>​        <code>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin</code></p>
-<pre><code># 这个变量赋值操作，只是临时生效，需要写入到文件，永久生效
-</code></pre><p>​              PATH=/opt/python36/bin/:usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:<br>​        #linux有一个全局个人配置文件<br>​        编辑这个文件，在最底行写入PATH<br>​        vim /etc/profile<br>​        写入<br>​        <code>PATH=/opt/python36/bin/:usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:</code><br>​        保存退出<br>​        </p>
+<li><p>配置python3.6的环境变量<br>​    1.配置软连接<br>​    2.配置path环境变量 (二选一即可)<br>​        echo $PATH查看环境变量<br>​        <code>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin</code><br>​        # 这个变量赋值操作，只是临时生效，需要写入到文件，永久生效<br>​              PATH=/opt/python36/bin/:usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:<br>​        #linux有一个全局个人配置文件<br>​        编辑这个文件，在最底行写入PATH<br>​        vim /etc/profile<br>​        写入<br>​        <code>PATH=/opt/python36/bin/:usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:</code><br>​        保存退出<br>​        </p>
 </li>
 </ol>
 </li>
@@ -483,8 +481,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/28/MySQL/" rel="prev" title="MySQL">
-                MySQL <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/28/MySQL/" rel="prev" title="关系型数据库之 MySQL">
+                关系型数据库之 MySQL <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -574,7 +572,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -585,7 +583,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
