@@ -3,8 +3,8 @@ title: 关系型数据库之 MySQL
 date: 2018-12-28 15:34:26
 tags: MySQL
 categories: 
-	- MySQL
 	- 关系型数据库
+	- MySQL
 ---
 
 # MariaDB

@@ -3,8 +3,8 @@ title: 非关系型数据库之 Redis
 date: 2019-01-01 17:44:34
 tags: Redis
 categories: 
-	- Redis
 	- 非关系型数据库
+	- Redis
 ---
 
 # Redis安装

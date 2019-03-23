@@ -3,8 +3,8 @@ title: 非关系型数据库之 MongoDB
 date: 2019-01-16 16:53:27
 tags: MongoDB
 categories: 
-	- MongoDB
 	- 非关系型数据库
+	- MongoDB
 ---
 
 # MongoDB

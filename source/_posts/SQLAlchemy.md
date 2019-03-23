@@ -2,9 +2,7 @@
 title: SQLAlchemy学习之路 一
 date: 2019-02-14 15:17:15
 tags: SQLAlchemy
-categories: 
-	- SQLAlchemy
-	- SQL
+categories: SQLAlchemy
 ---
 
 `SQLAlchemy`是Python的 ORM 框架,Models是Django自带的ORM框架, 配置和使用比较简单,也正是因为其是Django原生的,所以兼容性远远不如SQLAlchemy;SQLAlchemy ORM框架是真正算得上是全面的ORM框架,它可以在任何使用SQL查询时使用.

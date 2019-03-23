@@ -3,8 +3,8 @@ title: ansible学习ing~
 date: 2019-02-19 15:16:38
 tags: ansible
 categories: 
-	- ansible
 	- Linux
+	- ansible
 ---
 
 ansible是新出现的自动化运维工具，基于Python开发，集合了众多运维工具（puppet、cfengine、chef、func、fabric）的优点，实现了批量系统配置、批量程序部署、批量运行命令等功能。
