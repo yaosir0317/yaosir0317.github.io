@@ -1,5 +1,5 @@
 ---
-title: Python内置方法
+title: Python内置方法,更新ing~~~
 date: 2018-12-14 20:32:11
 tags: Python
 categories: Python

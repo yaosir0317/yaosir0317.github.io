@@ -1,5 +1,5 @@
 ---
-title: flask-SQLAlchemy
+title: SQLAlchemy学习之路之二 flask-SQLAlchemy的使用
 date: 2019-02-15 19:32:06
 tags: flask
 categories:

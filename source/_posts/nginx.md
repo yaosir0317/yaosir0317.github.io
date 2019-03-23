@@ -1,5 +1,5 @@
 ---
-title: nginx
+title: 负载均衡之nginx
 date: 2019-01-02 20:10:53
 tags: nginx
 categories: nginx

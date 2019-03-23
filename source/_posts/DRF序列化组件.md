@@ -1,5 +1,5 @@
 ---
-title: DRF序列化组件
+title: DRF组件学习之二
 date: 2018-12-14 14:07:56
 tags: 
 	- Rest 

@@ -1,8 +1,8 @@
 ---
-title: Django-ContentType
+title: Django你需要知道的组件之 ContentType 
 date: 2018-12-12 16:50:36
 tags: 
-	- ContentType 
+	- Django组件
 	- Django
 categories: Django
 ---

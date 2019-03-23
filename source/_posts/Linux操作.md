@@ -1,5 +1,5 @@
 ---
-title: Linux环境配置
+title: Linux虚拟环境使用
 date: 2018-12-28 11:12:25
 tags: Linux
 categories: Linux
@@ -50,7 +50,7 @@ categories: Linux
 >      ​	2.配置path环境变量 (二选一即可)
 >      ​		echo $PATH查看环境变量
 >      ​		`/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin`
->      		# 这个变量赋值操作，只是临时生效，需要写入到文件，永久生效
+>      ​		# 这个变量赋值操作，只是临时生效，需要写入到文件，永久生效
 >      ​		      PATH=/opt/python36/bin/:usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:
 >      ​		#linux有一个全局个人配置文件
 >      ​		编辑这个文件，在最底行写入PATH

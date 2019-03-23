@@ -1,6 +1,6 @@
 ---
-title: DRF权限认证频率组件
-date: 2018-12-13 19:13:32
+title: DRF组件学习之一
+date: 2018-12-9 19:13:32
 tags: 
 	- Rest 
 	- Django

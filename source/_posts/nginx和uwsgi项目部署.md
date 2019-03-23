@@ -1,5 +1,5 @@
 ---
-title: nginx+uwsgi
+title: nginx+uwsgi项目部署模拟
 date: 2019-01-07 19:49:05
 tags:
 	- nginx
