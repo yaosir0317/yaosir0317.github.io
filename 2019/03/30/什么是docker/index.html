@@ -105,14 +105,10 @@
 <meta property="og:image" content="https://yaosir0317.github.io/2019/03/30/什么是docker/1.png">
 <meta property="og:image" content="https://yaosir0317.github.io/2019/03/30/什么是docker/2.png">
 <meta property="og:image" content="https://yaosir0317.github.io/2019/03/30/什么是docker/3.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1132884/201812/1132884-20181209143400671-1287929772.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1132884/201812/1132884-20181209143438897-152229468.png">
 <meta property="og:image" content="https://yaosir0317.github.io/2019/03/30/什么是docker/4.png">
 <meta property="og:image" content="https://yaosir0317.github.io/2019/03/30/什么是docker/5.png">
 <meta property="og:image" content="https://yaosir0317.github.io/2019/03/30/什么是docker/6.png">
-<meta property="og:image" content="https://images2018.cnblogs.com/blog/1132884/201808/1132884-20180816115230679-531746266.png">
-<meta property="og:image" content="https://images2018.cnblogs.com/blog/1132884/201808/1132884-20180816164829039-1757764520.png">
-<meta property="og:updated_time" content="2019-03-30T08:29:59.087Z">
+<meta property="og:updated_time" content="2019-03-30T08:41:25.166Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="什么是docker">
 <meta name="twitter:description" content="什么是docker123456Docker 最初是 dotCloud 公司创始人 Solomon Hykes 在法国期间发起的一个公司内部项目，于 2013 年 3 月以 Apache 2.0 授权协议开源，主要项目代码在 GitHub 上进行维护。Docker 使用 Google 公司推出的 Go 语言 进行开发实现。docker是linux容器的一种封装，提供简单易用的容器使用接口。它是最流行">
@@ -369,6 +365,7 @@
 
       
         <h3 id="什么是docker"><a href="#什么是docker" class="headerlink" title="什么是docker"></a>什么是docker</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Docker 最初是 dotCloud 公司创始人 Solomon Hykes 在法国期间发起的一个公司内部项目，于 2013 年 3 月以 Apache 2.0 授权协议开源，主要项目代码在 GitHub 上进行维护。</span><br><span class="line">Docker 使用 Google 公司推出的 Go 语言 进行开发实现。</span><br><span class="line">docker是linux容器的一种封装，提供简单易用的容器使用接口。它是最流行的Linux容器解决方案。</span><br><span class="line">docker的接口相当简单，用户可以方便的创建、销毁容器。</span><br><span class="line">docker将应用程序与程序的依赖，打包在一个文件里面。运行这个文件就会生成一个虚拟容器。</span><br><span class="line">程序运行在虚拟容器里，如同在真实物理机上运行一样，有了docker，就不用担心环境问题了。</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <h3 id="docker应用场景"><a href="#docker应用场景" class="headerlink" title="docker应用场景"></a>docker应用场景</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">web应用的自动化打包和发布</span><br><span class="line">自动化测试和持续集成、发布</span><br><span class="line">在服务型环境中部署和调整数据库或其他应用</span><br></pre></td></tr></table></figure>
 <h1 id="为什么要用docker？"><a href="#为什么要用docker？" class="headerlink" title="为什么要用docker？"></a>为什么要用docker？</h1><p>我们先看看很久很久以前，服务器是怎么部署应用的！</p>
 <p><img src="/2019/03/30/什么是docker/1.png" alt="img"></p>
@@ -416,9 +413,6 @@
 </ol>
 <p>如何一些低版本的依赖模块和当前环境不兼容，那就头疼了。。。。。</p>
 <p>如果环境配置这么痛苦的话，换一台机器，就得重新配置一下，那么在安装软件的时候，带着原始环境一模一样的复制过来。</p>
-<p><img src="https://img2018.cnblogs.com/blog/1132884/201812/1132884-20181209143400671-1287929772.png" alt="img"></p>
-<p><strong>然而，开发和运维之间聊天一般是这样的</strong></p>
-<p><strong><img src="https://img2018.cnblogs.com/blog/1132884/201812/1132884-20181209143438897-152229468.png" alt="img"></strong></p>
 <h1 id="解决方案一-虚拟机"><a href="#解决方案一-虚拟机" class="headerlink" title="解决方案一 虚拟机"></a>解决方案一 虚拟机</h1><p> 虚拟机也可以制作模板，基于模板创建虚拟机，保证环境问题一致</p>
 <p>虚拟机（virtual machine）就是带环境安装的一种解决方案。它可以在一种操作系统里面运行另一种操作系统，比如在 Windows 系统里面运行 Linux 系统。应用程序对此毫无感知，因为虚拟机看上去跟真实系统一模一样，而对于底层系统来说，虚拟机就是一个普通文件，不需要了就删掉，对其他部分毫无影响。</p>
 <p>虽然用户可以通过虚拟机还原软件的原始环境。但是，这个方案有几个缺点。</p>
@@ -490,9 +484,6 @@
 <p>执行完毕后容器被终止</p>
 <h1 id="docker与”hello-docker”"><a href="#docker与”hello-docker”" class="headerlink" title="docker与”hello docker”"></a>docker与”hello docker”</h1><p>hello world是程序员启蒙语言，我们通过最简单的image文件“hello-world”，来感受一下docker。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#获取镜像 hello-world</span></span><br><span class="line">docker pull hello-world</span><br><span class="line"><span class="comment">#检查镜像</span></span><br><span class="line">docker images</span><br><span class="line"><span class="comment">#运行image文件,可用容器id</span></span><br><span class="line">docker run hello-world</span><br><span class="line"><span class="comment">#检查docker容器进程</span></span><br><span class="line">docker ps</span><br><span class="line"><span class="comment">#检查所有运行过的容器</span></span><br><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
-<p>运行成功后，可以看到结果</p>
-<p><img src="https://images2018.cnblogs.com/blog/1132884/201808/1132884-20180816115230679-531746266.png" alt="img"></p>
-<p>表示你已经成功运行了容器，hello world运行的容器会在完成后，自动终止</p>
 <h1 id="运行一个ubuntu容器"><a href="#运行一个ubuntu容器" class="headerlink" title="运行一个ubuntu容器"></a>运行一个ubuntu容器</h1><p>咱们要在cenots7操作系统下，以docker下载一个ubuntu image文件，然后以image启动容器</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@python ~ <span class="number">11</span>:<span class="number">52</span>:<span class="number">22</span>]<span class="comment">#docker pull ubuntu:14.04</span></span><br><span class="line"><span class="comment">#如图，乌班图的镜像下载，是下载每一层的文件</span></span><br><span class="line">Trying to pull repository docker.io/library/ubuntu ... </span><br><span class="line"><span class="number">14.04</span>: Pulling <span class="keyword">from</span> docker.io/library/ubuntu</span><br><span class="line"><span class="number">8284e13</span>a281d: Pull complete </span><br><span class="line"><span class="number">26e1916</span>a9297: Pull complete </span><br><span class="line"><span class="number">4102</span>fc66d4ab: Pull complete </span><br><span class="line"><span class="number">1</span>cf2b01777b2: Pull complete </span><br><span class="line"><span class="number">7</span>f7a2d5e04ed: Pull complete </span><br><span class="line">Digest: sha256:<span class="number">4851</span>d1986c90c60f3b19009824c417c4a0426e9cf38ecfeb28598457cefe3f56</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> docker.io/ubuntu:<span class="number">14.04</span></span><br></pre></td></tr></table></figure>
 <p>下载过程可以看出镜像是由多层存储构成的。下载也是一层一层，并非单一的文件。<br>下载过程中给出每一层的前12位ID。下载结束后会给出sha246的文件一致性校验值。</p>
@@ -534,8 +525,6 @@
 <p>也可以通过-p参数指定映射端口</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#指定服务器的9000端口，映射到容器内的5000端口</span></span><br><span class="line">[root@python ~ <span class="number">16</span>:<span class="number">46</span>:<span class="number">13</span>]<span class="comment">#docker run -d -p 9000:5000 training/webapp python app.py</span></span><br><span class="line">c0b5a6278d0f4f2e9b9eba8680451111d8b911b61de0c37ea64cb337aefb854e</span><br></pre></td></tr></table></figure>
 <p>访问服务器的9000端口</p>
-<p>(如果访问失败的话，检查自己的防火墙，以及云服务器的安全组)</p>
-<p><img src="https://images2018.cnblogs.com/blog/1132884/201808/1132884-20180816164829039-1757764520.png" alt="img"></p>
 <h3 id="查看指定容器的端口映射"><a href="#查看指定容器的端口映射" class="headerlink" title="查看指定容器的端口映射"></a>查看指定容器的端口映射</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@python ~ <span class="number">16</span>:<span class="number">49</span>:<span class="number">01</span>]<span class="comment">#docker port c0b</span></span><br><span class="line">5000/tcp -&gt; 0.0.0.0:9000</span><br></pre></td></tr></table></figure>
 <p>查看容器内的进程</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@python ~ <span class="number">16</span>:<span class="number">49</span>:<span class="number">05</span>]<span class="comment">#docker top c0b</span></span><br><span class="line">UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD</span><br><span class="line">root                3926                3912                0                   16:46               ?                   00:00:00            python app.py</span><br></pre></td></tr></table></figure>
