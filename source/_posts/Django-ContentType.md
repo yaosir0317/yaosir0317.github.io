@@ -77,6 +77,16 @@ class Comment(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
+    
+class Post(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=75)
+    comment = GenericRelation("Comment")
+
+class Picture(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField()
+    comment = GenericRelation("Comment")
 ```
 
 在这里，通过使用一个content_type属性代替了实际的model（如Post，Picture），而object_id则代表了实际model中的一个实例的主键，其中，content_type和object_id的字段命名都是作为字符串参数传进content_object的。
@@ -111,11 +121,7 @@ comment添加数据
 查询
 
 ```python
->>> c1.content_type
->>> <ContentType: post>
->>> c1.object_id
->>> 1
->>> c1.content_object
->>> <Post: Post object (1)>
+>>> c = models.Picture.objects.get(id=1)
+>>> print(c.comment.all())
 ```
 
