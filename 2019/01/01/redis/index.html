@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="YaoSir">
 <meta property="og:description" content="Redis安装yum安装1yum install redis -y 源码安装 下载源码包wget http://download.redis.io/releases/redis-4.0.10.tar.gz  解压缩redistar -zxf redis-4.0.10.tar.gz">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-03-23T09:24:02.539Z">
+<meta property="og:updated_time" content="2019-03-30T09:03:12.615Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="非关系型数据库之 Redis">
 <meta name="twitter:description" content="Redis安装yum安装1yum install redis -y 源码安装 下载源码包wget http://download.redis.io/releases/redis-4.0.10.tar.gz  解压缩redistar -zxf redis-4.0.10.tar.gz">
@@ -405,6 +405,12 @@
 </blockquote>
 <h1 id="redis发布订阅"><a href="#redis发布订阅" class="headerlink" title="redis发布订阅"></a>redis发布订阅</h1><p>涉及三个角色</p>
 <p>1.发布者<br>​    <code>publish  频道  消息</code>        给频道发消息<br>2.订阅者<br>​    <code>SUBSCRIBE  频道</code>                       订阅频道<br>​    <code>PSUBSCRIBE 频道*</code>                支持模糊匹配的订阅<br>3.频道<br>​    <code>channel  频道名</code>                     自定义</p>
+<p><strong>demo</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RedisHelper</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.__conn = redis.Redis(host=<span class="string">'10.211.55.4'</span>)</span><br><span class="line">        self.chan_sub = <span class="string">'fm104.5'</span></span><br><span class="line">        self.chan_pub = <span class="string">'fm104.5'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">public</span><span class="params">(self, msg)</span>:</span></span><br><span class="line">        self.__conn.publish(self.chan_pub, msg)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subscribe</span><span class="params">(self)</span>:</span></span><br><span class="line">        pub = self.__conn.pubsub()</span><br><span class="line">        pub.subscribe(self.chan_sub)</span><br><span class="line">        pub.parse_response()</span><br><span class="line">        <span class="keyword">return</span> pub</span><br></pre></td></tr></table></figure>
+<p>订阅者</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> monitor.RedisHelper <span class="keyword">import</span> RedisHelper</span><br><span class="line"> </span><br><span class="line">obj = RedisHelper()</span><br><span class="line">redis_sub = obj.subscribe()</span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    msg = redis_sub.parse_response()</span><br><span class="line">    print(msg)</span><br></pre></td></tr></table></figure>
+<p>发布者</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> monitor.RedisHelper <span class="keyword">import</span> RedisHelper</span><br><span class="line"> </span><br><span class="line">obj = RedisHelper()</span><br><span class="line">obj.public(<span class="string">'hello'</span>)</span><br></pre></td></tr></table></figure>
 <h1 id="redis持久化"><a href="#redis持久化" class="headerlink" title="redis持久化"></a>redis持久化</h1><p><code>Redis</code>是一种内存型数据库，一旦服务器进程退出，数据库的数据就会丢失，为了解决这个问题，<code>Redis</code>提供了两种持久化的方案，将内存中的数据保存到磁盘中，避免数据的丢失。</p>
 <h2 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h2><p><code>redis</code>提供了<code>RDB持久化</code>的功能，这个功能可以将<code>redis</code>在内存中的的状态保存到硬盘中，它可以<strong>手动执行。</strong></p>
 <p>也可以再<code>redis.conf</code>中配置，<strong>定期执行</strong>。</p>
@@ -586,6 +592,358 @@
 <p>6.检查节点主从状态<br><code>redis-cli -p 7000  info replication</code></p>
 <p>7.向redis集群写入数据，查看数据流向<br><code>redis-cli -p 7000</code>    #这里会将key自动的重定向，放到某一个节点的slot槽位中<br><code>set  name  yao</code><br><code>set  addr  beijing</code></p>
 </blockquote>
+<h1 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h1><p><strong>String</strong> 操作，String 在内存中格式是一个 name 对应一个 value 来存储</p>
+<blockquote>
+<p>set(name, value, ex=None, px=None, nx=False, xx=False)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 在Redis中设置值，默认，不存在则创建，存在则修改</span></span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;      ex，过期时间（秒）</span><br><span class="line">&gt;      px，过期时间（毫秒）</span><br><span class="line">&gt;      nx，如果设置为<span class="keyword">True</span>，则只有name不存在时，当前set操作才执行</span><br><span class="line">&gt;      xx，如果设置为<span class="keyword">True</span>，则只有name存在时，岗前set操作才执行</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>setnx(name, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 设置值，只有name不存在时，执行设置操作（添加）</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>setex(name, value, time)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 设置值</span><br><span class="line">&gt; # 参数：</span><br><span class="line">&gt;      time，过期时间（数字秒 或 timedelta对象）</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>psetex(name, time_ms, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 设置值</span><br><span class="line">&gt; # 参数：</span><br><span class="line">&gt;      time_ms，过期时间（数字毫秒 或 timedelta对象）</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>mset(*args, **kwargs)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 批量设置值</span></span><br><span class="line">&gt; <span class="comment"># 如：</span></span><br><span class="line">&gt;     mset(k1=<span class="string">'v1'</span>, k2=<span class="string">'v2'</span>)</span><br><span class="line">&gt;     或</span><br><span class="line">&gt;     mget(&#123;<span class="string">'k1'</span>: <span class="string">'v1'</span>, <span class="string">'k2'</span>: <span class="string">'v2'</span>&#125;)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>get(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取值</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>mget(keys, *args)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 批量获取</span></span><br><span class="line">&gt; <span class="comment"># 如：</span></span><br><span class="line">&gt;     mget(<span class="string">'ylr'</span>, <span class="string">'nick'</span>)</span><br><span class="line">&gt;     或</span><br><span class="line">&gt;     r.mget([<span class="string">'ylr'</span>, <span class="string">'nick'</span>])</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>getset(name, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 设置新值并获取原来的值</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>getrange(key, start, end)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;  <span class="comment"># 获取子序列（根据字节获取，非字符）</span></span><br><span class="line">&gt;  <span class="comment"># 参数：</span></span><br><span class="line">&gt;      name，Redis 的 name</span><br><span class="line">&gt;      start，起始位置（字节）</span><br><span class="line">&gt;      end，结束位置（字节）</span><br><span class="line">&gt;  <span class="comment"># 如： "索宁" ，0-3表示 "索"</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>setrange(name, offset, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 修改字符串内容，从指定字符串索引开始向后替换（新值太长时，则向后添加）</span><br><span class="line">&gt; # 参数：</span><br><span class="line">&gt;      offset，字符串的索引，字节（一个汉字三个字节）</span><br><span class="line">&gt;      value，要设置的值</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>setbit(name, offset, value)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 对name对应值的二进制表示的位进行操作</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;     <span class="comment"># name，redis的name</span></span><br><span class="line">&gt;     <span class="comment"># offset，位的索引（将值变换成二进制后再进行索引）</span></span><br><span class="line">&gt;     <span class="comment"># value，值只能是 1 或 0</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 注：如果在Redis中有一个对应： n1 = "foo"，</span></span><br><span class="line">&gt;         那么字符串foo的二进制表示为：<span class="number">01100110</span> <span class="number">01101111</span> <span class="number">01101111</span></span><br><span class="line">&gt;     所以，如果执行 setbit(<span class="string">'n1'</span>, <span class="number">7</span>, <span class="number">1</span>)，则就会将第<span class="number">7</span>位设置为<span class="number">1</span>，</span><br><span class="line">&gt;         那么最终二进制则变成 <span class="number">01100111</span> <span class="number">01101111</span> <span class="number">01101111</span>，即：<span class="string">"goo"</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>getbit(name, offset)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取name对应的值的二进制表示中的某位的值 （0或1）</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>bitcount(key, start=None, end=None)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;  <span class="comment"># 获取name对应的值的二进制表示中 1 的个数</span></span><br><span class="line">&gt;  <span class="comment"># 参数：</span></span><br><span class="line">&gt;      key，Redis的name</span><br><span class="line">&gt;      start，位起始位置</span><br><span class="line">&gt;      end，位结束位置</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>bitop(operation, dest, *keys)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 获取多个值，并将值做位运算，将最后的结果保存至新的name对应的值</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;      operation,AND（并） 、 OR（或） 、 NOT（非） 、 XOR（异或）</span><br><span class="line">&gt;      dest, 新的Redis的name</span><br><span class="line">&gt;      *keys,要查找的Redis的name</span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 如：</span></span><br><span class="line">&gt;     bitop(<span class="string">"AND"</span>, <span class="string">'new_name'</span>, <span class="string">'n1'</span>, <span class="string">'n2'</span>, <span class="string">'n3'</span>)</span><br><span class="line">&gt;      获取Redis中n1,n2,n3对应的值，然后讲所有的值做位运算（求并集），然后将结果保存 new_name 对应的值中</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>strlen(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 返回name对应值的字节长度（一个汉字3个字节）</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>incr(self, name, amount=1)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 自增 name对应的值，当name不存在时，则创建name＝amount，否则，则自增。</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;      name,Redis的name</span><br><span class="line">&gt;      amount,自增数（必须是整数）</span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 注：同incrb</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>incrbyfloat(self, name, amount=1.0)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 自增 name对应的值，当name不存在时，则创建name＝amount，否则，则自增。</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;      name,Redis的name</span><br><span class="line">&gt;      amount,自增数（浮点型）</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>decr(self, name, amount=1)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 自减 name对应的值，当name不存在时，则创建name＝amount，否则，则自减。</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;      name,Redis的name</span><br><span class="line">&gt;      amount,自减数（整数）</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>append(key, value)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 在redis name对应的值后面追加内容</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;     key, redis的name</span><br><span class="line">&gt;     value, 要追加的字符串</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>Hash</strong> 操作，redis 中 Hash 在内存中的存储格式类似字典</p>
+<blockquote>
+<p> hset(name, key, value)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># name对应的hash中设置一个键值对（不存在，则创建；否则，修改）</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;      name，redis的name</span><br><span class="line">&gt;      key，name对应的hash中的key</span><br><span class="line">&gt;      value，name对应的hash中的value</span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 注：</span></span><br><span class="line">&gt;      hsetnx(name, key, value),当name对应的hash中不存在当前key时则创建（相当于添加）</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>hmset(name, mapping)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 在name对应的hash中批量设置键值对</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;      name，redis的name</span><br><span class="line">&gt;      mapping，字典，如：&#123;<span class="string">'k1'</span>:<span class="string">'v1'</span>, <span class="string">'k2'</span>: <span class="string">'v2'</span>&#125;</span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 如：</span></span><br><span class="line">&gt;     <span class="comment"># r.hmset('xx', &#123;'k1':'v1', 'k2': 'v2'&#125;)</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>hget(name,key)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 在name对应的hash中获取根据key获取value</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>hmget(name, keys, *args)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 在name对应的hash中获取多个key的值</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;      name，reids对应的name</span><br><span class="line">&gt;      keys，要获取key集合，如：[<span class="string">'k1'</span>, <span class="string">'k2'</span>, <span class="string">'k3'</span>]</span><br><span class="line">&gt;      *args，要获取的key，如：k1,k2,k3</span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 如：</span></span><br><span class="line">&gt;      r.mget(<span class="string">'xx'</span>, [<span class="string">'k1'</span>, <span class="string">'k2'</span>])</span><br><span class="line">&gt;      或</span><br><span class="line">&gt;      <span class="keyword">print</span> r.hmget(<span class="string">'xx'</span>, <span class="string">'k1'</span>, <span class="string">'k2'</span>)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>hgetall(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取name对应hash的所有键值</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>hlen(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取name对应的hash中键值对的个数</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>hkeys(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取name对应的hash中所有的key的值</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>hvals(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取name对应的hash中所有的value的值</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>hexists(name, key)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 检查name对应的hash是否存在当前传入的key</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>hdel(name,*keys)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 将name对应的hash中指定key的键值对删除</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>hincrby(name, key, amount=1)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;  自增name对应的hash中的指定key的值，不存在则创建key=amount 参数：</span><br><span class="line">&gt;      name，redis中的name</span><br><span class="line">&gt;      key， hash对应的key</span><br><span class="line">&gt;      amount，自增数（整数）</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>hincrbyfloat(name, key, amount=1.0)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 自增name对应的hash中的指定key的值，不存在则创建key=amount</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;     <span class="comment"># name，redis中的name</span></span><br><span class="line">&gt;     <span class="comment"># key， hash对应的key</span></span><br><span class="line">&gt;     <span class="comment"># amount，自增数（浮点数）</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 自增name对应的hash中的指定key的值，不存在则创建key=amount</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>hscan(name, cursor=0, match=None, count=None)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 增量式迭代获取，对于数据大的数据非常有用，hscan可以实现分片的获取数据，并非一次性将数据全部获取完，从而放置内存被撑爆</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;     <span class="comment"># name，redis的name</span></span><br><span class="line">&gt;     <span class="comment"># cursor，游标（基于游标分批取获取数据）</span></span><br><span class="line">&gt;     <span class="comment"># match，匹配指定key，默认None 表示所有的key</span></span><br><span class="line">&gt;     <span class="comment"># count，每次分片最少获取个数，默认None表示采用Redis的默认分片个数</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 如：</span></span><br><span class="line">&gt;     <span class="comment"># 第一次：cursor1, data1 = r.hscan('xx', cursor=0, match=None, count=None)</span></span><br><span class="line">&gt;     <span class="comment"># 第二次：cursor2, data1 = r.hscan('xx', cursor=cursor1, match=None, count=None)</span></span><br><span class="line">&gt;     <span class="comment"># ...</span></span><br><span class="line">&gt;     <span class="comment"># 直到返回值cursor的值为0时，表示数据已经通过分片获取完毕</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>hscan_iter(name, match=None, count=None)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 利用yield封装hscan创建生成器，实现分批去redis中获取数据</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;     <span class="comment"># match，匹配指定key，默认None 表示所有的key</span></span><br><span class="line">&gt;     <span class="comment"># count，每次分片最少获取个数，默认None表示采用Redis的默认分片个数</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 如：</span></span><br><span class="line">&gt;     <span class="comment"># for item in r.hscan_iter('xx'):</span></span><br><span class="line">&gt;     <span class="comment">#     print item</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>List</strong> 操作，redis 中的 List 在在内存中按照一个 name 对应一个 List 来存储，像变量对应一个列表。</p>
+<blockquote>
+<p>lpush(name,values)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 在name对应的list中添加元素，每个新的元素都添加到列表的最左边</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 如：</span></span><br><span class="line">&gt;     <span class="comment"># r.lpush('oo', 11,22,33)</span></span><br><span class="line">&gt;     <span class="comment"># 保存顺序为: 33,22,11</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 扩展：</span></span><br><span class="line">&gt;     <span class="comment"># rpush(name, values) 表示从右向左操作</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>lpushx(name,value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 在name对应的list中添加元素，只有name已经存在时，值添加到列表的最左边</span><br><span class="line">&gt;  </span><br><span class="line">&gt; # 更多：</span><br><span class="line">&gt;     # rpushx(name, value) 表示从右向左操作</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>llen(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # name对应的list元素的个数</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>linsert(name, where, refvalue, value))</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 在name对应的列表的某一个值前或后插入一个新值</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;     <span class="comment"># name，redis的name</span></span><br><span class="line">&gt;     <span class="comment"># where，BEFORE或AFTER</span></span><br><span class="line">&gt;     <span class="comment"># refvalue，标杆值，即：在它前后插入数据</span></span><br><span class="line">&gt;     <span class="comment"># value，要插入的数据</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>r.lset(name, index, value)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 对name对应的list中的某一个索引位置重新赋值</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;     <span class="comment"># name，redis的name</span></span><br><span class="line">&gt;     <span class="comment"># index，list的索引位置</span></span><br><span class="line">&gt;     <span class="comment"># value，要设置的值</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>r.lrem(name, value, num)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 在name对应的list中删除指定的值</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;     <span class="comment"># name，redis的name</span></span><br><span class="line">&gt;     <span class="comment"># value，要删除的值</span></span><br><span class="line">&gt;     <span class="comment"># num，  num=0，删除列表中所有的指定值；</span></span><br><span class="line">&gt;            <span class="comment"># num=2,从前到后，删除2个；</span></span><br><span class="line">&gt;            <span class="comment"># num=-2,从后向前，删除2个</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>lpop(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 在name对应的列表的左侧获取第一个元素并在列表中移除，返回值则是第一个元素</span><br><span class="line">&gt;  </span><br><span class="line">&gt; # 更多：</span><br><span class="line">&gt;     # rpop(name) 表示从右向左操作</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>lindex(name, index)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 在name对应的列表中根据索引获取列表元素</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>lrange(name, start, end)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 在name对应的列表分片获取数据</span><br><span class="line">&gt; # 参数：</span><br><span class="line">&gt;     # name，redis的name</span><br><span class="line">&gt;     # start，索引的起始位置</span><br><span class="line">&gt;     # end，索引结束位置</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>ltrim(name, start, end)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 在name对应的列表中移除没有在start-end索引之间的值</span><br><span class="line">&gt; # 参数：</span><br><span class="line">&gt;     # name，redis的name</span><br><span class="line">&gt;     # start，索引的起始位置</span><br><span class="line">&gt;     # end，索引结束位置</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>rpoplpush(src, dst)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 从一个列表取出最右边的元素，同时将其添加至另一个列表的最左边</span><br><span class="line">&gt; # 参数：</span><br><span class="line">&gt;     # src，要取数据的列表的name</span><br><span class="line">&gt;     # dst，要添加数据的列表的name</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>blpop(keys, timeout)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 将多个列表排列，按照从左到右去pop对应列表的元素</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;     <span class="comment"># keys，redis的name的集合</span></span><br><span class="line">&gt;     <span class="comment"># timeout，超时时间，当元素所有列表的元素获取完之后，阻塞等待列表内有数据的时间（秒）, 0 表示永远阻塞</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 更多：</span></span><br><span class="line">&gt;     <span class="comment"># r.brpop(keys, timeout)，从右向左获取数据</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>brpoplpush(src, dst, timeout=0)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 从一个列表的右侧移除一个元素并将其添加到另一个列表的左侧</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;     <span class="comment"># src，取出并要移除元素的列表对应的name</span></span><br><span class="line">&gt;     <span class="comment"># dst，要插入元素的列表对应的name</span></span><br><span class="line">&gt;     <span class="comment"># timeout，当src对应的列表中没有数据时，阻塞等待其有数据的超时时间（秒），0 表示永远阻塞</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>自定义增量迭代</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 由于redis类库中没有提供对列表元素的增量迭代，如果想要循环name对应的列表的所有元素，那么就需要：</span></span><br><span class="line">&gt;     <span class="comment"># 1、获取name对应的所有列表</span></span><br><span class="line">&gt;     <span class="comment"># 2、循环列表</span></span><br><span class="line">&gt; <span class="comment"># 但是，如果列表非常大，那么就有可能在第一步时就将程序的内容撑爆，所有有必要自定义一个增量迭代的功能：</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="function"><span class="keyword">def</span> <span class="title">list_iter</span><span class="params">(name)</span>:</span></span><br><span class="line">&gt;     <span class="string">"""</span></span><br><span class="line"><span class="string">&gt;     自定义redis列表增量迭代</span></span><br><span class="line"><span class="string">&gt;     :param name: redis中的name，即：迭代name对应的列表</span></span><br><span class="line"><span class="string">&gt;     :return: yield 返回 列表元素</span></span><br><span class="line"><span class="string">&gt;     """</span></span><br><span class="line">&gt;     list_count = r.llen(name)</span><br><span class="line">&gt;     <span class="keyword">for</span> index <span class="keyword">in</span> xrange(list_count):</span><br><span class="line">&gt;         <span class="keyword">yield</span> r.lindex(name, index)</span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 使用</span></span><br><span class="line">&gt; <span class="keyword">for</span> item <span class="keyword">in</span> list_iter(<span class="string">'pp'</span>):</span><br><span class="line">&gt;     <span class="keyword">print</span> item</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>Set</strong> 操作，Set 集合就是不允许重复的列表</p>
+<blockquote>
+<p>sadd(name,values)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # name对应的集合中添加元素</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>scard(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取name对应的集合中元素个数</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>sdiff(keys, *args)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 在第一个name对应的集合中且不在其他name对应的集合的元素集合</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>sdiffstore(dest, keys, *args)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取第一个name对应的集合中且不在其他name对应的集合，再将其新加入到dest对应的集合中</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>sinter(keys, *args)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取多一个name对应集合的并集</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>sinterstore(dest, keys, *args)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取多一个name对应集合的并集，再讲其加入到dest对应的集合中</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>sismember(name, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 检查value是否是name对应的集合的成员</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>smembers(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取name对应的集合的所有成员</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>smove(src, dst, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 将某个成员从一个集合中移动到另外一个集合</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>spop(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 从集合的右侧（尾部）移除一个成员，并将其返回</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>srandmember(name, numbers)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 从name对应的集合中随机获取 numbers 个元素</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>srem(name, values)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 在name对应的集合中删除某些值</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>sunion(keys, *args)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取多一个name对应的集合的并集</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>sunionstore(dest,keys, *args)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取多一个name对应的集合的并集，并将结果保存到dest对应的集合中</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>sscan(name, cursor=0, match=None, count=None)<br>sscan_iter(name, match=None, count=None)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 同字符串的操作，用于增量迭代分批获取元素，避免内存消耗太大</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>有序集合</strong>，在集合的基础上，为每个元素排序；元素的排序需要根据另外一个值来进行比较，所以对于有序集合，每一个元素有两个值：值和分数，分数是专门来做排序的。</p>
+<blockquote>
+<p>zadd(name, *args, **kwargs)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 在name对应的有序集合中添加元素</span></span><br><span class="line">&gt; <span class="comment"># 如：</span></span><br><span class="line">&gt;      <span class="comment"># zadd('zz', 'n1', 1, 'n2', 2)</span></span><br><span class="line">&gt;      <span class="comment"># 或</span></span><br><span class="line">&gt;      <span class="comment"># zadd('zz', n1=11, n2=22)</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p> zcard(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取name对应的有序集合元素的数量</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>zcount(name, min, max)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取name对应的有序集合中分数 在 [min,max] 之间的个数</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>zincrby(name, value, amount)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 自增name对应的有序集合的 name 对应的分数</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>r.zrange( name, start, end, desc=False, withscores=False, score_cast_func=float)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 按照索引范围获取name对应的有序集合的元素</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;     <span class="comment"># name，redis的name</span></span><br><span class="line">&gt;     <span class="comment"># start，有序集合索引起始位置（非分数）</span></span><br><span class="line">&gt;     <span class="comment"># end，有序集合索引结束位置（非分数）</span></span><br><span class="line">&gt;     <span class="comment"># desc，排序规则，默认按照分数从小到大排序</span></span><br><span class="line">&gt;     <span class="comment"># withscores，是否获取元素的分数，默认只获取元素的值</span></span><br><span class="line">&gt;     <span class="comment"># score_cast_func，对分数进行数据转换的函数</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 更多：</span></span><br><span class="line">&gt;     <span class="comment"># 从大到小排序</span></span><br><span class="line">&gt;     <span class="comment"># zrevrange(name, start, end, withscores=False, score_cast_func=float)</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt;     <span class="comment"># 按照分数范围获取name对应的有序集合的元素</span></span><br><span class="line">&gt;     <span class="comment"># zrangebyscore(name, min, max, start=None, num=None, withscores=False, score_cast_func=float)</span></span><br><span class="line">&gt;     <span class="comment"># 从大到小排序</span></span><br><span class="line">&gt;     <span class="comment"># zrevrangebyscore(name, max, min, start=None, num=None, withscores=False, score_cast_func=float)</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>zrank(name, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取某个值在 name对应的有序集合中的排行（从 0 开始）</span><br><span class="line">&gt;  </span><br><span class="line">&gt; # 更多：</span><br><span class="line">&gt;     # zrevrank(name, value)，从大到小排序</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>zrangebylex(name, min, max, start=None, num=None)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># 当有序集合的所有成员都具有相同的分值时，有序集合的元素会根据成员的 值 （lexicographical ordering）来进行排序，而这个命令则可以返回给定的有序集合键 key 中， 元素的值介于 min 和 max 之间的成员</span></span><br><span class="line">&gt; <span class="comment"># 对集合中的每个成员进行逐个字节的对比（byte-by-byte compare）， 并按照从低到高的顺序， 返回排序后的集合成员。 如果两个字符串有一部分内容是相同的话， 那么命令会认为较长的字符串比较短的字符串要大</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 参数：</span></span><br><span class="line">&gt;     <span class="comment"># name，redis的name</span></span><br><span class="line">&gt;     <span class="comment"># min，左区间（值）。 + 表示正无限； - 表示负无限； ( 表示开区间； [ 则表示闭区间</span></span><br><span class="line">&gt;     <span class="comment"># min，右区间（值）</span></span><br><span class="line">&gt;     <span class="comment"># start，对结果进行分片处理，索引位置</span></span><br><span class="line">&gt;     <span class="comment"># num，对结果进行分片处理，索引后面的num个元素</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 如：</span></span><br><span class="line">&gt;     <span class="comment"># ZADD myzset 0 aa 0 ba 0 ca 0 da 0 ea 0 fa 0 ga</span></span><br><span class="line">&gt;     <span class="comment"># r.zrangebylex('myzset', "-", "[ca") 结果为：['aa', 'ba', 'ca']</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="comment"># 更多：</span></span><br><span class="line">&gt;     <span class="comment"># 从大到小排序</span></span><br><span class="line">&gt;     <span class="comment"># zrevrangebylex(name, max, min, start=None, num=None)</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>zrem(name, values)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 删除name对应的有序集合中值是values的成员</span><br><span class="line">&gt;  </span><br><span class="line">&gt; # 如：zrem(&apos;zz&apos;, [&apos;s1&apos;, &apos;s2&apos;])</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>zremrangebyrank(name, min, max)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 根据排行范围删除</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>zremrangebyscore(name, min, max)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 根据分数范围删除</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>zremrangebylex(name, min, max)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 根据值返回删除</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>zscore(name, value)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取name对应有序集合中 value 对应的分数</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>zinterstore(dest, keys, aggregate=None)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取两个有序集合的交集，如果遇到相同值不同分数，则按照aggregate进行操作</span><br><span class="line">&gt; # aggregate的值为:  SUM  MIN  MAX</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>zunionstore(dest, keys, aggregate=None)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取两个有序集合的并集，如果遇到相同值不同分数，则按照aggregate进行操作</span><br><span class="line">&gt; # aggregate的值为:  SUM  MIN  MAX</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>zscan(name, cursor=0, match=None, count=None, score_cast_func=float)<br>zscan_iter(name, match=None, count=None,score_cast_func=float)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 同字符串相似，相较于字符串新增score_cast_func，用来对分数进行操作</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>其它</strong> 常用操作</p>
+<blockquote>
+<p>delete(*names)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 根据删除redis中的任意数据类型</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p> exists(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 检测redis的name是否存在</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>keys(pattern=’*’)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 根据模型获取redis的name</span><br><span class="line">&gt;  </span><br><span class="line">&gt; # 更多：</span><br><span class="line">&gt;     # KEYS * 匹配数据库中所有 key 。</span><br><span class="line">&gt;     # KEYS h?llo 匹配 hello ， hallo 和 hxllo 等。</span><br><span class="line">&gt;     # KEYS h*llo 匹配 hllo 和 heeeeello 等。</span><br><span class="line">&gt;     # KEYS h[ae]llo 匹配 hello 和 hallo ，但不匹配 hillo</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>expire(name ,time)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 为某个redis的某个name设置超时时间</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>rename(src, dst)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 对redis的name重命名为</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>move(name, db))</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 将redis的某个值移动到指定的db下</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>randomkey()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 随机获取一个redis的name（不删除）</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>type(name)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 获取name对应值的类型</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>scan(cursor=0, match=None, count=None)<br>scan_iter(match=None, count=None)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; # 同字符串操作，用于增量迭代获取key</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h1 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h1><p>默认情况下，redis-py 每次在执行请求时都会创建和断开一次连接操作（连接池申请连接，归还连接池），如果想要在一次请求中执行多个命令，则可以使用 pipline 实现一次请求执行多个命令，并且默认情况下 pipline 是原子性操作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"> </span><br><span class="line">pool = redis.ConnectionPool(host=<span class="string">'10.211.55.4'</span>, port=<span class="number">6379</span>)</span><br><span class="line"> </span><br><span class="line">r = redis.Redis(connection_pool=pool)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># pipe = r.pipeline(transaction=False)</span></span><br><span class="line">pipe = r.pipeline(transaction=<span class="keyword">True</span>)</span><br><span class="line"> </span><br><span class="line">r.set(<span class="string">'name'</span>, <span class="string">'nick'</span>)</span><br><span class="line">r.set(<span class="string">'age'</span>, <span class="string">'18'</span>)</span><br><span class="line"> </span><br><span class="line">pipe.execute()</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -782,7 +1140,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis安装"><span class="nav-number">1.</span> <span class="nav-text">Redis安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#yum安装"><span class="nav-number">1.1.</span> <span class="nav-text">yum安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码安装"><span class="nav-number">1.2.</span> <span class="nav-text">源码安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis发布订阅"><span class="nav-number">2.</span> <span class="nav-text">redis发布订阅</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis持久化"><span class="nav-number">3.</span> <span class="nav-text">redis持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RDB"><span class="nav-number">3.1.</span> <span class="nav-text">RDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOF"><span class="nav-number">3.2.</span> <span class="nav-text">AOF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据切换"><span class="nav-number">3.3.</span> <span class="nav-text">数据切换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主从同步"><span class="nav-number">4.</span> <span class="nav-text">主从同步</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis-Sentinel"><span class="nav-number">5.</span> <span class="nav-text">Redis-Sentinel</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装配置"><span class="nav-number">5.1.</span> <span class="nav-text">安装配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-cluster"><span class="nav-number">6.</span> <span class="nav-text">redis-cluster</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis安装"><span class="nav-number">1.</span> <span class="nav-text">Redis安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#yum安装"><span class="nav-number">1.1.</span> <span class="nav-text">yum安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码安装"><span class="nav-number">1.2.</span> <span class="nav-text">源码安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis发布订阅"><span class="nav-number">2.</span> <span class="nav-text">redis发布订阅</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis持久化"><span class="nav-number">3.</span> <span class="nav-text">redis持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RDB"><span class="nav-number">3.1.</span> <span class="nav-text">RDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOF"><span class="nav-number">3.2.</span> <span class="nav-text">AOF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据切换"><span class="nav-number">3.3.</span> <span class="nav-text">数据切换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主从同步"><span class="nav-number">4.</span> <span class="nav-text">主从同步</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis-Sentinel"><span class="nav-number">5.</span> <span class="nav-text">Redis-Sentinel</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装配置"><span class="nav-number">5.1.</span> <span class="nav-text">安装配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-cluster"><span class="nav-number">6.</span> <span class="nav-text">redis-cluster</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#操作"><span class="nav-number">7.</span> <span class="nav-text">操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#管道"><span class="nav-number">8.</span> <span class="nav-text">管道</span></a></li></ol></div>
             
 
           </div>
