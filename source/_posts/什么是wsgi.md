@@ -54,7 +54,7 @@ http_server.serve_forever()
 
 结果如图
 
-<img src="什么是wsgi/1.png" alt="9" style="zoom:50%; float:left"/>
+<img src="什么是wsgi/1.png" alt="9" style="zoom:50%;"/>
 
 # 路由分发
 
