@@ -57,7 +57,7 @@ SELECT * FROM table WHERE updated_at > 'last_sync_to_es' ;
 
 阿里的开源项目[canal](https://github.com/alibaba/canal)，它通过模拟 MySQL slave 的交互协议，伪装自己为 MySQL slave ，向 MySQL master 发送dump 协议，MySQL master 收到 dump 请求，开始推送 binary log 给 slave (即 canal )，canal 解析 binary log 对象，得到同步的数据，通过tcp或者发送到消息中间件，从而实现数据同步到es。
 
-而我们使用的是`postgres`，因此采用的是谷歌云上的cdc服务通过pgsql的逻辑复制来实现的，从 9.4 版开始，PostgreSQL 提供了[逻辑复制](https://www.postgresql.org/docs/current/logical-replication.html) 以便在可能不同的物理机器上的不同 PostgreSQL 实例之间高效、安全地复制数据。从技术上讲，它是磁盘上的预写日志，它保存所有更改 PostgreSQL 数据库数据的事件，例如，插入、更新和删除。
+而我们使用的是`postgres`，因此采用的是谷歌云上的postgres-cdc服务通过pgsql的逻辑复制来实现的，从 9.4 版开始，PostgreSQL 提供了[逻辑复制](https://www.postgresql.org/docs/current/logical-replication.html) 以便在可能不同的物理机器上的不同 PostgreSQL 实例之间高效、安全地复制数据。从技术上讲，它是磁盘上的预写日志，它保存所有更改 PostgreSQL 数据库数据的事件，例如，插入、更新和删除。
 
 **优点：**
 
