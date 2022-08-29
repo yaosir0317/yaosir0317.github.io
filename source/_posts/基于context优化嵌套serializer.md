@@ -13,7 +13,7 @@ categories: Rest
 class Order(models.Model):
     id = models.BigAutoField(primary_key=True)
     order_number = models.BigIntegerField(default=1001)
-    custome_id = models.IntegerField()
+    customer_id = models.IntegerField()
     price = models.DecimalField(
         max_digits=settings.DEFAULT_MAX_DIGITS,
         decimal_places=settings.DEFAULT_DECIMAL_PLACES,
@@ -60,7 +60,7 @@ class OrderSerializer(serializers.ModelSerializer):
         return PaymentSerializer(payment_obj).data
     class Meta:
         model = Order
-        exclude = ("id",)
+        exclude = ("id", customer_id)
 ```
 
 那么如果我们使用上面的序列化类去进行序列化的话就是这样
@@ -89,10 +89,10 @@ class OrderSerializer(serializers.ModelSerializer):
     customer_info = serializers.SerializerMethodField()
     
     def get_payment_info(self, obj: Order):
-        payment_obj = sel.context..get(obj.id) or Payment.objects.get(order_id=obj.id)
+        payment_obj = sel.context["payment_context"].get(obj.id) or Payment.objects.get(order_id=obj.id)
         return PaymentSerializer(payment_obj).data
     def get_customer_info(self, obj: Order):
-        customer_obj = sel.context..get(obj.custome_id) or Customer.objects.get(id=obj.custome_id)
+        customer_obj = sel.context["customer_context"].get(obj.custome_id) or Customer.objects.get(id=obj.custome_id)
         return PaymentSerializer(payment_obj).data
     class Meta:
         model = Order
